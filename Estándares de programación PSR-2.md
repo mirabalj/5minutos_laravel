@@ -79,15 +79,15 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 ```
 - La visibilidad **DEBE** declararse en todas las propiedades y métodos; `abstract` y `final` **DEBEN** declararse antes de la visibilidad. `static` **DEBE** declararse después de la visibilidad.  
 
-  - La palabra clave `var` **NO DEBE** ser usada para declarar una propiedad.  
+- La palabra clave `var` **NO DEBE** ser usada para declarar una propiedad.  
 
-  - **NO DEBE** declararse más de una propiedad por sentencia.  
+- **NO DEBE** declararse más de una propiedad por sentencia.  
 
-  - Los nombres de los métodos y propiedades **NO DEBERÍAN** usar un guión bajo como prefijo para indicar si son privados/as o protegidos/as.  
+- Los nombres de los métodos y propiedades **NO DEBERÍAN** usar un guión bajo como prefijo para indicar si son privados/as o protegidos/as.  
 
-  - Los nombres de métodos **NO DEBEN** estar declarados con un espacio después del nombre del método. La llave de apertura **DEBE** situarse en su propia línea, y la llave de cierre **DEBE** ir en la línea siguiente al cuerpo del método. 
+- Los nombres de métodos **NO DEBEN** estar declarados con un espacio después del nombre del método. La llave de apertura **DEBE** situarse en su propia línea, y la llave de cierre **DEBE** ir en la línea siguiente al cuerpo del método. 
 
-  - **NO DEBE** haber ningún espacio después del paréntesis de apertura, y **NO DEBE** haber ningún espacio antes del paréntesis de cierre.  
+- **NO DEBE** haber ningún espacio después del paréntesis de apertura, y **NO DEBE** haber ningún espacio antes del paréntesis de cierre.  
 ```
 	    abstract protected function doInitialize();
 	    public static function fromString($itemValue) {...}
