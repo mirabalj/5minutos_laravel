@@ -2,7 +2,7 @@
 
 Este estándar forma parte de los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
 
-Los estándares PSR-1 y PSR-3 los puedes encontrar [aquí]().
+Los estándares PSR-1 y PSR-4 los puedes encontrar [aquí](https://github.com/jatubio/5minutos_laravel/wiki/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
 
 ###PSR-2 - Guía de estilo de código.
 

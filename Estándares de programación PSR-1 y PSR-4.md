@@ -2,7 +2,7 @@
 
 Estos son los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
 
-El estándar PSR-2 al ser muy largo, lo encontrarás en otra [nota rápida]().
+El estándar PSR-2 al ser muy largo, lo encontrarás en otra [nota rápida](https://github.com/jatubio/5minutos_laravel/wiki/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2).
 
 ###PSR-1 - Estándar básico de estilos de código.
 
