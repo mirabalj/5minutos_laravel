@@ -16,7 +16,7 @@
 
 ###Código
 
- - La declaración del `namespace` **DEBE** estar en la misma línea que `<?php`
+ - La declaración del `namespace` debe estar en la misma línea que `<?php`
 
  - Deja una línea en blanco después de `namespace` y después de `use`. Escribe sólo un `use` por declaración.
 
@@ -30,7 +30,7 @@
 
  - No declares más de una propiedad por sentencia. No uses `var` en las propiedades.
  
- - Sigue el orden: `abstract|final <visibilidad> static function()`
+ - Sigue el orden: `abstract | final <visibilidad> static function()`
 
  - No uses espacios antes ni después de los paréntesis de los métodos y funciones.
  
@@ -60,11 +60,11 @@
 
  - Usa sólo una 'instrucción' por línea. 
 
- - Los comentarios de una sola línea colócalos al mismo nivel que la línea a la que se refieren. (Como en el ejemplo anterior del 'if')
+ - Los comentarios de una sola línea colócalos al mismo nivel que la línea a la que se refieren.
 
  - Utiliza espacios alrededor de los operadores matemáticos y lógicos.
 
- - Usa los operadores lógicos `&&`y `||` en lugar de `AND` y `OR`.
+ - Usa los operadores lógicos `&&` y `||` en lugar de `AND` y `OR`.
 
  - Usa comillas sencillas habitualmente y comillas dobles cuando quieras expandir una variable.
 
@@ -101,7 +101,7 @@
 
   `users.index`, `users.create`, `users.store`, `users.show`, `users.edit`, `users.update`, `users.destroy` 
 
- - Para los modelos Eloquent, usa el nombre de tu tabla en `StudlyCaps` y en singular. Llama `id` a tu clave principal. 
+ - Para los modelos Eloquent, usa el nombre de tu tabla en `StudlyCaps` y en singular. Llama `id` a tu clave principal.
   
   Usa `snake_case` en las demás columnas y `getNombreCompletoAttribute($name)` en los métodos.
 
