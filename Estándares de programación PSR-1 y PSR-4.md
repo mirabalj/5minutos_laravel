@@ -11,7 +11,7 @@ El objetivo es garantizar un alto nivel técnico de interoperabilidad entre el c
 
  - **DEBEN** usarse únicamente las etiquetas `<?php` y `<?=`  
 
- - **DEBE** usarse sólo UTF-8 without BOM para código PHP.  
+ - **DEBE** usarse sólo `UTF-8 without BOM` para código PHP.  
 
  - En un fichero deberían declararse o bien estructuras y símbolos (clases, funciones, constantes, etc...) o bien partes de la lógica secundaria (informes, configuración, etc..) pero **NO DEBERÍAN** hacerse las dos cosas. 
 
@@ -45,7 +45,7 @@ En en este estándar `StudlyCaps` y `camelCase` se diferencian únicamente en el
 
 Orientado a los nombres de los Namespaces, Clases y Ficheros. Su objetivo es facilitar la carga automática de clases.
 
- - Las rutas completas de los Namespaces **DEBEN** tener la estructura `Proveedor\Namespace\NombreDeLaClase` `(VendorName\Namespace\ClassName)`
+ - Las rutas completas de los Namespaces **DEBEN** tener la estructura `Proveedor\Namespace\NombreDeLaClase`. `(VendorName\Namespace\ClassName)`
  
  Por ejemplo:  
 	```
@@ -69,9 +69,9 @@ Orientado a los nombres de los Namespaces, Clases y Ficheros. Su objetivo es fac
  - Todos los nombres de clase **DEBEN** usar un estilo 'case-sensitive'.
    
 Cada namespace puede tener tantos sub-namespaces como se quiera.
-Los nombres de los namespaces o clases deben ser separados por un guion bajo (_).
 
 Todos los archivos deben tener la extensión .php.
+
 Los nombres de los namespaces o clases deben ser ordenadas alfabéticamente.
 
 ###Más información:

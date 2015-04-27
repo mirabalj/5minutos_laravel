@@ -133,7 +133,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 - **DEBE** haber un espacio después de una palabra clave de estructura de control. **NO DEBE** haber espacios después del paréntesis de apertura y **NO DEBE** haber espacios antes del paréntesis de cierre.  
 
-- **DEBE** haber un espacio entre paréntesis de cierre y la llave de apertura. La llave de cierre **DEBE** estar en la línea siguiente al final del cuerpo.
+- **DEBE** haber un espacio entre el paréntesis de cierre y la llave de apertura. La llave de cierre **DEBE** estar en la línea siguiente al final del cuerpo.
   
 - El cuerpo de cada estructura **DEBE** estar encerrado entre llaves. Esto estandariza el aspecto de las estructuras y reduce la probabilidad de añadir errores como nuevas líneas que se añaden al cuerpo de la estructura.
 
