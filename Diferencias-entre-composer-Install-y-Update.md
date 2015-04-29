@@ -44,7 +44,7 @@ Mientras que `composer update` te permite actualizar todos los paquetes que util
 
 - Cuando clones una aplicación en la que vas a colaborar, si no existe el directorio `vendor`, ejecuta `composer install` para crear ese directorio y tener el mismo entorno que el resto de desarrolladores.
 
-- Cuando clones una aplicación para utilizarla o probarla, puedes optar por cualquiera de las dos alternativas. Pero ten en cuenta que la aplicación ha sido testada con un entorno concreto. Si ejecutas `composer update` y la aplicación da errores. Sustituye el fichero `composer.lock` por la versión original del repositorio y ejecuta `composer install` para comprobar que no sea errores de compatibilidad con nuevas versiones de los paquetes.
+- Cuando clones una aplicación para utilizarla o probarla, puedes optar por cualquiera de las dos alternativas. Pero ten en cuenta que la aplicación ha sido testada con un entorno concreto. Si ejecutas `composer update` y la aplicación da errores. Sustituye el fichero `composer.lock` por la versión original del repositorio, borra el directorio `vendor` y ejecuta `composer install` para comprobar que no sea errores de compatibilidad con nuevas versiones de los paquetes.
 
 - Cuando distribuyas tu aplicación, asegúrate de incluir el fichero `composer.lock` para que tus usuarios o miembros del equipo puedan usarla con el mismo entorno que tú tienes.
 
