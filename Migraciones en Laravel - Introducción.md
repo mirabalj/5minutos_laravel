@@ -100,44 +100,9 @@ Como podéis ver, la clase encargada de la migración hereda de `Illuminate\Data
 
 Dentro de `up()` escribimos todos los pasos que sean necesarios para tener nuestra tabla con la estructura deseada. Y en `down()` es muy importante que escribamos los pasos necesarios para devolver la tabla al estado en que estaba antes de ejecutar `up()`. Dependiendo de la complejidad de la función `up()`, habitualmente será suficiente con escribir los métodos 'antagónicos' en orden inverso.
 
-###Métodos disponibles en las migraciones.
+> Es muy importante que todas las modificaciones que se realicen en la función up() se deshagan en la función down() para no tener un estado inconsistente en nuestra base de datos en caso de que ejecutemos algún rollback.  
+Dado que cuando creas la migración será cuando tengas más reciente los nuevos cambios en la estructura de la base de datos y cómo se integrarán en la base de datos existente, se recomienda implementar también en ese momento la función down().
 
-Habitualmente para las migraciones llamaremos a algunos de estos métodos de la clase Schema&&:
-
-		// Crea una nueva tabla.
-	public function create($table, Closure $callback)		
-		// Borra una tabla.
-	public function drop($table)
-		// Borra una tabla si existe.
-	public function dropIfExists($table)
-		// Renombra una tabla
-	public function rename($from, $to)
-		// Modifica la estructura de una tabla.
-	public function table($table, Closure $callback)
-
-El primer parámetro de estos métodos suele ser el nombre de la tabla. 
-El segundo parámetro cuando tenemos que pasarle la estructura de la tabla es una **Closure** (Función anónima)  que recibe un objeto de tipo `Illuminate\Database\Schema\Blueprint` con el que definiremos la estructura.
-
-###Métodos para definir la estructura.
-
-Para definir la estructura de la tabla, lo haremos concatenando métodos que nos permitirán definir el tipo de la columna y asignarle las propiedades necesarias.
-
-Algunos ejemplos serían:
-
-		// Define una columna autoincremental llamado id.
-	$table->increments('id');
-		// Define una columna de tipo boolean llamado confirmed.
-	$table->boolean('confirmed');
-		// Define una columna de tipo cadena llamado email que no debe tener duplicados en la base de datos.
-	$table->string('email')->unique()->index();
-		// Define una columna de tipo fecha llamado created_ad.
-	$table->timestamp('created_at');
-		// Define una columna de tipo cadena llamado country que puede contener nulos
-		// y tendrá por defecto el valor 'Spain'.
-	$table->string('country')->nullable()->default('Spain');
-			
-	
-La ventaja de usar estos métodos, es que el código es totalmente independiente del gestor de base de datos que estemos utilizando. Por ejemplo, una columna de tipo `boolean`sería declarado internamente como 'BOOLEAN' si usáramos un gestor que soporte ese tipo de campos, y como 'integer', o 'bit' en gestores que no lo soporten.
 
 Hay algunos métodos especiales que incluye Laravel como:
 
@@ -192,7 +157,7 @@ AAA
 
 **Migraciones**
 [Migraciones en laravel - Curso de Laravel 5 de Duilio (Lección 7)](http://duilio.me/migraciones-en-laravel/)   
-[Migraciones - Documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/migrations)
+[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
 [Migración de Datos en la Wikipedia](http://es.wikipedia.org/wiki/Migraci%C3%B3n_de_datos)  
 [Mejores prácticas para migración de Bases de Datos](http://es.slideshare.net/carlosgruiz.arahat/mejores-prcticas-para-migracin-de-bases-de-datos)  
 
@@ -203,3 +168,4 @@ AAA
 **Otras**
 [Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
 [Generador de Consultas en la documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/queries)
+
