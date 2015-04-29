@@ -56,7 +56,7 @@ PHP Fatal error:  require(): Failed opening required '(...)\bootstrap/../vendor/
 - No confundas esos comandos con `composer dump-autoload`.  `composer dump-autoload` **no descarga nada** y únicamente actualiza los ficheros de autocarga `autoload.php` de la aplicación. Se usa cuando hemos añadidos nuevas clases a nuestros proyectos y hemos actualizado el fichero `composer.json`.
 
 ###Más información:
-Link a los ignores
+[Más información sobre el fichero .gitignore](https://github.com/jatubio/5minutos_git/wiki/Excluir-ficheros-del-proyecto)  
 [install command - Composer official docs](https://getcomposer.org/doc/03-cli.md#install)   
 [update command - Composer official docs](https://getcomposer.org/doc/03-cli.md#update)  
 [dump-autoload command - Composer official docs](https://getcomposer.org/doc/03-cli.md#dump-autoload)  
