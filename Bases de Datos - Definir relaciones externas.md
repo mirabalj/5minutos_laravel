@@ -50,7 +50,80 @@ En Laravel, esas relaciones se definen de este modo:
 
 Para las relaciones **uno a uno** y **uno a varios**, creamos un campo clave (clave foránea o 'foreign key') en la tabla hija que se relaciona con el campo clave de la tabla padre. Si la relación es **varios a varios**, se crea una tabla intermedia (tabla pivot o 'pivot table') con una clave foránea para cada tabla de la relación.
 
+Por tanto, y siguendo las [Convenciones de Laravelxxxx]() para nombrar los modelos y tablas, tendremos las siguientes tablas:
+
+ `tiendas,clientes,pedidos,facturas y clientes_tiendas`.
+
+###Migraciones con relaciones
+ 
+Estas serían las correspondientes migraciones: (En orden para que no tengamos errores si ejecutamos un RollBack)
+
+- `database\migrations\2015_04_04_200000_create_tiendas_table.php`
+
+ ```
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateTiendasTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('tiendas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+			(...)
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('tiendas');
+    }
+}
+```
 
 
+<?php
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateTicketVotesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('ticket_votes', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->integer('ticket_id')->unsigned();
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('ticket_votes');
+    }
+
+ 
  polymorphic relationship
