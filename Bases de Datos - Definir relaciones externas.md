@@ -6,9 +6,11 @@ Por ejemplo, para relacionar la tabla actual con la `users` a través del campo 
 
 `$table->foreign('user_id')->references('id')->on('users');`
 
-Si además queremos que 	
+Si además queremos activar el 'borrado en cascada' automático de los registros, concatenamos al final de la línea una llamada al método:
 
-onDelete('cascade')
+`onDelete('cascade')`
+
+> Un borrado en cascada es un término habitual en bases de datos para decir que cuando se borre un registro padre, se borren todos sus registros hijos. Por ejemplo, si borramos un Cliente, se borrarían todas sus Facturas asociadas.
 
 ###Definiendo las relaciones:
 
