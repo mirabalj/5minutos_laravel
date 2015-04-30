@@ -261,7 +261,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 	
 ###Fuentes y más información:
 
-[!!!!Estándares de programación en PHP (PSR-1 y PSR-4)]()
+[Estándares de programación en PHP (PSR-1 y PSR-4)](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4)
 
 <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.  
 

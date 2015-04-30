@@ -1,6 +1,6 @@
 ###Migraciones en Laravel - Ejecutar Migraciones.
 
-Este post es la continuación del post [Migraciones en Laravelxxx]() y en él vamos a ver con más detalle cómo escribir una migración y cómo ejecutarla.
+Este post es la continuación del post [Migraciones en Laravel - Introducción](/Migraciones-en-Laravel---Introducci%C3%B3n) y en él vamos a ver con más detalle cómo escribir una migración y cómo ejecutarla.
 
 ###Métodos disponibles en las migraciones.
 
@@ -235,13 +235,18 @@ Si quieres estar seguro de qué cambios va a realizar la migración en tu base d
 
 ###Glosario:
 
-- Al código que genera Laravel por defecto cuando ejecutas un comando. Como el que genera genera para las migraciones o modelos. También se le suele llamar 'Boilerplate' o 'Stub'.
+- Al código que genera Laravel por defecto cuando ejecutas un comando. Como el que genera genera para las migraciones o modelos. También se le suele llamar '**Boilerplate**' o '**Stub**'.
 
 ###Fuentes y más información:
 
+[Migraciones en Laravel - Introducción](/Migraciones-en-Laravel---Introducci%C3%B3n)
+
 [Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
-(!!!!Link a la primera parte)   
+
 [Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
+
 [Constructor de esquemas - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/schema)  
+
 [Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
+
 [Database Abstraction Layer — Doctrine Project](http://www.doctrine-project.org/projects/dbal.html)  

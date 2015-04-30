@@ -1,4 +1,5 @@
 ##Autocarga de clases en Laravel (Autoload)
+
 En este post vamos a ver con detalle el sistema de autocarga de clases de Laravel 5. (La mayoría de lo expuesto es aplicable también a Laravel 4)
 
 Laravel utiliza **Composer** para generar los ficheros .php que se encargan del proceso de autocarga de las clases.
@@ -6,6 +7,7 @@ Laravel utiliza **Composer** para generar los ficheros .php que se encargan del 
 Vamos a ver un poco de historia sobre la carga de archivos (**include**) y los sistemas de autocarga en php:
 
 ###Autocarga en PHP5
+
 Para usar las clases definidas en otros ficheros .php distintos al que estamos ejecutando, tenemos que usar la directiva `include` al comienzo de cada uno de nuestros ficheros.
 
 A partir de PHP 5, se introdujo un nuevo sistema de 'Autocarga de clases' (Autoload) que permite usar nuestras clases sin tener que escribir los 'include' correspondientes. 
