@@ -184,6 +184,64 @@ class DataConvert extends Migration {
 }
 ```
 
+####Utilizando las migraciones en tablas relacionadas.
+
+Cuando tenemos varias tablas relacionadas, el modo más sencillo de crear las migraciones es crear una migración por cada tabla y hacerlo en el orden correcto: Primero la migración para crear/borrar la tabla padre y después la migración para la tabla hija.
+
+Pero si tenemos un sistema de base de datos complejo, quizás tratemos de mantener el menor número de ficheros de migraciones posibles. En ese caso, puedes escribir una única migración, pero colocando los procesos de creado y borrado de tablas en el orden adecuado dentro de las funciones `up()` y `down()`.
+
+Por ejemplo, si vamos a crear una tabla `Clientes` y una tabla `Facturas` hija de `Clientes`, el código de la migración sería este:
+
+```
+<?php
+ 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+ 
+class CreateProjectsAndTasksTables extends Migration {
+ 
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('clientes', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('nombre')->default('');
+            (...)
+			$table->timestamps();
+		});
+ 
+		Schema::create('facturas', function(Blueprint $table) {
+			$table->increments('id');
+			$table->integer('clientes_id')->unsigned()->default(0);
+			$table->foreign('clientes_id')->references('id')->on('clientes')->onDelete('cascade');
+			$table->text('descripcion')->default('');
+            (...)
+			$table->timestamps();
+		});
+	}
+ 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('facturas');
+		Schema::drop('clientes');
+	}
+ 
+}
+```
+
+> De este modo, te evitarás el error "Integrity constraint violation: 1452" al hacer un Rollback.
+> Si a pesar de todo, sigue apareciéndote ese error, puedes añadir esta línea al comienzo de tus migraciones: `DB::statement('SET FOREIGN_KEY_CHECKS=0;')` antes de hacer el Rollback.
+
 ###Algunas utilidades que te facilitarán las migraciones:
 
 [Xethron/migrations-generator](https://github.com/Xethron/migrations-generator)  
@@ -204,3 +262,11 @@ Te permite exportar tus bases de datos como migraciones de Laravel, y los datos 
 
 * Facilita mantener una versión actualizada de la base de datos cuando trabajamos en equipo.
 
+###Fuentes y más información:
+
+[Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
+(Link a la primera parte)
+(Link a la segunda parte)
+[Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
+[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
+[Constructor de esquemas - Documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/schema)

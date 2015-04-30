@@ -221,3 +221,12 @@ Te permite especificar la base de datos en la que se deben ejecutar las migracio
 `--path`
 
 Te permite usar una ruta distinta de `database\migrations` para ejecutar las migraciones.
+
+###Fuentes y más información:
+
+[Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
+(Link a la primera parte)
+[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
+[Constructor de esquemas - Documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/schema)
+[Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
+[Database Abstraction Layer — Doctrine Project](http://www.doctrine-project.org/projects/dbal.html)  

@@ -143,29 +143,19 @@ DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
 AAA
 
-##Resumen:
-### Ventajas
 
-* Gestión de la estructura de la base de datos sin tener que usar sentencias SQL.
-* Control de versiones de esos cambios para poder revertirlos, replicarlos, etc..
-* Migrar nuestra base de datos a otros servidores.
-* Cambiar nuestra base de datos a otro gestor de base de datos: PostgreSQL, SQL Server, SqlLite, Oracle, etc..
-* Facilita mantener una versión actualizada de la base de datos cuando trabajamos en equipo.
+
+###Fuentes y más información:
+
+[Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
+[Migración de Datos en la Wikipedia](http://es.wikipedia.org/wiki/Migraci%C3%B3n_de_datos)  
+[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
+[Mejores prácticas para migración de Bases de Datos](http://es.slideshare.net/carlosgruiz.arahat/mejores-prcticas-para-migracin-de-bases-de-datos)  
+
 
 
 **Fuentes**
 
 **Migraciones**
 [Migraciones en laravel - Curso de Laravel 5 de Duilio (Lección 7)](http://duilio.me/migraciones-en-laravel/)   
-[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
-[Migración de Datos en la Wikipedia](http://es.wikipedia.org/wiki/Migraci%C3%B3n_de_datos)  
-[Mejores prácticas para migración de Bases de Datos](http://es.slideshare.net/carlosgruiz.arahat/mejores-prcticas-para-migracin-de-bases-de-datos)  
-
-[Constructor de esquemas - Documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/schema)
-
-**
-
-**Otras**
-[Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
-[Generador de Consultas en la documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/queries)
 
