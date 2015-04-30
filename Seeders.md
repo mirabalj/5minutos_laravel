@@ -4,6 +4,12 @@ Los seeders son especialmente útiles para probar tu aplicación. Te permiten in
 
 Los seeders son clases que se almacenan en `database/seeds`.
 
+La clase principal es la clase `DatabaseSeeder` que viene por defecto y está en el fichero `database/seeds/DatabaseSeeder.php`.
+
+Esa clase se encarga de ejecutar el resto de clases de tipo seeder.
+
+
+
 ###Tablas relacionadas.
 
 Cuando queremos cargar datos en tablas relacionadas, podemos hacerlo en una única clase seeder.
