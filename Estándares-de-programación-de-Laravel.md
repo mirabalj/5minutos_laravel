@@ -265,9 +265,9 @@ Están basadas en 'estándares de facto', en las recomendaciones de Symfony y en
 <br>
 ###Fuentes y más información:
 
-[!!!!Estándares de programación en PHP (PSR-1 y PSR-4)]()
+[Estándares de programación en PHP (PSR-1 y PSR-4)](https://github.com/jatubio/5minutos_laravel/wiki/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4)   
 
-[!!!!Estándares de programación en PHP (PSR-2)]()
+[Estándares de programación en PHP (PSR-2)](https://github.com/jatubio/5minutos_laravel/wiki/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2)
 
 [Guía de Contribución de Laravel - Estilo del Código](http://laravel.com/docs/5.0/contributions#coding-style)   
 
