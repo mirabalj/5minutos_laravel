@@ -61,4 +61,4 @@ PHP Fatal error:  require(): Failed opening required '(...)\bootstrap/../vendor/
 [update command - Composer official docs](https://getcomposer.org/doc/03-cli.md#update)  
 [dump-autoload command - Composer official docs](https://getcomposer.org/doc/03-cli.md#dump-autoload)  
 [Managing Dependencies with Composer - Beau Simensen, MidWest PHP Talks, March 15th, 2014](https://beau.io/talks/2014/03/15/managing-dependencies-with-composer-midwest-php-2014/)  
-[xxxAutocarga de clases en Laravel (Autoload)](xxxx)
+[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
