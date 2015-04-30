@@ -1,4 +1,6 @@
-Hemos visto cómo ejecutar una migración. Y en este post vamos a ver cómo podemos deshacerla.
+###Migraciones en Laravel - Rollback.
+
+En el post anterior, vimos cómo ejecutar una migración. Enn este post vamos a ver cómo podemos deshacer una migración que hemos ejecutado.
 
 En el entorno de bases de datos, se usa el término `Rollback` para referirse al proceso de deshacer una transacción.
 
@@ -10,15 +12,15 @@ Puedes ejecutar `php artisan migrate:reset` para deshacer todas las migraciones.
 
 ###La tabla migrations
 
-Ya has visto que es muy sencillo deshacer una migración con Laravel. Ahora bien, ¿cómo sabe Laravel qué tablas estaban implicadas en esa migración? 
+Ya has visto que es muy sencillo deshacer una migración con Laravel. Ahora bien, ¿Cómo sabe Laravel qué tablas estaban implicadas en esa migración? 
 
-Además de los scripts en el directorio `database\migrations`, al ejecutar alguna migración, Laravel crea la tabla `migrations` en nuestra base de datos para almacenar el **Repositorio** de las migraciones. Esa tabla contiene información sobre qué scripts han sido ejecutados en esa base de datos, y en qué orden.
+Además de los scripts en el directorio `database\migrations`, al ejecutar la primera migración, Laravel crea la tabla `migrations` en nuestra base de datos para almacenar el **Repositorio** de las migraciones. Esa tabla contiene información sobre qué scripts han sido ejecutados en esa base de datos, y en qué orden.
 
 La tabla `migrations` tiene dos columnas: `migration` y `batch`.
 
-Cada vez que ejecutamos una migración, se crea un registro un registro por cada una de las migraciones ejecutadas. En el campo `migration` se introduce el nombre del script ejecutado. Y el campo `batch` es un contador del número de migraciones ejecutadas hasta ahora. De ese modo, el sistema de migraciones puede conocer el orden en el que se han ejecutado esas migraciones y ejecutar los `rollback` en orden inverso.
+Cada vez que ejecutamos una migración, se crea un registro por cada una de las migraciones ejecutadas. En el campo `migration` se introduce el nombre del script ejecutado. Y el campo `batch` es un contador del número de migraciones ejecutadas hasta ahora. De ese modo, el sistema de migraciones puede conocer el orden en el que se han ejecutado esas migraciones y ejecutar los `rollback` en orden inverso.
 
-> Una vez que has ejecutado una migración, si borras o renombras el fichero de la migración, un `rollback` que afecte a esa migración te dará error. A no ser que modifiques esta tabla manualmente y borres el registro que hacer referencia a ese scripts.
+> Una vez que has ejecutado una migración, si borras o renombras el fichero de la migración, un `rollback` que afecte a esa migración te dará error. A no ser que modifiques esta tabla manualmente y borres el registro que hace referencia a ese fichero.
 
 En el siguiente apartado veremos un ejemplo del contenido de esa tabla después de ejecutar algunas migraciones.
 
@@ -26,9 +28,9 @@ Puedes especificar otro nombre para la tabla modificando la línea   `'migration
 
 ###Probando las migraciones y los Rollback.
 
-Si quieres probar un Rollback en las migraciones. Puedes realizar los siguientes pasos:
+Si quieres probar como funciona el sistema de Rollback en las migraciones, sígueme:
 
-Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraciones por defecto: `create_users_table` y `create_password_resets_table`.
+- Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraciones por defecto: `create_users_table` y `create_password_resets_table`.
 
 - Creando una nueva columna `phone` en la tabla `users`.
 
@@ -39,7 +41,7 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 	```
 	public function up()
 	{
-		// Creamos un campo nuevo para el teléfono
+		// Crear un campo nuevo para el teléfono
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->string('phone',35);
@@ -48,7 +50,7 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 
 	public function down()
 	{
-		// Borramos el nuevo campo creado
+		// Borrar el nuevo campo creado
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->dropColumn('phone');
@@ -60,7 +62,7 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 
  3. Ejecuta `php artisan migrate` para añadir la nueva columna.
 
-   Puedes comprobar en la base de datos en la tabla `users` que ahora hay una nueva columna `phone`.
+   Puedes comprobar en la base de datos que la tabla `users` tiene ahora una nueva columna llamada `phone`.
 
 - Instalando el paquete `Doctrine DBAL`.
 
@@ -77,7 +79,7 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 	```
 	public function up()
 	{
-		// Renombramos la columna name a first_name
+		// Renombrar la columna name a first_name
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->renameColumn('name','first_name');
@@ -86,7 +88,7 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 
 	public function down()
 	{
-		// Volvemos a renombrar la columna con su antiguo nombre
+		// Volver a renombrar la columna con su antiguo nombre
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->renameColumn('first_name','name');
@@ -96,7 +98,7 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 
  3. Ejecuta `php artisan migrate` para añadir la nueva columna.
 
- 4. Puedes comprobar en la base de datos en la tabla `users` que ahora hay una la columna `name` se llama `first_name`.
+ 4. Puedes comprobar en la base de datos que en la tabla `users` la columna `name` a pasado a llamarse `first_name`.
 
    Si además echas un vistazo a la tabla migrations, verás estos registros:
    
@@ -109,9 +111,11 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 
  Como ves, se ha creado un registro por cada una de las migraciones ejecutadas y el campo `batch` permite al sistema de migraciones conocer el orden en el que se han ejecutado esas migraciones.
 
-- Volviendo a la situación inicial
+- Volviendo a la situación inicial.
 
- Para deshacer las dos últimas migraciones, ejecuta `php artisan migrate:rollback` dos veces. Puedes comprobar en la base de datos que la tabla `Users` ha vuelto a su estado original. 
+ Para deshacer las dos últimas migraciones, ejecuta `php artisan migrate:rollback` dos veces. 
+ 
+ Puedes comprobar en la base de datos que la tabla `Users` ha vuelto a su estado original. 
 
  Y puedes borrar los dos ficheros que hemos creado anteriormente.
 
@@ -119,41 +123,43 @@ Antes de empezar, ejecuta `php artisan migrate` para que se ejecuten las migraci
 
 Estos son otros comandos relacionados con las migraciones:
 
-`migrate:status`
+- `migrate:status`
 
-Muestra todas las migraciones indicando cuales han sido ejecutadas.
+ Muestra todas las migraciones indicando cuales han sido ejecutadas.
 
-`migrate:install`
+- `migrate:install`
 
-Creará la tabla migrations en nuestra base de datos. Habitualmente no es necesario porque si no existe, se crea automáticamente al 
+ Creará la tabla migrations en nuestra base de datos. Habitualmente no es necesario porque si no existe, se crea automáticamente al 
 ejecutar las migraciones.
 
-`migrate:refresh`
+- `migrate:refresh`
 
-Deshace todas las migraciones y las ejecuta otra vez. Puede ser útil si tienes que modificar alguna de las migraciones.
+ Deshace todas las migraciones y las ejecuta otra vez. Puede ser útil si tienes que modificar alguna de las migraciones.
 
-`migrate:reset`
+- `migrate:reset`
 
-Deshace todas las migraciones.
+ Deshace todas las migraciones.
+ 
+> Si tienes creadas las clases de poblado de datos, puedes llenar tus tablas de datos al mismo tiempo que ejecutas tus migraciones añadiendo el parámetro `--seed`. Por ejemplo: `php artisan migrate --seed`.
 
-###Algunos casos prácticos:
+###Aplicaciones prácticas:
 
 ####¿Puedo usar una nomenclatura propia para los nombres de los ficheros de las migraciones?
 
 La respuesta la tienes en el código del framework de Laravel, en la clase `Migrator` que está en el fichero: `framework/src/Illuminate/Database/Migrations/Migrator.php`.
 
-Investigando en esa clase y concrétamente en el método  `getMigrationFiles($path)`, puedes ver que asume que los nombres de los ficheros empezarán por un timestamp y por tanto, los ordena alfabéticamente y los ejecuta en ese orden. De modo, que puedes seguir cualquier convención, nomenclatura o nombres siempre que los archivos se ejecuten en el orden que necesites cuando sean ordenados alfabéticamente.
+Investigando en esa clase y concretamente en el método  `getMigrationFiles()`, puedes ver que asume que los nombres de los ficheros empezarán por un timestamp y por tanto, los **ordena alfabéticamente** y los ejecuta en ese orden. De modo, que puedes seguir cualquier convención, nomenclatura o nombres siempre que los archivos se ejecuten en el orden que necesites cuando sean ordenados alfabéticamente.
 
 ####Preservando las tablas actuales antes de ejecutar una migración.
 
 Puede haber ocasiones en las que una migración va a realizar grandes modificaciones en la estructura de las tablas y queremos mantener los datos y la estructura de las tablas actuales antes de realizar esa migración.
 
-En ese caso podemos crear una migración “especial” que copie la estructura actual de la base de datos desde un modelo Eloquent a otro. La buena noticia es que con Laravel es tan sencillo como esto:
+En ese caso podemos crear una migración “especial” que copie o haga un backup de la estructura actual de la base de datos desde un modelo Eloquent a otro. La buena noticia es que con Laravel es tan sencillo como esto:
 
 ```
 use Illuminate\Database\Migrations\Migration;
 
-use MyNewModel;
+use NuevoModelo;
 
 class DataConvert extends Migration {
 
@@ -164,9 +170,9 @@ class DataConvert extends Migration {
      */
     public function up()
     {
-        foreach(MyOldModel::all() as $item)
+        foreach(AntiguoModelo::all() as $item)
         {
-            MyNewModel::create(array(...));
+            NuevoModelo::create(array(...));
         }
 
     }
@@ -178,7 +184,7 @@ class DataConvert extends Migration {
      */
     public function down()
     {
-        MyNewModel::truncate();
+        NuevoModelo::truncate();
     }
 
 }
@@ -244,11 +250,11 @@ class CreateProjectsAndTasksTables extends Migration {
 
 ###Algunas utilidades que te facilitarán las migraciones:
 
-[Xethron/migrations-generator](https://github.com/Xethron/migrations-generator)  
+- [Xethron/migrations-generator](https://github.com/Xethron/migrations-generator)  
 Este paquete te permitirá generar tus migraciones automáticamente a partir de la estructura de tus bases de datos.
 
-[nWidart/DbExporter](https://github.com/nWidart/DbExporter)  
-Te permite exportar tus bases de datos como migraciones de Laravel, y los datos como Seeders.
+- [nWidart/DbExporter](https://github.com/nWidart/DbExporter)  
+Te permite exportar tus bases de datos actuales como migraciones de Laravel, y los datos como Seeders.
 
 ### Ventajas de usar el sistema de migraciones:
 
@@ -265,8 +271,9 @@ Te permite exportar tus bases de datos como migraciones de Laravel, y los datos 
 ###Fuentes y más información:
 
 [Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
-(Link a la primera parte)
-(Link a la segunda parte)
+(!!!Link a la primera parte)   
+(!!!Link a la segunda parte)  
 [Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
-[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
-[Constructor de esquemas - Documentación oficial de Laravel 5](http://laraveles.com/docs/5.0/schema)
+[Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)  
+[Constructor de esquemas - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/schema)   
+[Database Abstraction Layer — Doctrine Project](http://www.doctrine-project.org/projects/dbal.html)  
