@@ -76,7 +76,6 @@ class CreateTiendasTable extends Migration
         Schema::create('tiendas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-			(...)
             $table->timestamps();
         });
     }
@@ -89,6 +88,14 @@ class CreateTiendasTable extends Migration
         Schema::drop('tiendas');
     }
 }
+```
+
+<br>
+- `database\migrations\2015_04_04_200100_create_clientes_table.php`  
+
+ ```
+
+
 ```
 
 
