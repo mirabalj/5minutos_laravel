@@ -4,10 +4,15 @@ Los seeders son especialmente útiles para probar tu aplicación. Te permiten in
 
 Los seeders son clases que se almacenan en `database/seeds`.
 
-La clase principal es la clase `DatabaseSeeder` que viene por defecto y está en el fichero `database/seeds/DatabaseSeeder.php`.
+Laravel incluye por defecto una clase llamada `DatabaseSeeder` en el fichero `database/seeds/DatabaseSeeder.php`.
 
-Esa clase se encarga de ejecutar el resto de clases de tipo seeder.
+Puedes usar esa clase para llamar al método `call()` del resto de clases de tipo seeder y de ese modo controlar el orden en el que se ejecutan.
 
+###Crear una clase seeder.
+
+Para crear una clase seeder, 
+
+Puedes usar cualquier nombre para la clase y para el fichero, aunque la convención suele ser un nombre descriptivo con notación `StudlyCaps` del tipo: `UserTableSeeder`.
 
 
 ###Tablas relacionadas.
@@ -16,8 +21,14 @@ Cuando queremos cargar datos en tablas relacionadas, podemos hacerlo en una úni
 
 Recibimos en una varible el `id` generado en la tabla padre, y lo usamos al crear los registros relacionados en las tablas hijos.
 
+###Ejecutar los seeders.
+
+Con el comando: `php artisan db:seed` ejecutarás el método `run()` de la clase `DatabaseSeeder`.
+
+> Puedes ejecutar una clase distinta con el parámetro --class. Por ejemplo: `php artisan db:seed --class=UserTableSeeder`.
 
 
+> También puedes llenar tus datos al mismo tiempo que ejecutas tus migraciones, añadiendo el parámetro `--seed`. Por ejemplo: `php artisan migrate --seed`.
 
 ###Faker: Generar datos falsos.
 
