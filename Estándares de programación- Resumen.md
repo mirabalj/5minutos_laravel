@@ -104,7 +104,9 @@
  - Para los modelos Eloquent, usa el nombre de tu tabla en `StudlyCaps` y en singular. Llama `id` a tu clave principal.
   
   Usa `snake_case` en las demás columnas y `getNombreCompletoAttribute($name)` en los métodos.
-
+  
+  Las tablas pivot tendrán este formato: `client_shop`.
+ 
  
 <br>  
 ###Más información:

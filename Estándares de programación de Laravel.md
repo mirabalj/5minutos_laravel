@@ -256,6 +256,8 @@ Están basadas en 'estándares de facto', en las recomendaciones de Symfony y en
  
  Para los nombres de las columnas en la tabla, usa la notación `snake_case`. Y para los métodos de los modelos, usa `camelCase`. Por ejemplo, para una columna llamada `nombre_completo`, el método sería `getNombreCompletoAttribute($name)`.
  
+ Para las tablas pivots, el convenio es usar el singular de ambas tablas unidas por un guión bajo. Por ejemplo: `user_product`.
+ 
 <br>
 ###Más información:
 [Guía de Contribución de Laravel - Estilo del Código](http://laravel.com/docs/5.0/contributions#coding-style)   
