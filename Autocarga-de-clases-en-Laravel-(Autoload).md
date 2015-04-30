@@ -1,5 +1,3 @@
-Laravel_Autoload
-
 ##Autocarga de clases en Laravel (Autoload)
 Esta es una pequeña introducción al sistema de autocarga de clases de Laravel 5. (La mayoría de lo expuesto es aplicable también a Laravel 4)
 
