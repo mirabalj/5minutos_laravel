@@ -1,4 +1,4 @@
-###Diferencias entre composer Install y Update.
+###Diferencias entre composer install y composer update.
 
 En las aplicaciones web cuyas dependencias están gestionadas con **Composer**, la convención habitual es no subir a los repositorios los paquetes que no forman parte de la aplicación. Es decir, los que están en la carpeta `vendor`.
 
@@ -48,17 +48,25 @@ Mientras que `composer update` te permite actualizar todos los paquetes que util
 
 - Cuando distribuyas tu aplicación, asegúrate de incluir el fichero `composer.lock` para que tus usuarios o miembros del equipo puedan usarla con el mismo entorno que tú tienes.
 
-- Si al ejecutar una aplicación te aparece el siguiente error, comprueba si existe el directorio `vendor`. Y si es necesario ejecuta `composer install` o `composer update`.
+- Si al ejecutar una aplicación te aparece el siguiente error, comprueba si existe el directorio `vendor`. Y si no existe, ejecuta `composer install` o `composer update`.
  ```
 PHP Fatal error:  require(): Failed opening required '(...)\bootstrap/../vendor/autoload.php' (include_path='.;C:\php\pear') in (...)\bootstrap\autoload.php on line 17
 ```
 
 - No confundas esos comandos con `composer dump-autoload`.  `composer dump-autoload` **no descarga nada** y únicamente actualiza los ficheros de autocarga `autoload.php` de la aplicación. Se usa cuando hemos añadidos nuevas clases a nuestros proyectos y hemos actualizado el fichero `composer.json`.
 
-###Más información:
+- Cuando añades un nuevo paquete a tu aplicación, si usas el comando `composer require` (por ejemplo, `composer require doctrine/dbal:~2.3`), composer añadirá ese paquete al fichero `composer.json` y lo **instalará**. Por lo que seguirás manteniendo para el resto de paquetes las mismas versiones que tienen instaladas los demás desarrolladores del equipo.
+
+###Fuentes y más información:
+
+[!!!Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
+
 [Más información sobre el fichero .gitignore](https://github.com/jatubio/5minutos_git/wiki/Excluir-ficheros-del-proyecto)  
+
 [install command - Composer official docs](https://getcomposer.org/doc/03-cli.md#install)   
+
 [update command - Composer official docs](https://getcomposer.org/doc/03-cli.md#update)  
+
 [dump-autoload command - Composer official docs](https://getcomposer.org/doc/03-cli.md#dump-autoload)  
+
 [Managing Dependencies with Composer - Beau Simensen, MidWest PHP Talks, March 15th, 2014](https://beau.io/talks/2014/03/15/managing-dependencies-with-composer-midwest-php-2014/)  
-[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
