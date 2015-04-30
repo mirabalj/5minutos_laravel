@@ -12,21 +12,15 @@ onDelete('cascade')
 
 ###Definiendo las relaciones:
 
-Suponiendo que tengamos las tablas `Tiendas`, `Clientes`, `Promociones`, `Pedidos` y `Facturas`. De modo que:
+Suponiendo que tengamos las tablas `Tiendas`, `Clientes`, `Pedidos` y `Facturas`. De modo que:
 
 - Un **Pedido** sólo puede tener una **Factura**.
 
-- Una **Factura** sólo puede tener un **Cliente**.
+- Una **Factura** sólo puede tener un **Pedido**.
 
-- Un **Cliente*+ puede tener una o varias **Facturas**.
+- Un **Cliente* puede tener una o varias **Facturas**.
 
 - Una **Factura** sólo pertenece a un cliente. 
-
-- Un **Cliente** puede tener activa una **Promoción**.
-
-- Una **Promoción** puede estar activa para varios **Clientes**.
-
-- En una **Factura** sólo puede aplicarse una **Promoción**.
 
 - Una **Tienda** puede tener uno o varios **Clientes**.
 
@@ -37,16 +31,26 @@ De modo que tenemos **Relaciones uno a uno** como Pedido y Factura. **Relaciones
 En Laravel, esas relaciones se definen de este modo:
 
 - Relaciones uno a uno:
- - Factura **has_one** Promoción. (Factura tiene una Promoción)
 
-- Cliente **has_one** Promocion. (Cliente tiene una Promoción)  
+ - Pedido **has_one** Factura. (Pedido tiene una Factura)
 
-- 
+ - Factura **has_one** Pedido. (Factura tiene un Pedido)
+ 
+- Relaciones uno a varios:
 
-- Cliente **has_many** Factura. (Cliente puede tener muchas Facturas)
+ - Cliente **has_many** Factura. (Cliente tiene varias Facturas)
 
-- Factura **belongs_to** Cliente.(Factura pertenece a Cliente)
+ - Factura **belongs_to** Cliente.(Factura pertenece a Cliente)
+ 
+- Relaciones varios a varios:
 
-- Promoción **has_one** Factura . (Promoción tiene una Factura)  
+- Tienda **belongs_to_many** Cliente. (Tienda pertenece a varios Cliente)
 
-- 
+- Cliente **belongs_to_many** Tienda.(Cliente pertenece a varios Tienda)
+
+Para las relaciones **uno a uno** y **uno a varios**, creamos un campo clave (clave foránea o 'foreign key') en la tabla hija que se relaciona con el campo clave de la tabla padre. Si la relación es **varios a varios**, se crea una tabla intermedia (tabla pivot o 'pivot table') con una clave foránea para cada tabla de la relación.
+
+
+
+
+ polymorphic relationship
