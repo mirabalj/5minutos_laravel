@@ -110,6 +110,9 @@ En el próximo post veremos cómo crear y ejecutar nuestras propias migraciones.
 ###Fuentes y más información:
 
 [Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
+
 [Migración de Datos en la Wikipedia](http://es.wikipedia.org/wiki/Migraci%C3%B3n_de_datos)  
+
 [Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)  
+
 [Mejores prácticas para migración de Bases de Datos](http://es.slideshare.net/carlosgruiz.arahat/mejores-prcticas-para-migracin-de-bases-de-datos)  
