@@ -10,7 +10,7 @@
 
 - Para cambiar el namespace por defecto de nuestra aplicación
 
-`php artisan app:name NombreApp`
+`php artisan app:name <NombreApp>`
 
 - Crear la Base de datos en MySQL
 
@@ -18,7 +18,7 @@
 
 - Crear un junction en las carpetas de IIS.
 		
-- Añadir la aplicación a la configuración de IIS (carpeta public).
+- Añadir la aplicación a la configuración de IIS (**carpeta public**).
 
 - Añadir el fichero web.config
       
