@@ -110,40 +110,6 @@ Hay algunos métodos especiales que incluye Laravel como:
 	$table->timestamps();
 
 
-QQQQ
-
-
-
-https://aprendelaravel.slack.com/archives/preguntas/p1425923357000019
-https://aprendelaravel.slack.com/archives/preguntas/p1424374215000042
-https://aprendelaravel.slack.com/archives/preguntas/p1424288833000002
-https://aprendelaravel.slack.com/archives/preguntas/p1424337961000010
-https://aprendelaravel.slack.com/archives/general/p1423667873000531
-https://aprendelaravel.slack.com/archives/general/p1423667341000528
-https://aprendelaravel.slack.com/archives/general/p1423620510000460
-https://aprendelaravel.slack.com/archives/general/p1423613866000448
-https://aprendelaravel.slack.com/archives/general/p1423601553000422
-http://duilio.me/creando-migraciones-en-laravel-5/#comment-1941108799
-
-QQQ
-
-Imagino por tanto que al crear una nueva migración lo que hacemos es automatizar el borrado de esa columna en la base de datos de producción de una forma organizada e incluso reversible. Es decir, posteriormente, gracias al sistema de migraciones de Laravel, podríamos deshacer ese cambio si fuera necesario.
-
-XXX
-
-Una vez que creas una migración y tienes 2 tablas relacionadas en este caso, sections y pages, me marca error al momento de hacer un rollback (porque estan relacionadas con la clave foranea), como le hago para poder borrarlas o actualizarlas? Saludos
- • Responder•Compartir › 
-Avatar
-Duilio Palacios Moderador  Edgar Morales • hace 7 meses
-Tienes que borrarlas en el orden correcto, por ej. si páginas está relacionada con secciones (en páginas tengo un seccion_id) debería borrar primero páginas (drop -> paginas) y luego borrar secciones.
-
-Sino también puedes hacer:
-
-DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-
-AAA
-
-
 
 ###Fuentes y más información:
 
@@ -151,11 +117,3 @@ AAA
 [Migración de Datos en la Wikipedia](http://es.wikipedia.org/wiki/Migraci%C3%B3n_de_datos)  
 [Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)
 [Mejores prácticas para migración de Bases de Datos](http://es.slideshare.net/carlosgruiz.arahat/mejores-prcticas-para-migracin-de-bases-de-datos)  
-
-
-
-**Fuentes**
-
-**Migraciones**
-[Migraciones en laravel - Curso de Laravel 5 de Duilio (Lección 7)](http://duilio.me/migraciones-en-laravel/)   
-
