@@ -1,8 +1,8 @@
- ##Estándares de programación en PHP (PSR-2)
+##Estándares de programación en PHP (PSR-2)
 
 Este estándar forma parte de los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
 
-Los estándares PSR-1 y PSR-4 los puedes encontrar [aquí](https://github.com/jatubio/5minutos_laravel/wiki/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
+Los estándares PSR-1 y PSR-4 los puedes encontrar en el [post anterior](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
 
 ###PSR-2 - Guía de estilo de código.
 
@@ -15,7 +15,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 - El código **DEBE** usar 4 espacios como indentación, no tabuladores.
 
-> Nota: Utilizar sólo los espacios, y no mezclar espacios con tabuladores, ayuda a evitar problemas con diffs, parches, historiales y anotaciones. El uso de los espacios también facilita a ajustar la alineación entre líneas.
+> Nota: Utilizar sólo los espacios, y no mezclar espacios con tabuladores, ayuda a evitar problemas con diffs, parches, historiales y anotaciones. El uso de los espacios también ayuda a ajustar la alineación entre líneas.
 
 - No hay un límite estricto en la longitud de las líneas. El límite **DEBE** estar en 120 caracteres; las líneas deberían tener preferiblemente 80 caracteres o menos.
 
@@ -51,7 +51,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 ```
 - Las palabras clave `extends` e `implements` **DEBEN** declararse en la misma línea del nombre de la clase.  
 
-- La lista de `implements` PUEDE ser dividida en múltiples líneas, donde las líneas subsiguientes serán indentadas una vez. Al hacerlo, el primer elemento de la lista **DEBE** estar en la línea siguiente, y **DEBE** haber una sola interfaz por línea.
+- La lista de `implements` **PUEDE** ser dividida en múltiples líneas, indentando las líneas subsiguientes una vez. Al hacerlo, el primer elemento de la lista **DEBE** estar en la línea siguiente, y **DEBE** haber una sola interfaz por línea.
 
 	```
     abstract class AbstractMySQLDriver implements  
@@ -59,7 +59,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 		ExceptionConverterDriver, 
 		VersionAwarePlatformDriver
 	{
-	 ....
+	 (....)
 	}
     ```
 
@@ -107,7 +107,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 			DriverException $exception, 
 			force = false
 		) {
-		...
+		(...)
 		}
 ```  
 - Cuando se realize una llamada a un método o a una función, **NO DEBE** haber un espacio entre el nombre del método o la función y el paréntesis de apertura, **NO DEBE** haber un espacio después del paréntesis de apertura, y **NO DEBE** haber un espacio antes del paréntesis de cierre. En la lista de argumentos, **NO DEBE** haber espacio antes de cada coma y **DEBE** haber un espacio después de cada coma.
@@ -139,7 +139,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 - El cuerpo de la estructura de control **DEBE** estar indentado una vez.
 
-  - `if`, `elseif`, `else`: `else` y `elseif` van en la misma línea que las llaves de cierre del cuerpo anterior. La palabra clave `elseif` DEBERÍA ser usada en lugar de `else if` de forma que todas las palabras clave de la estructura estén compuestas por palabras de un solo término.
+  - `if`, `elseif`, `else`: &nbsp;&nbsp; `else` y `elseif` van en la misma línea que las llaves de cierre del cuerpo anterior. La palabra clave `elseif` DEBERÍA ser usada en lugar de `else if` de forma que todas las palabras clave de la estructura estén compuestas por palabras de un solo término.
 ```
         if ($node instanceof ClassStmt) {
             $this->class = $node;
@@ -219,6 +219,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
                 );
         }
 ```
+
 ####Closures.
 
 - Las closures **DEBEN** declararse con un espacio después de la palabra clave `function`, y un espacio antes y después de la palabra clave `use`.
@@ -232,6 +233,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 - Los argumentos de las closures con valores por defecto, **DEBEN** ir al final de la lista de argumentos.
 ```
         $route->setDefault('_controller', $closure = function () { return 'Hello'; });
+        
         $this->assertEquals($closure, $route->getDefault('_controller'), '->setDefault() sets a default value');
 ```
 ```
@@ -239,6 +241,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
             $invoked++;
         };		
 ```
+
 - La lista de argumentos y la lista de variables **PUEDEN** ser divididas en múltiples líneas, donde cada nueva línea se indentará una vez. Cuando esto suceda, el primer elemento de la lista **DEBE** ir en una nueva línea y **DEBE** haber sólo un argumento o variable por línea.
 
 - Cuando la lista de argumentos o variables se divide en varias líneas, el paréntesis de cierre y la llave de apertura **DEBEN** estar juntos en su propia línea separados por un espacio.
@@ -256,11 +259,20 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 - Las palabras clave de PHP **DEBEN** estar en minúsculas. Las constantes de PHP `true`, `false` y `null` **DEBEN** estar en minúsculas.
 	
-###Más información:
+###Fuentes y más información:
+
+[!!!!Estándares de programación en PHP (PSR-1 y PSR-4)]()
+
 <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.  
+
 [php-fig - Grupo de interoperatibilidad para Frameworks PHP](http://www.php-fig.org)  
+
 [Estándar PSR-1](http://www.php-fig.org/psr/psr-1/)  
+
 [Estándar PSR-2](http://www.php-fig.org/psr/psr-2/)  
+
 [Estándar PSR-3](http://www.php-fig.org/psr/psr-3/)  
+
 [Estándar PSR-4](http://www.php-fig.org/psr/psr-4/)  
+
 [Ejemplos de implementación de PSR-4](http://www.php-fig.org/psr/psr-4/examples/)  

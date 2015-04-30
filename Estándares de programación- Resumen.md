@@ -1,5 +1,7 @@
 ##Estándares de programación - Resumen.
 
+En este último post, recogemos un resumen a modo de 'hoja de consulta' de los estándares de programación recomendados que hemos ido viendo en los anteriores posts de esta serie.
+
 ###Edición
 
  - Elimina los espacios en blanco al final de las líneas y en las líneas en blanco.
@@ -38,13 +40,13 @@
 
  - Declara los métodos en este orden: `public`, `protected` y `private`. (Excepto los constructores y `setUp` y `tearDown` de PHPUnit)
 
- - En la lista de argumentos pon espacios sólo después de cada coma. Coloca los argumentos con valores por defecto al final.
+ - En la lista de argumentos, pon espacios sólo después de cada coma. Coloca los argumentos con valores por defecto al final.
 
  - Usa una línea en blanco antes de los `returns` a no ser que sea la única línea dentro de una estructura. (Como un `if`)
 
  - Usa el estilo `Allman` en los métodos, funciones y estructuras de control.
 
- - Usa un espacio después de Las palabras clave de las estructuras de control. Y un espacio entre el paréntesis de cierre y la llave de apertura.
+ - Usa un espacio después de las palabras clave de las estructuras de control. Y si es aplicable, un espacio entre el paréntesis de cierre y la llave de apertura.
   
  `if ($this->driver->getVisibility($path) == AdapterInterface::VISIBILITY_PUBLIC)`
  
@@ -70,7 +72,7 @@
 
 ###Procesos
 
- - En cada fichero declara o bien estructuras y símbolos o bien partes de la lógica secundaria, pero no ambas.
+ - En cada fichero declara, o bien estructuras y símbolos, o bien partes de la lógica secundaria, pero no ambas.
 
  - Coloca los `returns` al comienzo de las funciones. (Return early)
 
@@ -104,10 +106,19 @@
  - Para los modelos Eloquent, usa el nombre de tu tabla en `StudlyCaps` y en singular. Llama `id` a tu clave principal.
   
   Usa `snake_case` en las demás columnas y `getNombreCompletoAttribute($name)` en los métodos.
-
+  
+  Para las tablas pivot, usa este formato: `client_shop`.
+ 
  
 <br>  
-###Más información:
+###Fuentes y más información:
+
+[!!!!Estándares de programación en PHP (PSR-1 y PSR-4)]()   
+
+[!!!!Estándares de programación en PHP (PSR-2)]()   
+
+[!!!!Estándares de programación en Laravel]()
+
 [Guía de Contribución de Laravel - Estilo del Código](http://laravel.com/docs/5.0/contributions#coding-style)   
 
 [Discusión acerca del Estilo de Código del Framework Laravel abierta por GrahamCampbell en GitHub](https://github.com/laravel/framework/issues/6836)   

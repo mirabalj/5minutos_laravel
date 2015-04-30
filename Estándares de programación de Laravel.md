@@ -1,8 +1,12 @@
 ##Estándares de programación en Laravel
 
+Después de ver los estándares PSR-1, PSR-2 y PSR-4 en los posts anteriores, llegamos a los estándares recomendados en Laravel.
+
 ###Laravel - Guía de estilo de código.
 
 Laravel sigue los estándares PSR-1 y PSR-4. Y además tiene algunas recomendaciones propias. Lo que en algunos entornos llaman el '_Laravel "flavor" of PSR-2_'. Estos son los estándares extraídos de su guía de colaboración.
+
+He comentado después de cada estándar y resaltado en negrita los cambios con respecto al estándar PSR-2.
 
 > Si usas PhpStorm, al final de este post tienes un link para descargarte un fichero `.xml` para configurar el 'Estilo de código Laravel'.
 
@@ -141,7 +145,7 @@ Están basadas en 'estándares de facto', en las recomendaciones de Symfony y en
  
  - Usa comillas sencillas habitualmente y comillas dobles cuando quieras expandir una variable.
 
- - Usa los operadores lógicos `&&`y `||` en lugar de `AND` y `OR`.
+ - Usa los operadores lógicos `&&` y `||` en lugar de `AND` y `OR`.
  
  - Usa una línea en blanco antes de los `returns` a no ser que sea la única línea dentro de una estructura. (Como un `if`)
  
@@ -209,21 +213,21 @@ Están basadas en 'estándares de facto', en las recomendaciones de Symfony y en
 
   Para relaciones a varios dónde la relación no sea principal, se aplican estos otros nombres:
   
-	| Relación Principal  | Otras Relaciones  |
-	| --------------      | ----------------- |
-	| ``get()``           | ``getXXX()``      |
-	| ``set()``           | ``setXXX()``      |
-	| n/a                 | ``replaceXXX()``  |
-	| ``has()``           | ``hasXXX()``      |
-	| ``all()``           | ``getXXXs()``     |
-	| ``replace()``       | ``setXXXs()``     |
-	| ``remove()``        | ``removeXXX()``   |
-	| ``clear()``         | ``clearXXX()``    |
-	| ``isEmpty()``       | ``isEmptyXXX()``  |
-	| ``add()``           | ``addXXX()``      |
-	| ``register()``      | ``registerXXX()`` |
-	| ``count()``         | ``countXXX()``    |
-	| ``keys()``          | n/a               |
+| Relación Principal&nbsp;&nbsp;| Otras Relaciones  |
+| ------------------      | ----------------- |
+| ``get()``           | ``getXXX()``      |
+| ``set()``           | ``setXXX()``      |
+| n/a                 | ``replaceXXX()``  |
+| ``has()``           | ``hasXXX()``      |
+| ``all()``           | ``getXXXs()``     |
+| ``replace()``       | ``setXXXs()``     |
+| ``remove()``        | ``removeXXX()``   |
+| ``clear()``         | ``clearXXX()``    |
+| ``isEmpty()``       | ``isEmptyXXX()``  |
+| ``add()``           | ``addXXX()``      |
+| ``register()``      | ``registerXXX()`` |
+| ``count()``         | ``countXXX()``    |
+| ``keys()``          | n/a               |
   
 
   > Aunque `setXXX` y `replaceXXX` se parecen, la diferencia es que mientras `setXXX` puede modificar o añadir elementos a la relación, `replaceXXX` no puede añadir elementos. Y si recibe una clave desconocida, debe lanzar una excepción.
@@ -250,14 +254,21 @@ Están basadas en 'estándares de facto', en las recomendaciones de Symfony y en
  
  Laravel usa como convención para los modelos la notación `StudlyCaps` y para el nombre de la tabla relacionada con tu modelo, el nombre del modelo en minúsculas y plural.
  
- Por ejemplo, para `class User extends Eloquent {}`, Laravel buscará una tabla llamada `user`.
+ Por ejemplo, para `class User extends Eloquent {}`, Laravel buscará una tabla llamada `users`.
  
  Y como convención, usará como clave primaria un campo llamado `id`.
  
  Para los nombres de las columnas en la tabla, usa la notación `snake_case`. Y para los métodos de los modelos, usa `camelCase`. Por ejemplo, para una columna llamada `nombre_completo`, el método sería `getNombreCompletoAttribute($name)`.
  
+ Para las tablas pivots, el convenio es usar el singular de ambas tablas unidas por un guión bajo. Por ejemplo: `user_product`.
+ 
 <br>
-###Más información:
+###Fuentes y más información:
+
+[!!!!Estándares de programación en PHP (PSR-1 y PSR-4)]()
+
+[!!!!Estándares de programación en PHP (PSR-2)]()
+
 [Guía de Contribución de Laravel - Estilo del Código](http://laravel.com/docs/5.0/contributions#coding-style)   
 
 [Discusión acerca del Estilo de Código del Framework Laravel abierta por GrahamCampbell en GitHub](https://github.com/laravel/framework/issues/6836)   
