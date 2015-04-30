@@ -82,8 +82,10 @@ Todos los archivos deben tener la extensión .php.
 Los nombres de los namespaces o clases deben ser ordenados alfabéticamente.
 
 ###Fuentes y más información:
+[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload)
 
 <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.   
+
 
 [php-fig - Grupo de interoperatibilidad para Frameworks PHP](http://www.php-fig.org)  
 
