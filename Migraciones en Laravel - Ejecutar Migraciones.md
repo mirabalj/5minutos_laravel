@@ -139,19 +139,25 @@ Schema::create('users', function(Blueprint $table)
 }
 ```
 
-> Para poder renombrar columnas en las migraciones, hay que instalar el paquete Doctrine DBAL. Ya que como indica la documentación de Laravel, ese paquete ya no está incluído en la instalación por defecto.
+> Para poder renombrar columnas en las migraciones, hay que instalar el paquete `Doctrine DBAL`. Ya que como indica la documentación de Laravel, ese paquete ya no está incluído en la instalación por defecto.
 
-Para incluir el paquete, edita el archivo composer.json que se encuenta en la raiz de tu proyecto. Y añade la siguiente línea a la opción “require”: `"doctrine/dbal": "~2.3"`
+ - Puedes hacerlo manualmente
 
-```
-“require”: {
+   Para incluir el paquete, edita el archivo `composer.json` que se encuentra en la raíz de tu proyecto. Y añade la siguiente línea a la opción `require`: `"doctrine/dbal": "~2.3"`
 
-  "laravel/framework": "5.0.*",
-  "doctrine/dbal": "~2.3"
-},
-```
+   ```
+	“require”: {
 
-Después ejecuta el comando `composer update` para instalar el nuevo paquete.
+	  "laravel/framework": "5.0.*",
+	  "doctrine/dbal": "~2.3"
+	},
+ ```
+
+  **Nota:** Tienes que añadir la coma final en la línea anterior.
+ 
+  Después ejecuta el comando `composer install` para instalar el nuevo paquete.
+  
+ - O con el comando: `composer require doctrine/dbal:~2.3`.
 
 > Si te aparece el error `[Symfony\Component\Debug\Exception\FatalErrorException]  Class 'Doctrine\DBAL\Driver\PDOMySql\Driver' not found` probablemente es porque no tienes instalado el paquete Doctrine DBAL.
 
@@ -164,6 +170,12 @@ Para crear una migración, símplemente tenemos que ejecutar el comando: `php ar
 Se creará un fichero `.php` en el directorio `database\migrations` con el nombre especificado precedido por la fecha y hora actual. Y contendrá una clase con ese nombre y con los métodos `up()` y `down()` vacíos.
 
 Por ejemplo, con el comando `php artisan make:migration change_users_table`, obtendremos un fichero llamado  `AAAA_MM_DD_000000_change_users_table.php` y en él se definirá la clase `class ChangeUsersTable extends Migration { }`
+
+Una migración en Laravel consiste únicamente en ese fichero `.php` creado. Por lo que si en algún momento quieres borrar una migración **que aún no hayas ejecutado**, tan sólo tienes que borrar el fichero correspondiente.
+
+Por tanto, también se pueden crear migraciones manualmente. Sin embargo, se recomienda usar el comando `php artisan make:migration` porque es un método menos propenso a errores.
+
+Cuando quieres hacer cambios en la estructura de la base de datos y aún no has subido los cambios de la última migración al servidor, puedes ahorrarte crear una nueva migración y, en su lugar, ejecutar un rollback, modificar la última migración con los nuevos cambios y lanzar de nuevo esa migración.
 
 **Parámetros:**
 
@@ -183,12 +195,6 @@ public function up()
 }
 ``` 
 
-Una migración en Laravel consiste únicamente en ese fichero `.php` creado. Por lo que si en algún momento quieres borrar una migración, tan sólo tienes que borrar el fichero correspondiente.
-
-Por tanto, también se pueden crear migraciones manualmente. Sin embargo, se recomienda usar el comando `php artisan make:migration` porque es un método menos propenso a errores.
-
-Cuando quieres hacer cambios en la estructura de la base de datos y aún no has subido los cambios de la última migración al servidor, puedes ahorrarte crear una nueva migración y, en su lugar, ejecutar un rollback, modificar la última migración con los nuevos cambios y lanzar de nuevo esa migración.
-
 ###Ejecutar migraciones
 
 El comando `php artisan migrate` te permite ejecutar todas las migraciones pendientes. Es decir, ejecuta todos los scripts que se encuentren en la carpeta `database\migrations` y que aún no se hayan ejecutado.
@@ -197,5 +203,21 @@ Al ejecutar ese comando, obtendrás un mensaje que te indicará qué scripts se 
 
 > ***Nota:** Si recibes un error `class not found` cuando ejecutas las migraciones, ejecuta el comando `composer dump-autoload` e inténtalo de nuevo. (Tienes más información en [xxxx])
 
+**Parámetros:**
+
+`--force`
+
 Cuando estamos en un entorno de producción (`APP_ENV=production` en el fichero `.env`), Laravel nos pedirá confirmación para ejecutar o deshacer migraciones que impliquen una posible pérdida de datos. Si queremos que no pida confirmación y las ejecute directamente, podemos añadir el parámetro `--force` al comando.
 Por ejemplo: `php artisan migrate --force`.
+
+`--pretend`
+
+Si quieres estar seguro de qué cambios va a realizar la migración en tu base de datos antes de ejecutarla, puedes añadir el parámetro `--pretend` y en lugar de ejecutar la migración, Laravel te mostrará las sentencias SQL que ejecutaría esa(s) migración(es).
+
+`--database`
+
+Te permite especificar la base de datos en la que se deben ejecutar las migraciones.
+
+`--path`
+
+Te permite usar una ruta distinta de `database\migrations` para ejecutar las migraciones.
