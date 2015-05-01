@@ -1,6 +1,6 @@
 ###Migraciones en Laravel - Ejecutar Migraciones.
 
-Este post es la continuación del post [Migraciones en Laravel - Introducción](/Migraciones-en-Laravel---Introducci%C3%B3n) y en él vamos a ver con más detalle cómo escribir una migración y cómo ejecutarla.
+Este post es la continuación del post [Migraciones en Laravel - Introducción](Migraciones-en-Laravel---Introducci%C3%B3n) y en él vamos a ver con más detalle cómo escribir una migración y cómo ejecutarla.
 
 ###Métodos disponibles en las migraciones.
 
@@ -239,7 +239,7 @@ Si quieres estar seguro de qué cambios va a realizar la migración en tu base d
 
 ###Fuentes y más información:
 
-[Migraciones en Laravel - Introducción](/Migraciones-en-Laravel---Introducci%C3%B3n)
+[Migraciones en Laravel - Introducción](Migraciones-en-Laravel---Introducci%C3%B3n)
 
 [Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
 

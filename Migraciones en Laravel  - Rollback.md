@@ -1,6 +1,6 @@
 ###Migraciones en Laravel - Rollback.
 
-En el [post anterior](/Migraciones-en-Laravel---Ejecutar-Migraciones), vimos cómo ejecutar una migración. En este post vamos a ver cómo podemos deshacer una migración que hemos ejecutado.
+En el [post anterior](Migraciones-en-Laravel---Ejecutar-Migraciones), vimos cómo ejecutar una migración. En este post vamos a ver cómo podemos deshacer una migración que hemos ejecutado.
 
 En el entorno de bases de datos, se usa el término `Rollback` para referirse al proceso de deshacer una transacción.
 
@@ -270,9 +270,9 @@ Te permite exportar tus bases de datos actuales como migraciones de Laravel, y l
 
 ###Fuentes y más información:
 
-[Migraciones en Laravel - Introducción](/Migraciones-en-Laravel---Introducci%C3%B3n)
+[Migraciones en Laravel - Introducción](Migraciones-en-Laravel---Introducci%C3%B3n)
 
-[Migraciones en Laravel - Ejecutar Migraciones](/Migraciones-en-Laravel---Ejecutar-Migraciones)
+[Migraciones en Laravel - Ejecutar Migraciones](Migraciones-en-Laravel---Ejecutar-Migraciones)
 
 [Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
 

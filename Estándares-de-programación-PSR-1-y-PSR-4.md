@@ -6,7 +6,7 @@ En esta serie vamos a repasar los estándares de programación hasta llegar a lo
 
 Empezamos con los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
 
-El estándar PSR-2 al ser muy largo, lo veremos en el [siguiente post](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2).
+El estándar PSR-2 al ser muy largo, lo veremos en el [siguiente post](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2).
 
 ###PSR-1 - Estándar básico de estilos de código.
 
@@ -82,9 +82,9 @@ Todos los archivos deben tener la extensión .php.
 Los nombres de los namespaces o clases deben ser ordenados alfabéticamente.
 
 ###Fuentes y más información:
-[Autocarga de clases en Laravel (Autoload)](/Autocarga-de-clases-en-Laravel-(Autoload))
+[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
 
-[Estándares de programación en PHP (PSR-2)](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2)
+[Estándares de programación en PHP (PSR-2)](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2)
 
 <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.   
 
