@@ -21,9 +21,11 @@ Cuando queremos cargar datos en tablas relacionadas, podemos hacerlo en una úni
 
 Recibimos en una varible el `id` generado en la tabla padre, y lo usamos al crear los registros relacionados en las tablas hijos.
 
+#ToDo:Ejemplo
+
 ###Ejecutar los seeders.
 
-Con el comando: `php artisan db:seed` ejecutarás el método `run()` de la clase `DatabaseSeeder`.
+Con el comando: `php artisan db:seed` se ejecuta el método `run()` de la clase `DatabaseSeeder`.
 
 > Puedes ejecutar una clase distinta con el parámetro --class. Por ejemplo: `php artisan db:seed --class=UserTableSeeder`.
 
@@ -38,7 +40,7 @@ Si vas a usar pocos datos de prueba, puedes crearlos manualmente. A partir de ci
 
 Estos son los pasos para usarlo:
 
-- Para instalar el paquete, ejecuta: `composer install fzaninotto/Faker`.
+- Para instalar el paquete, ejecuta: `composer require fzaninotto/Faker`.
 
 - Ahora, para usarlo en tus seeders, edita el fichero con la clase seeder y añade al comienzo: `use Faker\Factory as Faker;`
 
@@ -48,12 +50,21 @@ Por tanto, si lo que queremos es ejecutar varios registros, podemos llamarlo den
 
 
 
-> Faker tiene proveedores para varios idiomas, entre ellos el castellano en versión Española (es_ES), Peruana (es_PE) y Venezolana (es_VE).
+> Faker tiene proveedores para varios idiomas, entre ellos el castellano en versión Española (es_ES), Argentina (es_AR), Peruana (es_PE) y Venezolana (es_VE).
 > Tan sólo tienes que indicarle el idioma cuando llamas al método `create`. Por ejemplo: `$faker = Faker\Factory::create('es_ES');`.
 > Como no todos los métodos están traducidos aún, puedes comprobar cuales están disponibles en el [Directorio de proveedores](https://github.com/fzaninotto/Faker/tree/master/src/Faker/Provider).
 
 
 > También puedes usar [faker-cli](https://github.com/bit3/faker-cli) para generar datos desde la línea de comandos.
+
+###Usando migraciones para llenar tus bases de datos.
+
+Un inconveniente del sistema estándar de Laravel de Seeders, es que no es 'versionable' igual que el sistema de migraciones.
+
+Si tus datos de prueba son pocos y los estás generando manualmente, puedes cargar los datos usando migraciones en lugar de seeders.
+
+Es tan sencillo como crear una nueva migración y añadir los datos en el método `up()` y borrar esos mismos datos en el método `down()`.
+
 
 
 http://laravel.com/docs/5.0/migrations
