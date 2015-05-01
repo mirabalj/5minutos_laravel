@@ -136,3 +136,25 @@ class CreateTicketVotesTable extends Migration
 
  
  polymorphic relationship
+ 
+ 
+ ###Gestionar el borrado de registros en tablas relacionadas.
+
+¿Qué ocurre cuando borras un registro de una tabla padre que tiene asociados registros en una tabla hija? Por ejemplo, si borras un Cliente que tiene facturas.
+
+Hay varios métodos para gestionar este tipos de escenarios.
+
+- Restricciones o Constraints en la Base de Datos.
+
+El método más 'puro' consiste en gestionar ese escenario a nivel de Base de Datos. Se crea una restricción o 'constraint' en la base de datos para indicar que no pueden borrarse registros padres mientras tengan hijos. La mayoría de gestores de bases de datos gestionan esto automáticamente creando índices y constraints cuando defines campos incrementales y relaciones entre las tablas.
+
+Por ej, cuando usas los métodos 'xxxx' en Laravel, se crean esas constraints.
+#ToDo:Ejemplo
+
+De ese modo, si intentas borrar un registro padre que tiene hijos, obtendrás un 'error de constraints'. Y a la hora de borrar registros, tendrás que hacerlo siempre de forma ordenada borrando primero los hijos y después los padres para evitar ese error.
+
+En la mayoría de gestores de datos se puede definir también lo que se llama un 'Borrado en cascada' que consiste en que cuando borras un registro padre, el sistema de la base de datos borra automáticamente sus registros hijos asociados.
+
+Por ej, en Laravel, podemos configurar borrados en cascada usando el método `->onDelete('cascade');` cuando definimos la estructura de nuestra base de datos en las migraciones.
+#ToDo:Ejemplo
+
