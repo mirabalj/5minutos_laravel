@@ -59,7 +59,7 @@ PHP Fatal error:  require(): Failed opening required '(...)\bootstrap/../vendor/
 
 ###Fuentes y más información:
 
-[Autocarga de clases en Laravel (Autoload)](/Autocarga-de-clases-en-Laravel-(Autoload))
+[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
 
 [Más información sobre el fichero .gitignore](https://github.com/jatubio/5minutos_git/wiki/Excluir-ficheros-del-proyecto)  
 
