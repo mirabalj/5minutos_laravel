@@ -1,6 +1,6 @@
 ##Estándares de programación en Laravel
 
-Después de ver los estándares PSR-1, PSR-2 y PSR-4 en los posts anteriores, llegamos a los estándares recomendados en Laravel.
+Después de ver los estándares PSR-1, PSR-2 y PSR-4 en los posts anteriores, llegamos a los más interesantes: Los estándares recomendados en Laravel.
 
 ###Laravel - Guía de estilo de código.
 
