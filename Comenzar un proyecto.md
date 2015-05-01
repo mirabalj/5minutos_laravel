@@ -1,6 +1,21 @@
-###Comenzar un proyecto
+###Comenzar una aplicación Laravel
 
-- Crearla con composer o bien Clonar el repo.
+####Crear la estructura de la aplicación.
+
+Para crear la estructura inicial de la aplicación:
+
+- Ve al directorio raíz de tu servidor web.
+
+`cd <web_server_root_folder>`
+
+- Crea tu apliación con composer:
+
+ `composer create-project laravel/laravel PROJECT_NAME`
+ 
+
+- 
+- 
+- - Crearla con composer o bien Clonar el repo.
 
 - Crear una carpeta dentro de app con el nombre de la aplicación y meter ahí toda la lógica de la aplicación.
 
