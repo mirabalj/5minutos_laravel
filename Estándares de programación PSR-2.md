@@ -1,8 +1,12 @@
 ##Estándares de programación en PHP (PSR-2)
 
-Este estándar forma parte de los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
+Esta es la continuación de los estándares de PHP. En el post anterior, hablamos de los estándares [PSR-1 y PSR-4](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
 
-Los estándares PSR-1 y PSR-4 los puedes encontrar en el [post anterior](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
+Hoy vamos a ver el estándar PSR-2 que es el más complejo de todos.
+
+El estándar PSR-3 no lo veremos porque se refiere únicamente a sistema de logs. Pero si estás interesado en él, encontrarás un link a la documentación al final del post.
+
+Este estándar también forma parte de los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
 
 ###PSR-2 - Guía de estilo de código.
 
