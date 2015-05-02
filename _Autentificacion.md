@@ -1,0 +1,1 @@
+> El sistema de Hash de Laravel usa la clave de la aplicación ('application key') como semilla ('salting key') para generar los hashs de las bases de datos. Por tanto, si modificas esa clave, las claves almacenadas dejarán de ser válidas.
