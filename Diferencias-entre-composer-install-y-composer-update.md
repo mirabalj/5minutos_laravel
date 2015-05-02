@@ -16,7 +16,7 @@ Para eso tenemos dos comandos de Composer: `install` y `update`.
 
 ###Comando install
 
-Para gestionar las dependencias de nuestra aplicación con Composer, se configuran en el fichero `composer.json`.
+Para gestionar las dependencias de nuestra aplicación con Composer, las configuramos en el fichero `composer.json`.
 
 La primera vez que ejecutamos `composer install` en un proyecto, Composer lee ese fichero, resuelve las dependencias que hay en él  e instala los paquetes en el directorio `vendor`.
 
