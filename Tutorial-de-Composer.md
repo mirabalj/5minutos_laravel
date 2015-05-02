@@ -189,8 +189,24 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
  
  Por ejemplo, el comando con el que comienzan la mayoría de aplicaciones basadas en Laravel es:
  
- `composer create-project laravel/laravel nombre_del_proyecto 5.*`	
+ `composer create-project laravel/laravel nombre_del_proyecto`	
+ 
+ También podrías crear tu aplicación desde la versión 5.0.28:
+ 
+ `composer create-project laravel/laravel nombre_del_proyecto 5.0.28`	
+ 
+ O crearla a partir de la última versión beta:
+ 
+ `composer create-project laravel/laravel nombre_del_proyecto --stability=beta`	
 
+  **Parámetros:**
+ 
+  - `--stability` (Por defecto:stable)
+
+  Define el valor para el campo "minimum-stability" del fichero `composer.json`.
+	
+ Las opciones posibles son (En orden de estabilidad): `dev, alpha, beta, RC, y stable`.
+ 
 - `composer install`
 
  Descarga e instala los paquetes que hayamos configurado en el fichero `composer.json` de la aplicación.
@@ -212,6 +228,15 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
  - O actualizar todos los paquetes de un proveedor ('vendor') usando un asterisco:
  
    `composer update doctrine/*`
+
+  **Parámetros:**
+ 
+  - `--prefer-lowest`
+  
+  Preferencia a las versiones mínimas de las dependencias. Se usa con `--prefer-stable` y es útil para testar la versionés mínimas de las dependencias.
+
+  Define el valor para el campo "minimum-stability" del fichero `composer.json`.
+	
 
  > Tienes más información sobre la diferencia entre `composer install` y `composer update` en [este post](Diferencias-entre-composer-install-y-composer-update).
 
@@ -406,7 +431,7 @@ Tienes más información de ambos ficheros en [Diferencias entre composer instal
 
  **Desactiva xDebug** en tu fichero `php.ini` mientras usas Composer comentando las líneas correspodientes. 
 
- > Con xDebug activado, el proceso de instalación y actualización de Composer puede durar **hasta 10 veces más!!**.
+ > Con xDebug activado, el proceso de instalación y actualización de Composer puede durar **hasta 20 veces más!!**.
  
  > **Nota**: Para comprobar si tienes xDebug activado, puedes usar el siguiente comando en Windows: `php -m | findstr xdebug` o `php -m | grep xdebug` en Unix. Si lo tienes activado, aparecerá la palabra `xdebug`.
  
