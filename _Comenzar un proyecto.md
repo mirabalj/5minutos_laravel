@@ -12,6 +12,14 @@ Para crear la estructura inicial de la aplicación:
 
  `composer create-project laravel/laravel PROJECT_NAME`
  
+ > Si quieres crear tu aplicación con las últimas versiones de un repositorio puedes bajar los requerimientos de estabilidad y añadir el parámetro `--stability=dev` o `--stability=beta`, por ejemplo.
+ 
+- Instala la última versión del Framework:
+
+ ```
+ cd <PROJECT_NAME>
+ composer update laravel/framework 5.1 --stability=alpha
+```
 
 - 
 - 
