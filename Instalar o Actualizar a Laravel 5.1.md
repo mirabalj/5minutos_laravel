@@ -6,7 +6,13 @@ Probar Laravel 5.1 es muy sencillo:
 
 ###Crear una nueva aplicación con Laravel 5.1
 
-Si creas una nueva aplicación con Composer utilizando el modo habitual: `composer create-project laravel/laravel PROJECT_NAME`, obtendrás las siguientes versiones instaladas:
+Si creas una nueva aplicación con Composer utilizando el modo habitual: 
+
+```
+composer create-project laravel/laravel PROJECT_NAME
+```
+
+Obtendrás las siguientes versiones instaladas:
 
 ```
 laravel/laravel                       v5.0.22 The Laravel Framework. 
@@ -17,7 +23,12 @@ Dado que aún no hay una versión estable de Laravel 5.1, se instalan las últim
 
 Además, el 'require' de `laravel/laravel` es `laravel/framework: 5.0.*`. Eso quiere decir que siempre se instalará una versión **menor** que la 5.1.
 
-Si bajamos la estabilidad mínima requerida a `dev`: `composer create-project laravel/laravel PROJECT_NAME --stability=dev`, obtendrás las siguientes versiones instaladas:
+Si bajamos la estabilidad mínima requerida a `dev`: 
+
+```
+composer create-project laravel/laravel PROJECT_NAME --stability=dev
+```
+Obtendrás las siguientes versiones instaladas:
 
 ```
 laravel/laravel                    dev-master The Laravel Framework. 
@@ -40,7 +51,7 @@ Ahora si ejecutas `composer show --installed` verás la siguiente línea:
 laravel/framework          dev-master ea0fc7f The Laravel Framework.
 ```
 
-Por fín hemos conseguido instalar la última versión del Framework de Laravel. Como ves, es una versión de desarrollo `dev-master`, y el siguiente código `ea0fc7f` es el Hash del commit que hemos instalado, que en tu caso puede ser distinto. Esto quiere decir que aún es una versión inestable y te puede dar errores. Y sobre todo: **No es una versión para instalar en producción**.
+Por fín hemos conseguido instalar la última versión del Framework de Laravel. Como ves, es una versión de desarrollo `dev-master`, y el siguiente código `ea0fc7f` es el Hash del commit que hemos instalado, que en tu caso puede ser distinto. Esto quiere decir que aún es una versión inestable y te puede dar errores. Por eso es importante que tengas en cuenta que **no es una versión para instalar en entornos de producción**.
 
 ###Actualizar una aplicación a Laravel 5.1
 
@@ -80,12 +91,22 @@ Ahora, ejecuta `composer update` para que actualice todos tus paquetes incluído
 Es probable que al final del proceso de actualización tengas un error como este: 
 
 ```
-PHP Fatal error:  Call to undefined method Illuminate\Foundation\Application::getCachedCompilePath() in Ruta_DE_TU_PROYECTO\vendor\laravel\framework\src\Illuminate\Foundation\Console\ClearCompiledCommand.php on line 28
+PHP Fatal error:  Call to undefined method   
+Illuminate\Foundation\Application::getCachedCompilePath() in   
+RUTA_DE_TU_PROYECTO\vendor\laravel\framework\src\Illuminate\Foundation\Console\ClearCompiledCommand.php on line 28   
+```
+
+o este:
+
+```
+[ErrorException]   
+file_put_contents(RUTA_DE_TU_PROYECTO/bootstrap/cache/services.json):   
+failed to open stream: No such file or directory
 ```
 
 El proceso de actualización se ha llevado a cabo, pero han fallado los scripts encargados de actualizar los ficheros de autocarga de Laravel.
 
-Eso es porque hay algunos cambios en la estructura de la aplicación respecto a Laravel 5.0 y cuando creamos un proyecto nuevo, esos cambios ya por defecto, pero al actualizar una aplicación, tenemos que hacer manualmente los cambios.
+Eso es porque hay algunos cambios en la estructura de la aplicación respecto a Laravel 5.0 y cuando creamos un proyecto nuevo, esos cambios ya vienen por defecto, pero al actualizar una aplicación, tenemos que hacer manualmente los cambios.
 
 No te preocupes porque son muy sencillos:
 
@@ -100,11 +121,17 @@ No te preocupes porque son muy sencillos:
 
 - Por último, edita tu fichero `bootstrap/autoload.php` y actualiza la línea que contiene la variable `$compiledPath` como en la siguiente línea:
 
-```
+ ```
 $compiledPath = __DIR__.'/cache/compiled.php';
 ```
 
-Ahora ya tenemos adaptada nuestra aplicación a Laravel 5.1. Sólo nos falta ejecutar `composer dump-autoload`. Para que se generen los ficheros de autocarga.
+Ahora ya tenemos adaptada nuestra aplicación a Laravel 5.1. Sólo nos falta ejecutar:
+
+```
+composer dump-autoload
+```
+
+Para que se generen los ficheros de autocarga.
 
 Y listo!!
 
@@ -113,6 +140,7 @@ Y listo!!
 A disfrutar de tus nuevas aplicaciones con Laravel 5.1!
 
 > Ahora que sabes cómo actualizar la estructura de tu aplicación a Laravel 5.1, puedes adaptarla antes de modificar el fichero `composer.json` y ejecutar sólo una vez `composer update` para actualizarla.
+> Y **RECUERDA**, esta versión aun es inestable y **no recomendamos** actualizar aplicaciones que estén en entornos de producción.
 
 Para más información sobre el proceso de actualización, puedes ir a la documentación oficial: http://laravel.com/docs/master/upgrade
 
