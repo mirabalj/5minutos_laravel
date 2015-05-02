@@ -1,18 +1,18 @@
-###Tutorial de Composer
+##Tutorial de Composer
 
 Composer es un gestor de paquetes y dependencias. Esto quiere decir que se encarga automáticamente de gestionar las dependencias de tus proyectos e instalar los paquetes necesarios.
 
 Composer usa **Git** (o Subversion, Mercurial, etc..) para descargar los paquetes y su repositorio central por defecto es [Packagist](packagist.org). Con lo que cualquier paquete que encuentres en esa web, puedes instalarlo usando Composer.
 
 <a name="instalar-composer"></a>
-####Instalar composer.
+###Instalar composer.
 
 Puedes instalarlo desde su página web: https://getcomposer.org/download/
 
-Si quieres instalarlo en windows en una carpeta como 'portable', puedes descargarte mi [Gist](https://gist.github.com/jatubio/d5c30606328c370d5640)
+Si quieres instalarlo en windows 'al estilo Unix', puedes descargarte mi [Gist](https://gist.github.com/jatubio/d5c30606328c370d5640) para instalarlo en una carpeta y usarlo desde ahí.
 
 
-####Distribuciones.
+###Distribuciones.
 
 Puedes instalar un paquete de dos formas distintas: `source` y `dist`.
 
@@ -24,7 +24,7 @@ Puedes instalar un paquete de dos formas distintas: `source` y `dist`.
  
  Esta versión descarga el paquete en formato zip si está disponible.
  
-> Usa esta opción para **acelerar** el proceso de instalación y/o si tienes problemas con la configuración de Git.
+  > Usa esta opción para **acelerar** el proceso de instalación y/o si tienes problemas con la configuración de Git.
 
 - `source` (Fuente)
 
@@ -46,21 +46,21 @@ Extracto del fichero `composer.json` de laravel/framework:
     },
 ```
 
- > Puedes modificar la opción por defecto en el fichero de configuración global `config.json` o para un proyecto en el fichero `composer.json`:
+ > Puedes modificar la opción por defecto en el fichero de configuración global `config.json` o para un proyecto concreto en el fichero `composer.json`:
 >
 > `"preferred-install": "source"`
 
-####Estabilidad.
+###Estabilidad.
 
 Cuando instalas los paquetes, puedes elegir qué nivel de estabilidad quieres como mínimo para las versiones instaladas de cada paquete. Composer instalará la última versión disponible que cumpla con el mínimo indicado de estabilidad.
 
 También puedes configurar el nivel de estabilidad por defecto con el parámetro `minimum-stability` del fichero `composer.json`.
 
-Por ejemplo, el mínimo nivel de estabilidad ('desarrollo') en el fichero `composer.json` de tu entorno local, especialmente para los paquetes de desarrollo.
+Por ejemplo, puedes configurar el mínimo nivel de estabilidad ('desarrollo') en el fichero `composer.json` de proyectos que sólo vas a ejecutar en tu entorno local. Por ejemplo, para paquetes de desarrollo.
 
 `"minimum-stability": "dev"`
 
-Y como mínimo 'Release Candidate' en el de tu entorno de producción:
+Y como mínimo 'Release Candidate' en proyectos que vas a pasar a tu entorno de producción:
 
 `"minimum-stability": "RC"`
 
@@ -74,7 +74,7 @@ Antes de que Composer incluyera la opción `prefer-stable`, la solución 'más s
 
 Sin embargo, esa configuración tiene dos inconvenientes:
 
- - Estás incluyendo código que 'acaba de ser programado', es posible que estés incluyendo el último 'commit'. Por tanto, estás poniendo en riesgo la estabilidad de tu aplicación.
+ - Estás incluyendo código que 'acaba de ser programado'. Incluso es posible que estés incluyendo el último 'commit'. Por tanto, estás poniendo en riesgo la estabilidad de tu aplicación.
  
  - Para cada nivel de estabilidad, Composer recorre todas las versiones posibles de ese paquete. Por lo que la velocidad de instalación y actualización de paquetes se reduce enormemente.
  
@@ -166,16 +166,16 @@ Instala cualquier versión mayor o igual a `5.0` y menor de `6.0.0`.
 
 Instala cualquier versión mayor o igual a `5.1.2` y menor de `5.2.0`.
 
-> `laravel/laravel` y `laravel/framework` son dos paquetes distintos. El primero es el 'esqueleto' de una aplicación Laravel para que lo uses como base de tu aplicación (con las carpetas `app`, `config`, `public`, `database`, etc..). El segundo es una dependencia del paquete `laravel/laravel` y contiene el framework, es decir, todo el núcleo y funciones internas de Laravel. Se instala en el directorio `vendor`. 
+> `laravel/laravel` y `laravel/framework` son dos paquetes distintos. El primero es el 'esqueleto' de una aplicación Laravel para que lo uses como base de tu aplicación (contiene las carpetas `app`, `config`, `public`, `database`, etc..). El segundo es una dependencia del paquete `laravel/laravel` y contiene el framework, es decir, todo el núcleo y funciones internas de Laravel. Se instala en el directorio `vendor`. 
 
 Una vez calculadas las posibles versiones, se comprobará tu configuración de estabilidad y de las posibles opciones, se instalará la versión que cumpla con esas condiciones.
 
 El sistema de comodines incluye más combinaciones. Tienes toda la información completa en la documentación oficial de Composer:  https://getcomposer.org/doc/01-basic-usage.md#package-versions
 
-####Comandos
+###Comandos
 
 <a name="create-project"></a>
-- `composer create-project <paquete> <nombre del proyecto> <version>`
+- `composer create-project <paquete> <nombre del proyecto> [<version>]`
 
  Crea un proyecto nuevo descargando y replicando el `<paquete>` especificado:
 
@@ -185,7 +185,7 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
 
   3. Lee el fichero `composer.json` del `<paquete>` y descarga e instala todas sus dependencias dentro de la carpeta `/vendor`. 
  
- Si no indicas una versión, se instalará la última versión que se adapte a tu configuración de estabilidad.
+ Si no especificas una versión, se instalará la última versión que se adapte a tu configuración de estabilidad.
  
  Por ejemplo, el comando con el que comienzan la mayoría de aplicaciones basadas en Laravel es:
  
@@ -195,24 +195,27 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
 
  Descarga e instala los paquetes que hayamos configurado en el fichero `composer.json` de la aplicación.
  
- El directorio `vendor` no suele distribuirse con las aplicaciones. Por tanto, cuando haces un `clone` de un proyecto o aplicación, el primer paso suele ser ejecutar `composer install` para generar ese directorio e instalar en él todas las dependencias de la aplicación.
+ > **Nota:** El directorio `vendor` no suele distribuirse con las aplicaciones. Por tanto, cuando haces un `clone` de un proyecto o aplicación, el primer paso suele ser ejecutar `composer install` para generar ese directorio e instalar en él todas las dependencias de la aplicación.
 
 - `composer update [<proveedor/paquete1> <proveedor/paquete2> <proveedor/*>]`
 
  Para los paquetes que tenemos instalados, comprueba su configuración en el fichero `composer.json` de la aplicación. Y aquellos en los que se ha configurado la opción de actualizar automáticamente la versión, los actualiza a la última versión disponible (según las restricciones de versión configuradas).
 
- Puedes actualizar únicamente uno o varios paquetes separándolos por espacios:
+ - Puedes actualizar todos los paquetes:
 
- `composer update doctrine/dbal laravel/framework`
+   `composer update`
+
+ - Actualizar únicamente uno o varios paquetes separándolos por espacios:
+
+   `composer update doctrine/dbal laravel/framework`
  
- O actualizar todos los paquetes de un proveedor ('vendor') usando un asterisco:
+ - O actualizar todos los paquetes de un proveedor ('vendor') usando un asterisco:
  
- `composer update doctrine/*`
+   `composer update doctrine/*`
 
-> Tienes más información sobre la diferencia entre `composer install` y `composer update` en [este post](Diferencias-entre-composer-install-y-composer-update).
+ > Tienes más información sobre la diferencia entre `composer install` y `composer update` en [este post](Diferencias-entre-composer-install-y-composer-update).
 
-
-- `composer require <proveedor/paquete1[:version]> <proveedor/paquete2[:version]>`
+- `composer require <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]`
 
  Añade los paquetes especificados al fichero `composer.json` y los instala o actualiza.
 
@@ -229,7 +232,7 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
   
   - `--update-with-dependencies`: Actualiza también las dependencias de los nuevos paquetes requeridos.
 
-- `composer remove <proveedor/paquete1[:version]> <proveedor/paquete2[:version]>`
+- `composer remove <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]`
 
  Borra los paquetes especificados del fichero `composer.json` y los desinstala.
  
@@ -237,18 +240,20 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
 
 - `composer dump-autoload`
 
- Actualiza los ficheros de autocarga de tu aplicación. Cuando creas nuevas clases en tus aplicaciones, si están en rutas que no estén referenciadas por el estándar `PSR-4` en el fichero `composer.json`, tienes que añadirlas manualmente a ese fichero y ejecutar `composer dump-autoload` para que se incluyan en el sistema de autocarga de clases de la aplicación.
+ Actualiza los ficheros de autocarga de tu aplicación.  
  
-  > `dump-autoload` **no descarga nada**. Simplemente vuelve a generar el listado de todas las clases que necesitan ser incluidas en tu proyecto.
+ Cuando creas nuevas clases en tus aplicaciones, si están en rutas que no estén referenciadas por el estándar `PSR-4` en el fichero `composer.json`, tienes que añadirlas manualmente a ese fichero y ejecutar `composer dump-autoload` para que se incluyan en el sistema de autocarga de clases de la aplicación.
+ 
+  > **Nota:** `dump-autoload` **no descarga nada**. Simplemente vuelve a generar el listado de todas las clases que necesitan ser incluidas en tu proyecto.
 
   **Parámetros:**
 
   - `--optimize` o `-o`: Convierte las clases referenciadas en `PSR-0` y `PSR-4` a clases `classmap` para obtener un autoloader más rápido. Está recomendado especialmente para entornos de producción. Según el número de clases y tamaño de tu proyecto, puede tardar un poco más en ejecutarse y por eso no está activado por defecto.
 
+   > Usando `--optimize` en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un **20% y un 25%**.
+
   - `--no-dev`: No tiene en cuenta las clases referenciadas en la clave: `autoload-dev`.
   
- > Usando `--optimize` en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un **20% y un 25%**.
-
 - `composer search <palabra>`
 
  Busca en packagist y en la caché local y te muestra todos los paquetes que contengan `<palabra>`.
@@ -259,7 +264,7 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
 
  Muestra los paquetes instalados.  
  
- Para ver todas las versiones disponibles de un paquete y sus dependencias usa el comando `composer show -v`. Por ejemplo:
+ Para ver todas las versiones disponibles de un paquete y sus dependencias usa el comando `composer show -v <paquete>`. Por ejemplo:
  
  	`composer show -v laravel/framework`
 
@@ -271,7 +276,7 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
  
  Comprueba que la sintaxis de tu fichero `composer.json` es correcta.
  
-####Opciones aplicables a `composer install`, `composer update`, y `create-project`.
+###Opciones aplicables a `composer install`, `composer update`, y `create-project`.
 
 - `--stability` (Por defecto:stable)
 
@@ -283,7 +288,7 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
 
  Instala también los paquetes incluidos en la sección `require-dev`.
  
-> En las últimas versiones de Composer no es necesario especificarlo porque es el valor por defecto.
+ > En las últimas versiones de Composer no es necesario especificarlo porque es el valor por defecto.
 
 - `--no-dev`
 
@@ -327,7 +332,9 @@ El sistema de comodines incluye más combinaciones. Tienes toda la información 
 
 Puedes configurar opciones a nivel global con el comando `composer global` o modificando el fichero `config.json` que está en el directorio 'HOME' de Composer. Puedes cambiar ese directorio con la variable de entorno `COMPOSER_HOME`.
 	
-> Habitualmente, el directorio 'HOME' de Composer en Windows es: `C:\Users\<tu_usuario>\AppData\Roaming\Composer`.  
+> Habitualmente, el directorio 'HOME' de Composer es:   
+> 
+> En Windows: `C:\Users\<tu_usuario>\AppData\Roaming\Composer`.  
 > En Linux: `/home/<tu_usuario>/.composer`.  
 > En Mac: `/Users/<tu_usuario>/.composer`.  
 
@@ -347,11 +354,13 @@ Puedes configurar opciones a nivel global con el comando `composer global` o mod
 
 - `cache-dir`
 
- Y para configurar el directorio que Composer usará como **cache** para los paquetes descargados, puedes usar: `composer config --global cache-dir <ruta_de_la_cache>`  
+ Y para configurar el directorio que Composer usará como **cache** para los paquetes descargados, puedes usar: `composer config --global cache-dir <ruta_de_la_cache>` 
+
+ > También puedes configurar ese directorio con la variable de entorno `COMPOSER_CACHE_DIR`.
 
 - Dependencias globales.
 
-Para añadir de forma global una dependencia y que de ese modo siempre se instalen y actualicen esos paquetes en la caché global, ejecuta:
+ Para añadir de forma global una dependencia y que de ese modo siempre se instalen y actualicen esos paquetes en la caché global, ejecuta:
 
 	`composer global require "laravel/framework=~1.1"`
 
@@ -373,27 +382,27 @@ Tienes más información de ambos ficheros en [Diferencias entre composer instal
 	
 ###Resolviendo problemas generales de Composer
 
-- Revisar la configuración del sistema.
+1. **Revisa la configuración del sistema.**
 
  El primer paso si tienes problemas, es ejecutar `composer diagnose`. De ese modo, Composer revisará automáticamente tu sistema y te avisará si encuentra algún problema.
 
-- Actualizar tu versión de Composer.
+2. **Actualiza tu versión de Composer.**
 
  El siguiente paso es asegurarte de que tienes la última versión con el comando `composer self-update`.
  
-- Aumentar el nivel de detalle de los mensajes que muestra el comando. 
+3. **Aumenta el nivel de detalle de los mensajes que muestra el comando.** 
 
  Añade la opción `-vvv` al comando que estés utilizando para ver todo el proceso con detalle.
 
-- Borra la carpeta `vendor` y el fichero `composer.lock` y ejecuta `composer install`. 
+4. **Borra la carpeta `vendor` y el fichero `composer.lock` y ejecuta `composer install`.** 
  
-- Vaciar la caché interna.
+5. **Vacía la caché interna.**
 
  Si tienes problemas con Composer y no te funciona nada de lo anterior, usa el comando `composer clear-cache` para vaciar tu caché. De ese modo, se volverán a descargar las versiones originales de los paquetes la próxima vez que utilices `composer install` o `composer update`.
 
 ###Resolviendo errores concretos.
 
-- Composer es muy lento al actualizar/instalar los paquetes.
+- **Composer es muy lento al actualizar/instalar los paquetes.**
 
  **Desactiva xDebug** en tu fichero `php.ini` mientras usas Composer comentando las líneas correspodientes. 
 
@@ -401,15 +410,15 @@ Tienes más información de ambos ficheros en [Diferencias entre composer instal
  
  > **Nota**: Para comprobar si tienes xDebug activado, puedes usar el siguiente comando en Windows: `php -m | findstr xdebug` o `php -m | grep xdebug` en Unix. Si lo tienes activado, aparecerá la palabra `xdebug`.
  
- Usa el mayor nivel de estabilidad posible para aumenta la velocidad de instalación/actualización de los paquetes.
+ Usar el mayor nivel de estabilidad posible aumentará ligeramente la velocidad de instalación/actualización de los paquetes.
  
- Cambia las dependencias para que sean lo más específicas posibles, también ayuda. Por ejemplo, cambia `"laravel/framework": "5.*"` por `"laravel/framework": "5.0.*"` o mejor aún, por `"laravel/framework": "5.0.28"`.
+ Cambiar las dependencias para que sean lo más específicas posibles, también ayuda. Por ejemplo, cambia `"laravel/framework": "5.*"` por `"laravel/framework": "5.0.*"` o mejor aún, por `"laravel/framework": "5.0.28"`.
  
  Si tienes configurado `"preferred-install": "source"`, utiliza `--prefer-dist` para descargar los paquetes en formato .zip y aumentar la velocidad.
  
  Por último, puedes instalar [Satis](https://github.com/composer/satis) para mantener una copia estática en local de los paquetes que utilizas habitualmente. Y [utilizar un script php](http://melp.nl/2013/09/composer-create-a-local-package-repository-to-improve-speed/) para configurarlo.
 
-- Error de Timeout.
+- **Error de Timeout.**
 
  Si tienes errores de Timeout porque tu conexión va muy lenta, configura el parámetro `process-timeout` para aumentar el tiempo por defecto que es de 300 segundos (5 minutos).
  
@@ -417,39 +426,41 @@ Tienes más información de ambos ficheros en [Diferencias entre composer instal
 
  `composer config --global process-timeout 1500` 
 
-- Fichero lock desactualizado.
+ > También puedes configurar el Timeout con la variable de entorno `COMPOSER_PROCESS_TIMEOUT`.
+
+- **Warning: Fichero lock desactualizado.**
 
  ```
  Warning: The lock file is not up to date with the latest changes in composer.json, you may be getting outdated dependencies, run update to update them.
 ```
 
- Cuando Composer genera el fichero `composer.lock`, guarda en él un Hash md5 del fichero `composer.json`. Si posteriormente modificas el fichero `composer.json`, Composer te mostrará ese mensaje hasta que ejecutes `composer install` o `composer update`.
+ Cuando Composer genera el fichero `composer.lock`, guarda en él un **Hash MD5** del fichero `composer.json`. Si posteriormente modificas el fichero `composer.json`, Composer te mostrará ese mensaje hasta que ejecutes `composer install` o `composer update`.
  
-> Si no quieres instalar ni actualizar tus paquetes. Por ejemplo, porque has añadido un comentario al fichero `composer.json` o un parámetro de configuración. El comando `composer update --lock` actualiza únicamente el hash del fichero `composer.lock` y suprime ese warning.
+  > Si no quieres instalar ni actualizar tus paquetes. Por ejemplo, porque has añadido un comentario al fichero `composer.json` o un parámetro de configuración. El comando `composer update --lock` actualiza únicamente el hash del fichero `composer.lock` y suprime ese warning.
 
-- La extensión openssl
+- **Warning: extensión openssl.**
 
  Si obtienes un Warning de tipo `openssl extension is missing` o `must enable the openssl extension` al instalar o usar Composer, asegúrate de tener configurada la extensión `php_openssl.dll` en tu fichero `php.ini`.
  
  Busca la línea: `;extension=php_openssl.dll` y quita el `;` inicial, o añade esta línea: `extension=php_openssl.dll`.
 
-- Incompatibilidad de versiones entre paquetes.
+- **Incompatibilidad de versiones entre paquetes.**
 
  Si al instalar o actualizar tus paquetes tienes un problema de compatibilidad de versiones entre ellos, la solución es definir un [Alias](https://getcomposer.org/doc/articles/aliases.md).
  
-- 'Your requirements could not be resolved to an installable set of packages'.
+- **'Your requirements could not be resolved to an installable set of packages'.**
 
- Comprueba en primer lugar que los nombres de los paquetes están escritos correctamente.
+ > **Nota:** Comprueba en primer lugar que los nombres de los paquetes están escritos correctamente.
 
  Este error indica que según tus requerimientos mínimos de estabilidad, hay una dependencia para la que no se ha encontrado ninguna versión que cumpla esos requerimientos.
  
- Empieza configurando `"minimum-stability": "dev"` en tu fichero `composer.json`. Y borrando (si existiera) `"prefer-stable": true`. Si no te da problemas, puedes probar con mayores niveles de estabilidad y cuando hayas encontrado el mínimo necesario, añade `"prefer-stable": true` para asegurarte de que ese nivel se aplique únicamente en los paquetes que lo requieran.
+ Empieza configurando `"minimum-stability": "dev"` en tu fichero `composer.json`. Y borrando (si existiera) `"prefer-stable": true`. Si no te da problemas, puedes probar con mayores niveles de estabilidad y cuando hayas encontrado el mínimo necesario, añade `"prefer-stable": true` para asegurarte de que ese nivel se aplique únicamente en los paquetes que lo requieran, o configura el nuevo nivel de estabilidad de forma individual para cada paquete que lo necesite (puedes usar `composer show --installed` para ver las versiones instaladas).
  
-- Error 503 al descargar los ficheros .zip de GitHub.
+- **Error 503 al descargar los ficheros .zip de GitHub.**
 
  Prueba a usar `composer install --prefer-source` o  `composer update --prefer-source`.
  
-####Importante
+###Importante
 
 - Cuando distribuyas tu proyecto, recuerda añadir los ficheros `composer.json` y `composer.lock`.
 
@@ -459,7 +470,7 @@ Tienes más información de ambos ficheros en [Diferencias entre composer instal
 
 - Usa `--optimize-autoloader` en el entorno de producción para mejorar el rendimiento de tu aplicación.
 
-- No uses `"minimum-stability": "dev"` en tus ficheros.json. Si lo usas,  En su lugar, configura las dependencias `dev` para los paquetes que las necesiten. O, al menos, combínalo con `"prefer-stable": true`.
+- No uses `"minimum-stability": "dev"` en tus ficheros.json. En su lugar, configura las dependencias `dev` para los paquetes que las necesiten. O, al menos, si lo usas, combínalo con `"prefer-stable": true`.
 
 - Utiliza el parámetro `--dev` del comando `composer require` cuando instales paquetes que vas a usar únicamente en el entorno de desarrollo. Como los paquetes de tests, seeders, depuración, complementos del IDE, etc..
 
