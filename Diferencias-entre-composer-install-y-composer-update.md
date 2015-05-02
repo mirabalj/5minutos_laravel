@@ -16,7 +16,7 @@ Para eso tenemos dos comandos de Composer: `install` y `update`.
 
 ###Comando install
 
-Para gestionar las dependencias de nuestra aplicación con Composer, se configuran en el fichero `composer.json`.
+Para gestionar las dependencias de nuestra aplicación con Composer, las configuramos en el fichero `composer.json`.
 
 La primera vez que ejecutamos `composer install` en un proyecto, Composer lee ese fichero, resuelve las dependencias que hay en él  e instala los paquetes en el directorio `vendor`.
 
@@ -59,7 +59,7 @@ PHP Fatal error:  require(): Failed opening required '(...)\bootstrap/../vendor/
 
 ###Fuentes y más información:
 
-[!!!Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
+[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
 
 [Más información sobre el fichero .gitignore](https://github.com/jatubio/5minutos_git/wiki/Excluir-ficheros-del-proyecto)  
 

@@ -113,11 +113,11 @@ En este último post, recogemos un resumen a modo de 'hoja de consulta' de los e
 <br>  
 ###Fuentes y más información:
 
-[!!!!Estándares de programación en PHP (PSR-1 y PSR-4)]()   
+[Estándares de programación en PHP (PSR-1 y PSR-4)](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4)   
 
-[!!!!Estándares de programación en PHP (PSR-2)]()   
+[Estándares de programación en PHP (PSR-2)](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2)
 
-[!!!!Estándares de programación en Laravel]()
+[Estándares de programación en Laravel](Est%C3%A1ndares-de-programaci%C3%B3n-en-Laravel)
 
 [Guía de Contribución de Laravel - Estilo del Código](http://laravel.com/docs/5.0/contributions#coding-style)   
 

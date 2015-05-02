@@ -1,6 +1,6 @@
 ###Migraciones en Laravel - Rollback.
 
-En el post anterior, vimos cómo ejecutar una migración. Enn este post vamos a ver cómo podemos deshacer una migración que hemos ejecutado.
+En el [post anterior](Migraciones-en-Laravel---Ejecutar-Migraciones), vimos cómo ejecutar una migración. En este post vamos a ver cómo podemos deshacer una migración que hemos ejecutado.
 
 En el entorno de bases de datos, se usa el término `Rollback` para referirse al proceso de deshacer una transacción.
 
@@ -68,7 +68,7 @@ Si quieres probar como funciona el sistema de Rollback en las migraciones, sígu
 
  Como en el siguiente paso vamos a renombrar una columna, tal y como comentamos en el post anterior, esta funcionalidad la proporciona el paquete `Doctrine DBAL` que no viene instalado por defecto.
 
- Para instalar el paquete, ejecuta el comando: `composer require doctrine/dbal:~2.3`.
+ Para instalar el paquete, ejecuta el comando: `composer require doctrine/dbal`.
  
 - Renombrando la columna `name` a `first_name`.
 
@@ -135,11 +135,16 @@ ejecutar las migraciones.
 - `migrate:refresh`
 
  Deshace todas las migraciones y las ejecuta otra vez. Puede ser útil si tienes que modificar alguna de las migraciones.
+ 
+ > **Este comando BORRARÁ todos tus datos**. Usa este comando únicamente en entornos de desarrollo y cuando no tengas datos valiosos en la base de datos.
 
 - `migrate:reset`
 
  Deshace todas las migraciones.
- 
+
+ > **Este comando BORRARÁ todos tus datos**. Usa este comando únicamente en entornos de desarrollo y cuando no tengas datos valiosos en la base de datos.
+
+<br/> #ToDo:Check Style
 > Si tienes creadas las clases de poblado de datos, puedes llenar tus tablas de datos al mismo tiempo que ejecutas tus migraciones añadiendo el parámetro `--seed`. Por ejemplo: `php artisan migrate --seed`.
 
 ###Aplicaciones prácticas:
@@ -270,10 +275,16 @@ Te permite exportar tus bases de datos actuales como migraciones de Laravel, y l
 
 ###Fuentes y más información:
 
+[Migraciones en Laravel - Introducción](Migraciones-en-Laravel---Introducci%C3%B3n)
+
+[Migraciones en Laravel - Ejecutar Migraciones](Migraciones-en-Laravel---Ejecutar-Migraciones)
+
 [Styde.net - Creando Migraciones en Laravel 5](https://styde.net/creando-migraciones-en-laravel-5/)  
-(!!!Link a la primera parte)   
-(!!!Link a la segunda parte)  
+
 [Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
+
 [Migraciones - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/migrations)  
+
 [Constructor de esquemas - Documentación oficial de Laravel 5](http://laravel.montogeek.co/5.0/schema)   
+
 [Database Abstraction Layer — Doctrine Project](http://www.doctrine-project.org/projects/dbal.html)  

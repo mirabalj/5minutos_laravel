@@ -1,11 +1,15 @@
 ##Autocarga de clases en Laravel (Autoload)
+
 En este post vamos a ver con detalle el sistema de autocarga de clases de Laravel 5. (La mayoría de lo expuesto es aplicable también a Laravel 4)
 
 Laravel utiliza **Composer** para generar los ficheros .php que se encargan del proceso de autocarga de las clases.
 
+Puedes ver una aplicación práctica de este artículo en la Lección 2 del <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.
+
 Vamos a ver un poco de historia sobre la carga de archivos (**include**) y los sistemas de autocarga en php:
 
 ###Autocarga en PHP5
+
 Para usar las clases definidas en otros ficheros .php distintos al que estamos ejecutando, tenemos que usar la directiva `include` al comienzo de cada uno de nuestros ficheros.
 
 A partir de PHP 5, se introdujo un nuevo sistema de 'Autocarga de clases' (Autoload) que permite usar nuestras clases sin tener que escribir los 'include' correspondientes. 
@@ -214,8 +218,6 @@ Cuando añadimos referencias a nuevas clases en nuestro fichero `composer.json` 
 ### **Error:** [ReflectionException] Class UserTableSeeder does not exist
 
 Si aparece este error al ejecutar tu aplicación Laravel, es posible que hayas creado una nueva clase y no esté correctamente referenciada en el fichero `composer.json` y __Laravel__ no consigue cargarla.
-
-##Fuentes:
 
 ###Fuentes y más información:
 
