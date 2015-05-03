@@ -4,9 +4,9 @@ Composer es una herramienta compleja y, en ocasiones, afinarlo para que funcione
 
 Probablemente, te hayas encontrado ya alguna vez con el mensaje de error `Your requirements could not be resolved to an installable set of packages.`.
 
-Como necesitamos un ejemplo real, qué mejor que usar la flamante versión 5.1 de Laravel.
+Vamos a utilizar un caso real en el que aparece ese mensaje de error, y qué mejor que usar la flamante versión 5.1 de Laravel.
 
-Vamos a aprovechar que Laravel 5.1 aún está en fase de desarrollo, y que los requerimientos de muchos paquetes de los que usamos habitualmente aún no están actualizados a esa versión. Y es muy habitual encontrarnos este error cuando instalamos paquetes en Laravel 5.1
+Vamos a aprovechar que Laravel 5.1 aún está en fase de desarrollo, y que los requerimientos de muchos paquetes de los que usamos habitualmente aún no están actualizados a esa versión. Por lo que es muy habitual encontrarnos este error cuando instalamos paquetes en Laravel 5.1.
 
 Si además, estás creando aplicaciones con Laravel 5.1, y quieres usar tus paquetes habituales, en este post, te vamos a enseñar a instalarlos sin problemas.
 
@@ -27,10 +27,15 @@ composer require barryvdh/laravel-debugbar:2.0.3 --dev
 
 ###Crear una aplicación con Laravel 5.1
 
-Como ya vimos en el post anterior!!!, para crear una nueva aplicación y movernos al directorio de esta, ejecuta:
+Como ya vimos en el post anterior [Instalar o Actualizar a Laravel 5.1](Instalar-o-Actualizar-a-Laravel-5.1), para crear una nueva aplicación y movernos al directorio de esta, ejecuta:
 
 ```
 composer create-project laravel/laravel test51 dev-develop
+```
+
+Y cámbiate al nuevo directorio:
+
+```
 cd test51
 ```
 
@@ -71,19 +76,27 @@ Your requirements could not be resolved to an installable set of packages.
 Installation failed, reverting ./composer.json to its original content.
 ```
 
-Vamos a ver qué significa este mensaje de error. Como dice Duilio, un buen programador es aquel que sabe leer e interpretar los errores. Y yo estoy totalmente de acuerdo.
+Vamos a ver qué significa este mensaje de error. Como dice [Duilio](https://styde.net), un buen programador es aquel que sabe leer e interpretar los errores. Y yo estoy totalmente de acuerdo.
 
 ```
 Conclusion: don't install laravel/framework 5.1.x-dev
 ``` 
 
-Este es el paquete que es incompatible con el paquete que estamos instalando. 
+Este mensaje nos dice cual es el paquete que es incompatible con el paquete que estamos instalando. En este caso, nos dice que la version `5.1.x-dev` del paquete `laravel/framework` es incompatible con los paquetes que queremos instalar. 
+
+Y este otro:
+
+```
+Conclusion: remove laravel/framework 5.1.x-dev
+```
+
+Nos da información de que ese paquete ya lo tenemos instalado.
 
 ```
 - barryvdh/laravel-debugbar 2.0.x-dev requires illuminate/support ~5.0.17 -> satisfiable by illuminate/support[5.0.x-dev, v5.0.22, v5.0.25, v5.0.26, v5.0.28].
 ```
 
-Este mensaje nos dice para la versión `2.0.x-dev` de `barryvdh/laravel-debugbar` que sus requerimientos son `illuminate/support ~5.0.17` y que cualquiera de las versiones indicadas `[5.0.x-dev, v5.0.22, v5.0.25, v5.0.26, v5.0.28]` podrían instalarse con esos requerimientos.
+Este mensaje nos dice que los requerimientos de la versión `2.0.x-dev` de `barryvdh/laravel-debugbar` son `illuminate/support ~5.0.17` y que cualquiera de las versiones indicadas `[5.0.x-dev, v5.0.22, v5.0.25, v5.0.26, v5.0.28]` podrían instalarse con esos requerimientos.
 
 Esa es la primera versión de la lista porque es la que más encaja dentro de nuestros requerimientos actuales de estabilidad. Ya que si miras el fichero `composer.json` de la aplicación que acabas de crear, verás que el mínimo nivel de estabilidad está marcado a `dev`.
 
@@ -97,7 +110,7 @@ Esa es la primera versión de la lista porque es la que más encaja dentro de nu
 > Puedes instalar una versión distinta, especificándola en el comando `composer require`. 
 > Por ejemplo: `composer require barryvdh/laravel-debugbar 2.0.3 --dev`
 
-Volviendo al mensaje de error, además de la última versión (`2.0.x-dev`) nos muestra la información de requerimientos de las versiones más recientes del paquete, desde la `v2.0.0` a la `v2.0.3`.
+Volviendo al mensaje de error, además de darnos información aplicable a la última versión (`2.0.x-dev`), nos muestra también la información de requerimientos de las versiones más recientes del paquete, desde la `v2.0.0` a la `v2.0.3`.
 
 Pasamos ahora al siguiente apartado:
 
@@ -125,7 +138,7 @@ Un gran porcentaje de las veces en las que aparece este problema, es debido a ut
 
 Cuando la opción de indicar una versión exacta no funciona, tenemos como solución los **Alias** de Composer.
 
-Un Alias es un modo de engañar a un paquete y 'colarle gato por liebre' dándole una versión que no es la que esperaban. En el ejemplo que estamos viendo, `barryvdh/laravel-debugbar` pide una versión `5.0.x` que, al parecer es incompatible con la que tenemos instalada. Vamos crear un alias a 'engañar' a `barryvdh/laravel-debugbar` y decirle que la que tenemos instalada es una versión `5.0.x`.
+Un Alias es un modo de engañar a un paquete y 'colarle gato por liebre'. Dándole una versión que no es la que esperaba. En el ejemplo que estamos viendo, `barryvdh/laravel-debugbar` pide una versión `5.0.x` que, al parecer, es incompatible con la que tenemos instalada. Vamos a crear un alias para 'engañar' a `barryvdh/laravel-debugbar` y decirle que la que tenemos instalada es una versión `5.0.x`.
 
 El primer paso es saber qué versión tenemos instalada, ya que los Alias hay que definirlos con una versión exacta. Para eso ejecuta el comando:
 
@@ -133,7 +146,9 @@ El primer paso es saber qué versión tenemos instalada, ya que los Alias hay qu
 composer show --installed
 ```
 
-Con ese comando obtenemos una lista de todos los paquetes instalados y su versión. Revisando el listado, deberíamos encontrar una línea parecida a esta:
+Con ese comando obtenemos una lista de todos los paquetes instalados y su versión. 
+
+Revisando el listado, deberíamos encontrar una línea parecida a esta:
 
 ```
 illuminate/support              5.1.x-dev        Illuminate Support Component
@@ -141,17 +156,17 @@ illuminate/support              5.1.x-dev        Illuminate Support Component
 
 > También puedes ejecutar `composer show illuminate/support --installed` para obtener sólo la información de un paquete.
 
-Sorprendentemente, no aparece ese paquete por ningún sitio. Esto es porque es un caso especial que voy a explicar más adelante. Por ahora, tendrás que creerme y aceptar que la versión que tenemos instalada es la `5.1.x-dev`.
+**Sorprendentemente**, no aparece ese paquete por ningún sitio. Esto es porque es un caso especial que voy a explicar más adelante. Por ahora, tendrás que creerme y aceptar que la versión que tenemos instalada es la `5.1.x-dev`.
 
-Los alias se definen en el fichero `composer.json`. Vamos a tomar la información que nos daba esta línea:
+Vamos a tomar la información que nos daba esta línea:
 
 ```
     - barryvdh/laravel-debugbar 2.0.x-dev requires illuminate/support ~5.0.17 -> satisfiable by illuminate/support[5.0.x-dev, v5.0.22, v5.0.25, v5.0.26, v5.0.28].
 ```
 
-Y le vamos a decir que tenemos instalada la versión `illuminate/support:5.0.17`.
+Y le vamos a decir que tenemos instalada la versión `illuminate/support:5.0.17`. Es decir, le vamos a 'colar' la versión `5.1.x-dev` como si fuera la `5.0.17`.
 
-Modifica tu fichero `composer.json` y añade el Alias:
+Los alias se definen en el fichero `composer.json`. Modifica tu fichero `composer.json` y añade el Alias:
 
 ```
 	"require": {
@@ -168,7 +183,7 @@ Ya estamos preparados para instalar de nuevo `barryvdh/laravel-debugbar`. Ejecut
 composer require barryvdh/laravel-debugbar --dev
 ```
 
-!!!Volvemos a tener un error! Aunque esta vez al menos el mensaje es más pequeño. 
+***¡¡¡Volvemos a tener un error!!!*** Aunque esta vez al menos el mensaje es más pequeño. Al menos, tendremos la información más condensada:
 
 ```
 Using version ^2.0@dev for barryvdh/laravel-debugbar
@@ -190,6 +205,8 @@ Your requirements could not be resolved to an installable set of packages.
     - Installation request for laravel/framework 5.1.* -> satisfiable by laravel/framework[5.1.x-dev].
     - Installation request for barryvdh/laravel-debugbar ^2.0@dev -> satisfiable by barryvdh/laravel-debugbar[2.0.x-dev, v2.0.0, v2.0.1,
 ```
+
+No te preocupes, es justo lo que necesitamos para aprender más sobre los Alias.
 
 En situaciones normales, ya habríamos solucionado el conflicto y la mayoría de las veces, será suficiente con los pasos anteriores para resolver tus conflictos de paquetes utilizando Alias en Composer.
 
@@ -252,11 +269,11 @@ Conclusion: remove laravel/framework 5.1.x-dev
 
 3. Hacemos click en el enlace de `Source` para irnos al código fuente. (Source: https://github.com/laravel/framework). 
 
-4. Buscamos la rama que tenemos instalada `master` y en ella, el commit cuyo hash comienza por `ea0fc7f`. (https://github.com/laravel/framework/commit/ea0fc7ff2fc4f0319142ad7decc9528f3cfd96b4)
+4. Buscamos la rama que tenemos instalada (`master`) y en ella, el commit cuyo hash comienza por `ea0fc7f`. (https://github.com/laravel/framework/commit/ea0fc7ff2fc4f0319142ad7decc9528f3cfd96b4)
 
 5. Hacemos click en `Browse files`.
 
-> Si el paquete está en GitHub, un truco para ir directamente al código del commit que estamos buscando, es escribir directamente la url de este modo: `https://github.com/<paquete>/tree/<hash>`. Por ejemplo, en nuestro caso, con la referencia que nos dio Packagist, el link sería: https://github.com/laravel/framework/tree/ea0fc7ff
+ > Si el paquete está en GitHub, un truco para ir directamente al código del commit que estamos buscando, es escribir directamente la url de este modo: `https://github.com/<paquete>/tree/<hash>`. Por ejemplo, en nuestro caso, con la referencia que nos dio Packagist, el link sería: https://github.com/laravel/framework/tree/ea0fc7ff
 
 6. Vamos a mirar ahora el [fichero](https://github.com/laravel/framework/blob/ea0fc7ff2fc4f0319142ad7decc9528f3cfd96b4/composer.json]) `composer.json`.
 
