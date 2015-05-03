@@ -1,6 +1,6 @@
-###Comenzar una aplicación Laravel
+##Comenzar una aplicación Laravel
 
-####Crear la estructura de la aplicación.
+###Crear la estructura de la aplicación.
 
 Para crear la estructura inicial de la aplicación:
 
@@ -8,32 +8,41 @@ Para crear la estructura inicial de la aplicación:
 
 `cd <web_server_root_folder>`
 
-- Crea tu apliación con composer:
+- Crea tu aplicación con composer:
 
- `composer create-project laravel/laravel PROJECT_NAME`
+ ```
+composer create-project laravel/laravel PROJECT_NAME
+```
+
+ o si quieres usar la última versión del framework:
+
+ ```
+composer create-project laravel/laravel PROJECT_NAME dev-develop
+```
  
  > Si quieres crear tu aplicación con las últimas versiones de un repositorio puedes bajar los requerimientos de estabilidad y añadir el parámetro `--stability=dev` o `--stability=beta`, por ejemplo.
  
-- Instala la última versión del Framework:
+- ¿¿Crear una carpeta dentro de app con el nombre de la aplicación y meter ahí toda la lógica de la aplicación.??
 
- ```
- cd <PROJECT_NAME>
- composer update laravel/framework 5.1 --stability=alpha
-```
+- Configura tu IDE:
 
-- 
-- 
-- - Crearla con composer o bien Clonar el repo.
+ Para PhpStorm, copiar los ficheros de la carpeta .idea de otra aplicación.
+ 
+ 
+###Instala los paquetes que sueles usar.
 
-- Crear una carpeta dentro de app con el nombre de la aplicación y meter ahí toda la lógica de la aplicación.
+####Desarrollo:
 
-- Copiar los ficheros de la carpeta .idea de otra aplicación (Para el IDE PhpStorm)
+ - 
 
 ##Pasos para configurar una aplicación:
 
 - Para cambiar el namespace por defecto de nuestra aplicación
 
-`php artisan app:name <NombreApp>`
+```
+php artisan app:name <NombreApp>
+```
+
 
 - Crear la Base de datos en MySQL
 
@@ -45,7 +54,7 @@ Para crear la estructura inicial de la aplicación:
 
 - Añadir el fichero web.config
       
-Para crear las tablas necesarias en la base de datos, podemos ejecutar: php artisan migrate
+Para crear las tablas necesarias en la base de datos, podemos ejecutar: `php artisan migrate`
 
 ###Inicializar proyectos Laravel
 
@@ -63,4 +72,4 @@ Para ejemplos sobre cómo funcionan las redirecciones, comprobaciones de login y
 
 `require(<webfolder>\bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in <webfolder>\bootstrap\autoload.php on line 17`
 
-Si acabas de clonar el proyecto, es porque hay que hacer un composer.update para que se cree la carpeta `vendor`.
+Si acabas de clonar el proyecto, es porque hay que hacer un `composer.update` para que se cree la carpeta `vendor`.
