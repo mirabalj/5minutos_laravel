@@ -10,7 +10,20 @@ Vamos a aprovechar que Laravel 5.1 aún está en fase de desarrollo, y que los r
 
 Si además, estás creando aplicaciones con Laravel 5.1, y quieres usar tus paquetes habituales, en este post, te vamos a enseñar a instalarlos sin problemas.
 
-Como comentaba antes, el principal problema con el que te vas a encontrar es con la incompatibilidad de versiones entre los requerimientos de los paquetes y los requerimientos del Framework de Laravel 5.1. Ya que muchos paquetes tienen definidos sus requerimientos a la versión 'laravel/framework:5.0.x', es decir, cualquier versión **menor** que la 5.1.
+Como comentaba antes, el principal problema con el que te vas a encontrar es con la incompatibilidad de versiones entre los requerimientos de los paquetes y los requerimientos del Framework de Laravel 5.1. Ya que muchos paquetes tienen definidos sus requerimientos a la versión `laravel/framework:5.0.x`, es decir, cualquier versión **menor** que la 5.1.
+
+> **Nota:** Originalmente este post estaba escrito con el paquete `barryvdh/laravel-ide-helper`. Avisé a Barry vd. Heuvel, su autor, del problema y por si acaso lo corregía muy pronto, elegí el paquete `barryvdh/laravel-debugbar` para que pudiéras hacer las pruebas.
+>
+> Sin embargo, me ha contestado en GitHub para avisarme de que ya ha actualizado ambos paquetes para que acepten la versión 5.1 de `laravel/framework`. En **Packagist** aún no ha sido actualizado, pero es probable que cuando vayas a hacer las pruebas, ya no dé error al instalarlo y no puedas hacer las pruebas de este post con la última versión de ese paquete. En ese caso, si quieres seguir los pasos de este post, sustituye el comando:
+>```
+composer require barryvdh/laravel-debugbar --dev
+```
+> Por:
+>```
+composer require barryvdh/laravel-debugbar:2.0.3 --dev
+```
+> Para que instale una versión en la que el fichero `composer.json` es incompatible con Laravel 5.1
+
 
 ###Crear una aplicación con Laravel 5.1
 
