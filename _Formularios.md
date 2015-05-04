@@ -1,0 +1,1 @@
+#ToDo:http://www.cazaplanetas.com/webmaster/otra-forma-de-usar-laravel-collective/
