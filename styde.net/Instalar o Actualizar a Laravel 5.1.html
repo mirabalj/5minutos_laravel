@@ -1,0 +1,86 @@
+<h3 id="laravel-5-1-ya-est-aqu-">Laravel 5.1 ya está aquí!!</h3>
+Y, si eres tan impaciente como yo, probablemente quieras empezar a probarlo en tus aplicaciones.
+
+Probar Laravel 5.1 es muy sencillo:
+<h3 id="crear-una-nueva-aplicaci-n-con-laravel-5-1">Crear una nueva aplicación con Laravel 5.1</h3>
+Si creas una nueva aplicación con Composer utilizando el modo habitual:
+<pre><code>composer create-project laravel/laravel PROJECT_NAME</code></pre>
+Obtendrás las siguientes versiones instaladas:
+<pre><code>laravel/laravel                       v5.0.22 The Laravel Framework. 
+laravel/framework                     v5.0.16 The Laravel Framework.</code></pre>
+Dado que aún no hay una versión estable de Laravel 5.1, se instalan las últimas versiones estables disponibles para ambos paquetes.
+
+Además, el 'require' de <code>laravel/laravel</code> es <code>laravel/framework: 5.0.*</code>. Eso quiere decir que siempre se instalará una versión <strong>menor</strong> que la 5.1.
+
+Si bajamos la estabilidad mínima requerida a <code>dev</code>:
+<pre><code>composer create-project laravel/laravel PROJECT_NAME --stability=dev</code></pre>
+Obtendrás las siguientes versiones instaladas:
+<pre><code>laravel/laravel                    dev-master The Laravel Framework. 
+laravel/framework                     v5.0.28 The Laravel Framework.</code></pre>
+Hemos conseguido instalar la versión <code>v5.0.28</code> del Framework, pero no la <code>5.1</code>.
+
+Eso es porque si te vas al <a href="https://github.com/laravel/laravel/blob/master/composer.json">fichero</a> <code>composer.json</code> de la rama <code>dev-master</code>, verás que el require del Framework sigue siendo: <code>laravel/framework: 5.0.*</code>.
+
+El truco está en <code>forzar</code> a instalar la rama <code>dev-develop</code>:
+<pre><code>composer create-project laravel/laravel PROJECT_NAME dev-develop</code></pre>
+Ahora si ejecutas <code>composer show --installed</code> verás la siguiente línea:
+<pre><code>laravel/framework          dev-master ea0fc7f The Laravel Framework.</code></pre>
+Por fín hemos conseguido instalar la última versión del Framework de Laravel. Como ves, es una versión de desarrollo <code>dev-master</code>, y el siguiente código <code>ea0fc7f</code> es el Hash del commit que hemos instalado, que en tu caso puede ser distinto. Esto quiere decir que aún es una versión inestable y te puede dar errores. Por eso es importante que tengas en cuenta que <strong>no es una versión para instalar en entornos de producción</strong>.
+<h3 id="actualizar-una-aplicaci-n-a-laravel-5-1">Actualizar una aplicación a Laravel 5.1</h3>
+Si ya tienes una aplicación y quieres actualizarla a Laravel 5.1:
+
+Edita tu fichero <code>composer.json</code> y cambia los requerimientos del framework para laravel 5.1:
+<pre><code>    "require": {
+        "laravel/framework": "5.1.*"
+    },</code></pre>
+Y añade las siguientes líneas al final de tu fichero para cambiar tus requerimientos mínimos de estabilidad a desarrollo (<code>dev</code>) pero, cuando sea posible, que se instalen versiones estables:
+<pre><code>    "minimum-stability": "dev",
+    "prefer-stable": true</code></pre>
+<blockquote><strong>Nota:</strong> Asegúrate de añadir una coma después de la llave anterior a <code>minimum-stability</code>:
+<pre><code>"config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}</code></pre>
+&nbsp;
+
+Tienes en mi <a href="https://gist.github.com/jatubio/e51415c59008cc2cc956">Gist</a> un nuevo fichero <code>composer.json</code> adaptado a Laravel 5.1. Pero ten en cuenta que si ya has instalado paquetes en tu aplicación, tendrás que editar tu fichero en lugar de reemplazarlo.</blockquote>
+Ahora, ejecuta <code>composer update</code> para que actualice todos tus paquetes incluído el framework de Laravel a la versión 5.1
+
+¡Ohhh! ¿Qué ha pasado?
+Es probable que al final del proceso de actualización tengas un error como este:
+<pre><code>PHP Fatal error:  Call to undefined method   
+Illuminate\Foundation\Application::getCachedCompilePath() in   
+RUTA_DE_TU_PROYECTO\vendor\laravel\framework\src\Illuminate\Foundation\Console\ClearCompiledCommand.php on line 28</code></pre>
+o este:
+<pre><code>[ErrorException]   
+file_put_contents(RUTA_DE_TU_PROYECTO/bootstrap/cache/services.json):   
+failed to open stream: No such file or directory</code></pre>
+El proceso de actualización se ha llevado a cabo, pero han fallado los scripts encargados de actualizar los ficheros de autocarga de Laravel.
+
+Eso es porque hay algunos cambios en la estructura de la aplicación respecto a Laravel 5.0 y cuando creamos un proyecto nuevo, esos cambios ya vienen por defecto, pero al actualizar una aplicación, tenemos que hacer manualmente los cambios.
+
+No te preocupes porque son muy sencillos:
+<ul>
+	<li>Crea el directorio <code>bootstrap/cache</code> y asígnale permisos de escritura.</li>
+	<li>Dentro de ese directorio, crea un fichero <code>.gitignore</code> con estas dos líneas:
+<pre><code>*
+!.gitignore</code></pre>
+</li>
+	<li>Por último, edita tu fichero <code>bootstrap/autoload.php</code> y actualiza la línea que contiene la variable <code>$compiledPath</code> como en la siguiente línea:
+<pre><code>$compiledPath = __DIR__.'/cache/compiled.php';</code></pre>
+</li>
+</ul>
+Ahora ya tenemos adaptada nuestra aplicación a Laravel 5.1. Sólo nos falta ejecutar:
+<pre><code>composer dump-autoload</code></pre>
+Para que se generen los ficheros de autocarga.
+
+Y listo!!
+<blockquote>Para tener la certeza de que todo está correcto, puedes ejecutar de nuevo <code>composer update</code> y esta vez deberías obtener símplemente el mensaje de: <code>Nothing to install or update</code>.</blockquote>
+A disfrutar de tus nuevas aplicaciones con Laravel 5.1!
+<blockquote>Ahora que sabes cómo actualizar la estructura de tu aplicación a Laravel 5.1, puedes adaptarla antes de modificar el fichero <code>composer.json</code> y ejecutar sólo una vez <code>composer update</code> para actualizarla.
+Y <strong>RECUERDA</strong>, esta versión aun es inestable y <strong>no recomendamos</strong> actualizar aplicaciones que estén en entornos de producción.</blockquote>
+Para más información sobre el proceso de actualización, puedes ir a la documentación oficial: <a href="http://laravel.com/docs/master/upgrade">http://laravel.com/docs/master/upgrade</a>
+
+Y aquí tienes un adelanto a las novedades de Laravel 5.1: <a href="https://laravel-news.com/2015/04/laravel-5-1/">https://laravel-news.com/2015/04/laravel-5-1/</a>
