@@ -2,7 +2,7 @@
 
 Composer es un gestor de paquetes y dependencias. Esto quiere decir que se encarga automáticamente de gestionar las dependencias de tus proyectos e instalar los paquetes necesarios.
 
-Composer usa **Git** (o Subversion, Mercurial, etc..) para descargar los paquetes y su repositorio central por defecto es [Packagist](packagist.org). Con lo que cualquier paquete que encuentres en esa web, puedes instalarlo usando Composer.
+Composer usa un sistema de versiones como **Git** (o Subversion, Mercurial, etc..) para descargar los paquetes. Y su repositorio central por defecto es [Packagist](packagist.org). Con lo que cualquier paquete que encuentres en esa web, puedes instalarlo usando Composer.
 
 ###Instalar composer
 
@@ -20,15 +20,16 @@ php -r "readfile('https://getcomposer.org/installer');" | php
 
 El instalador comprobará si tienes configurados correctamente algunos parámetros del fichero `php.ini` y te avisará si no son correctos o descargará la última versión del fichero `composer.phar`.
 
-> En mi [Gist](https://gist.github.com/jatubio/d5c30606328c370d5640) tienes un instalador para instalarlo en Windows a modo 'portable' en una carpeta y usarlo desde ahí a través de un fichero `.bat`.
+> En este [Gist](https://gist.github.com/jatubio/d5c30606328c370d5640) tienes un instalador para instalarlo en Windows a modo 'portable' en una carpeta y usarlo desde ahí a través de un fichero `.bat`.
 >
 > Si quieres instalarlo al estilo 'Windows', puedes descargarte un instalador en la [Página de Composer](https://getcomposer.org/download/) que instalará el programa y configurará el PATH para que puedas usarlo globalmente.
 
-Composer es un fichero `.phar`, por lo que para usarlo hay ejecutar siempre: `php composer.phar [opciones] [comandos]`.
+Composer es un fichero `.phar`, por lo que para usarlo hay que ejecutar: `php composer.phar [opciones] [comandos]`.
 
 En este post y en los siguientes utilizaremos la notación abreviada `composer`. 
 
-> En Linux y Mac tienes la opción de configurar el sistema para poder utilizar únicamente `composer` en lugar de `php composer.phar`. 
+> En Linux y Mac tienes la opción de configurar el sistema para poder utilizar únicamente `composer` en lugar de `php composer.phar`.  
+>
 > En Windows puedes crear un fichero `.bat` que haga lo mismo con el siguiente comando: 
 >```
 echo @php "%~dp0composer.phar" %*>composer.bat
@@ -42,11 +43,11 @@ Para crear un nuevo proyecto utilizando un paquete existente, utiliza el siguien
 composer create-project <paquete> <nombre del proyecto> [<version>]
 ```
 
-Estos son los pasos que ejecuta composer con el comando `create-project`:
+Estos son los pasos que lleva a cabo el comando `composer create-project`:
 
-  1. Crea la carpeta `<nombre del proyecto>` si no existe.
+  1. Crea el directorio `<nombre del proyecto>` si no existe.
 
-  2. Usa Git para hacer un clone y checkout del repositorio desde packagist o desde el repositorio central que tengas configurado. Descargando en esa carpeta el paquete de nombre `<paquete>`.
+  2. Usa Git para hacer un clone y checkout del repositorio desde packagist o desde el repositorio central que tengas configurado. Descargando en ese directorio el paquete de nombre `<paquete>`.
 
   3. Lee el fichero `composer.json` del `<paquete>` y descarga e instala todas sus dependencias dentro de la carpeta `/vendor`. 
  
@@ -64,7 +65,7 @@ También podrías crear tu aplicación desde la versión 5.0.28:
 composer create-project laravel/laravel nombre_del_proyecto 5.0.28
 ```	
  
-O crearla a partir de la última versión beta:
+O, por ejemplo, crearla a partir de la última versión beta:
  
 ```
 composer create-project laravel/laravel nombre_del_proyecto --stability=beta
@@ -74,9 +75,11 @@ composer create-project laravel/laravel nombre_del_proyecto --stability=beta
  
 - `--stability` (Por defecto:stable)
 
- Define el valor para el campo "minimum-stability" del fichero `composer.json`.
+ Define el mínimo nivel de estabilidad para los paquetes instalados.
+ 
+ Tiene preferencia sobre el valor de "minimum-stability" en el fichero `composer.json`.
 	
- Las opciones posibles son (En orden de estabilidad): `dev, alpha, beta, RC, y stable`.
+ Las opciones posibles son (En orden ascendente de estabilidad): `dev, alpha, beta, RC, y stable`.
  
 - `--repository-url`
 
@@ -90,22 +93,34 @@ Para descargar e instalar los paquetes configurados en el fichero `composer.json
 composer install
 ``` 
 
-Este comando, lee el fichero `composer.lock` o, en su defecto, `composer.json`, busca en **Packagist** los paquetes espeficicados en él, resuelve todas las dependencias e instala todos los paquetes y dependencias necesarias.
+Este comando, lleva a cabo los siguientes pasos:
 
-Una vez instalados los paquetes, si no exitía `composer.lock`, lo crea para dejar 'una foto fija' del entorno de ejecución de la aplicación.
+1. Lee el fichero `composer.lock` o, si no existe, el fichero `composer.json`. 
 
-También crea los ficheros de autocarga de clases de la aplicación.
+2. Busca en **Packagist** los paquetes especificados en ese fichero.
 
- > El directorio `vendor` no suele distribuirse con las aplicaciones. Por tanto, cuando haces un `clone` (o un `fork` y un `clone`) de un proyecto o aplicación, el primer paso suele ser ejecutar `composer install` para generar ese directorio e instalar en él todas las dependencias de la aplicación.
+3. Resuelve la versión a instalar de cada paquete a partir de las versiones indicadas y la configuración de estabilidad.
+
+4. Resuelve todas las dependencias para esas versiones.
+
+5. Instala todos los paquetes y todas las dependencias.
+
+6. Una vez instalados los paquetes, si no existe `composer.lock`, lo crea para dejar 'una foto fija' del entorno de ejecución de la aplicación.
+
+ También crea los ficheros de autocarga de clases de la aplicación.
+
+> El directorio `vendor` no suele distribuirse con las aplicaciones. Por lo tanto, cuando haces un `clone` (o un `fork` y un `clone`) de un proyecto o aplicación, el primer paso suele ser ejecutar `composer install` para generar ese directorio e instalar en él todas las dependencias de la aplicación.
 
 **Opciones:**
 
 - `--stability` (Por defecto:stable)
 
- Define el valor para el campo "minimum-stability" del fichero `composer.json`.
+ Define el mínimo nivel de estabilidad para los paquetes instalados.
+ 
+ Tiene preferencia sobre el valor de "minimum-stability" en el fichero `composer.json`.
 	
- Las opciones posibles son (En orden de estabilidad): `dev, alpha, beta, RC, y stable`.
-
+ Las opciones posibles son (En orden ascendente de estabilidad): `dev, alpha, beta, RC, y stable`.
+ 
 - `--dev`
 
  Instala también los paquetes incluidos en la sección `require-dev`.
@@ -148,7 +163,21 @@ Si ya tienes instalada tu aplicación y lo que quieres es actualizar los paquete
 composer update [<proveedor/paquete1> <proveedor/paquete2> <proveedor/*>]
 ```
 
-Con este comando, se utiliza siempre el fichero `composer.json` de la aplicación. Lee la configuración de los paquetes especificados y para aquellos que exista una nueva versión disponible, la descarga y la instala sustituyendo a la versión actual. 
+Este comando, lleva a cabo los siguientes pasos:
+
+1. Lee **SIEMPRE** el fichero `composer.json`. 
+
+2. Busca en **Packagist** los paquetes especificados en ese fichero.
+
+3. Resuelve la versión a instalar de cada paquete a partir de las versiones indicadas y la configuración de estabilidad.
+
+4. Resuelve todas las dependencias para esas versiones.
+
+5. Para aquellos paquetes que exista una nueva versión disponible, la descarga y la instala sustituyendo a la versión actual. 
+
+6. Una vez instalados los paquetes, si no existe `composer.lock`, lo crea para dejar 'una foto fija' del entorno de ejecución de la aplicación. En caso de que exista, lo actualiza.
+
+ También crea los ficheros de autocarga de clases de la aplicación.
 
 > Aunque existan nuevas versiones de un paquete, es posible que no se instalen debido a las restricciones de versión y estabilidad configuradas.
 
@@ -174,15 +203,16 @@ composer update doctrine/*
  
 - `--prefer-lowest`
   
-  Preferencia a las versiones mínimas de las dependencias. Se usa con `--prefer-stable` y es útil para testar la versionés mínimas de las dependencias.
+  Preferencia a las versiones mínimas de las dependencias.  
+  Se usa con `--prefer-stable` y es útil para testar la versiones mínimas de las dependencias.
 
 - `--prefer-stable`
 
  Preferencia a las versiones 'estables' de los paquetes.
 
-> Aunque `composer install` y `composer update` son similares, en realidad se usan para situaciones muy distintas. Tienes más información sobre la diferencia entre `composer install` y `composer update` en [este post](Diferencias-entre-composer-install-y-composer-update).
+> Aunque `composer install` y `composer update` pueden parecer similares, en realidad se usan para situaciones muy distintas. Tienes más información sobre la diferencia entre `composer install` y `composer update` en: [Diferencias entre composer install y composer update](Diferencias-entre-composer-install-y-composer-update).
 
-**Opciones comunes con `composer install`:
+**Opciones comunes con `composer install`:**
 
 - `--dev`
 
@@ -203,13 +233,21 @@ composer update doctrine/*
 
 Cuando tienes una aplicación instalada y quieres añadir nuevos paquetes, tienes dos opciones.
 
-O bien editas el fichero `composer.json`, añades los nuevos paquetes y ejecutas `composer update`, o bien usas el siguiente comando:
+Editando el fichero `composer.json`:
+
+1. Edita el fichero `composer.json`.
+
+2. Añade los nuevos paquetes.
+
+3. Ejecutas `composer update` para instalar los nuevos paquetes y **actualizar** los paquetes que ya tenías instalados.
+
+O bien, usando el siguiente comando:
 
 ```
 composer require <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]
 ```
 
-Este comando añade los paquetes especificados al fichero `composer.json` y los instala o actualiza.
+Este comando añade los paquetes especificados al fichero `composer.json` y los instala.
 
  Por ejemplo, para instalar el paquete `Doctrine DBAL` a partir de la versión 2.3:  
 
@@ -236,14 +274,18 @@ composer require doctrine/dbal:~2.3
 
  Actualiza también las dependencias de los nuevos paquetes requeridos.
 
-> **Truco:** Si editas el fichero `composer.json`, pero quieres instalar únicamente los nuevos paquetes que has añadido, `composer install` no hará nada porque únicamente lee desde el fichero `composer.lock`. 
-> Si no quieres utilizar `composer update` porque no quieres actualizar los demás paquetes, ejecuta el siguiente comando:
+> **Truco:** Si editas el fichero `composer.json`, pero quieres instalar únicamente los nuevos paquetes que has añadido, `composer install` **no hará nada** porque únicamente lee desde el fichero `composer.lock`.  
+>
+> Si no quieres actualizar los paquetes que ya tenías instalados, en lugar de utilizar `composer update`, ejecuta el siguiente comando:
+
 >```
 >composer update --lock
 >```
->Ese comando actualiza el Hash MD5 del fichero `composer.lock`. Pero cuando compruebe que hay paquetes nuevos, los instalará automáticamente sin actualizat los demás.
+>Ese comando en teoría, **sólo** actualiza el Hash MD5 del fichero `composer.lock`.   
+>
+>Pero cuando compruebe que hay paquetes nuevos, los instalará automáticamente sin actualizar los existentes.
 
-**Opciones comunes con `composer install`:
+**Opciones comunes con `composer install`:**
 
 - `--prefer-dist`
 
@@ -275,7 +317,7 @@ composer remove <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]
 
   - `--optimize` o `-o`: Convierte las clases referenciadas en `PSR-0` y `PSR-4` a clases `classmap` para obtener un autoloader más rápido. Está recomendado especialmente para entornos de producción. Según el número de clases y tamaño de tu proyecto, puede tardar un poco más en ejecutarse y por eso no está activado por defecto.
 
-   > Usando `--optimize` en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un **20% y un 25%**.
+     > Usando `--optimize` en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un **20% y un 25%**.
 
   - `--no-dev`: No tiene en cuenta las clases referenciadas en la clave: `autoload-dev`.
   
@@ -283,15 +325,33 @@ composer remove <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]
 
  Busca en packagist y en la caché local y te muestra todos los paquetes que contengan `<palabra>`.
 
- Por ejemplo, para buscar todos los paquetes relacionados con laravel, ejecuta: `composer search laravel`
- 
-- `composer show --installed`
+ Por ejemplo, para buscar todos los paquetes relacionados con laravel, ejecuta:
 
- Muestra los paquetes instalados.  
+```
+composer search laravel
+```
  
- Para ver todas las versiones disponibles de un paquete y sus dependencias usa el comando `composer show -v <paquete>`. Por ejemplo:
+- `composer show [--installed]`
+
+ Muestra información sobre los paquetes disponibles en **Packagist**.
+
+ Para ver todas las versiones disponibles de un paquete y sus dependencias usa el comando `composer show <paquete>`. Por ejemplo:
  
- 	`composer show -v laravel/framework`
+```
+composer show laravel/framework
+```
+
+ Utiliza `--installed` para obtener información sobre un paquete instalado.  
+ 
+```
+composer show laravel/framework --installed
+```
+
+ Y, para mostrar todos los paquetes instalados y sus versiones:
+ 
+```
+composer show --installed
+```
 
 - `composer init`
  
@@ -325,21 +385,25 @@ Puedes configurar opciones de Composer a nivel global con el comando `composer g
 
 - `preferred-install`
 
- Por ejemplo, para configurar de forma global que los paquetes a instalar por defecto sean los de las distribuciones, ejecuta:
+ Por ejemplo, para configurar de forma global los repositorios orígenes como preferentes, ejecuta:
 
- `composer config --global preferred-install dist`
+ `composer config --global preferred-install source`
 
  Ese comando, modificará el fichero global `config.json` y añadirá las siguientes líneas:
 
  ```
 	"config": {
-		"preferred-install": "dist"
+		"preferred-install": "source"
 	},
 ```
 
 - `cache-dir`
 
- Y para configurar el directorio que Composer usará como **cache** para los paquetes descargados, puedes usar: `composer config --global cache-dir <ruta_de_la_cache>` 
+ Y para configurar el directorio que Composer usará como cache para los paquetes descargados, puedes usar:
+ 
+```
+composer config --global cache-dir <ruta_de_la_cache>
+``` 
 
  > También puedes configurar ese directorio con la variable de entorno `COMPOSER_CACHE_DIR`.
 
@@ -355,17 +419,17 @@ Es el fichero en el que se configuran las dependencias de tu aplicación.
 
 Contiene además otros parámetros como el nombre de tu aplicación, la descripción, licencia, etc...
 
-Composer lo crea con `composer init` y `composer create-project` y lo modifica cuando utilizamos `composer require` o `composer remove`. También lo puedes modificar manualmente.
+Composer lo crea con `composer init` y `composer create-project` y lo actualiza cuando utilizamos `composer update`, `composer require` o `composer remove`. También lo puedes modificar manualmente.
 
 ###El fichero `composer.lock`
 	
 Contiene una lista de todos los paquetes instalados en tu aplicación y la versión de cada uno.
 
-Se genera con el comando `composer install` y se actualiza siempre que ejecutamos `composer update`.
+Se crea con el comando `composer install` y se actualiza siempre que ejecutamos `composer update`.
 
-Si existe, `composer update` usará la información de este fichero en lugar de usar el fichero `composer.json`.
+Si existe, `composer install` usará la información de este fichero en lugar de usar el fichero `composer.json`.
 
-> Tienes más información de ambos ficheros en [Diferencias entre composer install y composer update](Diferencias-entre-composer-install-y-composer-update) y [Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload)).
+> Tienes más información sobre ambos ficheros en: [Diferencias entre composer install y composer update](Diferencias-entre-composer-install-y-composer-update) y [Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload)).
 
 ###Fuentes y más información:
 

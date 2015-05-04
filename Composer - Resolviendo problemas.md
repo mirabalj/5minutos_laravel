@@ -28,19 +28,19 @@ En esta guía te daremos toda la información necesaria para resolver los proble
 
 - **Composer es muy lento al actualizar/instalar los paquetes.**
 
- **Desactiva xDebug** en tu fichero `php.ini` mientras usas Composer comentando las líneas correspodientes. 
+ - **Desactiva xDebug** en tu fichero `php.ini` mientras usas Composer comentando las líneas correspondientes. 
 
- > Con xDebug activado, el proceso de instalación y actualización de Composer puede durar **hasta 20 veces más!!**.
+   > Con xDebug activado, el proceso de instalación y actualización de Composer puede durar **hasta 20 veces más!!**.
  
- > **Nota**: Para comprobar si tienes xDebug activado, puedes usar el siguiente comando en Windows: `php -m | findstr xdebug` o `php -m | grep xdebug` en Unix. Si lo tienes activado, aparecerá la palabra `xdebug`.
+   > **Nota**: Para comprobar si tienes xDebug activado, puedes usar el siguiente comando en Windows: `php -m | findstr xdebug` o `php -m | grep xdebug` en Unix. Si lo tienes activado, aparecerá la palabra `xdebug`.
  
- Usar el mayor nivel de estabilidad posible aumentará ligeramente la velocidad de instalación/actualización de los paquetes.
+ - Usar el mayor nivel de estabilidad posible aumentará ligeramente la velocidad de instalación/actualización de los paquetes.
  
- Cambiar las dependencias para que sean lo más específicas posibles, también ayuda. Por ejemplo, cambia `"laravel/framework": "5.*"` por `"laravel/framework": "5.0.*"` o mejor aún, por `"laravel/framework": "5.0.28"`.
+ - Cambiar las dependencias para que sean lo más específicas posibles, también ayuda. Por ejemplo, cambia `"laravel/framework": "5.*"` por `"laravel/framework": "5.0.*"` o mejor aún, por `"laravel/framework": "5.0.28"`.
  
- Si tienes configurado `"preferred-install": "source"`, utiliza `--prefer-dist` para descargar los paquetes en formato .zip y aumentar la velocidad.
+ - Si tienes configurado `"preferred-install": "source"`, utiliza `--prefer-dist` para descargar los paquetes en formato .zip y aumentar la velocidad.
  
- Por último, puedes instalar [Satis](https://github.com/composer/satis) para mantener una copia estática en local de los paquetes que utilizas habitualmente. Y [utilizar un script php](http://melp.nl/2013/09/composer-create-a-local-package-repository-to-improve-speed/) para configurarlo.
+ - Por último, puedes instalar [Satis](https://github.com/composer/satis) para mantener una copia estática en local de los paquetes que utilizas habitualmente. Y [utilizar un script php](http://melp.nl/2013/09/composer-create-a-local-package-repository-to-improve-speed/) para configurarlo.
 
 - **Error de Timeout.**
 
@@ -60,13 +60,19 @@ En esta guía te daremos toda la información necesaria para resolver los proble
 
  Cuando Composer genera el fichero `composer.lock`, guarda en él un **Hash MD5** del fichero `composer.json`. Si posteriormente modificas el fichero `composer.json`, Composer te mostrará ese mensaje hasta que ejecutes `composer install` o `composer update`.
  
-  > Si no quieres instalar ni actualizar tus paquetes. Por ejemplo, porque has añadido un comentario al fichero `composer.json` o un parámetro de configuración. El comando `composer update --lock` actualiza únicamente el hash del fichero `composer.lock` y suprime ese warning.
+  >**Truco:** Si no quieres instalar ni actualizar tus paquetes. Por ejemplo, porque has añadido un comentario al fichero `composer.json` o un parámetro de configuración.
+  >
+  >El comando `composer update --lock` actualiza únicamente el hash del fichero `composer.lock` y suprime ese warning.
 
 - **Warning: extensión openssl.**
 
  Si obtienes un Warning de tipo `openssl extension is missing` o `must enable the openssl extension` al instalar o usar Composer, asegúrate de tener configurada la extensión `php_openssl.dll` en tu fichero `php.ini`.
  
- Busca la línea: `;extension=php_openssl.dll` y quita el `;` inicial, o añade esta línea: `extension=php_openssl.dll`.
+ Busca la línea: `;extension=php_openssl.dll` y quita el `;` inicial, o, si no existe, añade la línea: 
+ 
+ ```
+ extension=php_openssl.dll
+ ```
 
 - **'Your requirements could not be resolved to an installable set of packages'.**
 
@@ -82,17 +88,19 @@ En esta guía te daremos toda la información necesaria para resolver los proble
 
  Prueba a usar `composer install --prefer-source` o  `composer update --prefer-source`.
  
-###Importante
+###Recomendaciones
 
 - Cuando distribuyas tu proyecto, recuerda añadir los ficheros `composer.json` y `composer.lock`.
 
 - Generalmente usa `composer install` para instalar aplicaciones a no ser que tengas la certeza de que necesitas usar `composer update`.
 
+- Utiliza `composer require` (en lugar de editar manualmente el fichero `composer.json`) para añadir paquetes a tu aplicación.
+
 - Usa `--no-dev` a no ser que necesites instalar las librerías de desarrollo.
 
 - Usa `--optimize-autoloader` en el entorno de producción para mejorar el rendimiento de tu aplicación.
 
-- No uses `"minimum-stability": "dev"` en tus ficheros.json. En su lugar, configura las dependencias `dev` para los paquetes que las necesiten. O, al menos, si lo usas, combínalo con `"prefer-stable": true`.
+- No uses `"minimum-stability": "dev"` en tus ficheros.json. En su lugar, configura las dependencias `dev` para los paquetes que las necesiten. O, al menos, si lo usas, combinalo con `"prefer-stable": true`.
 
 - Utiliza el parámetro `--dev` del comando `composer require` cuando instales paquetes que vas a usar únicamente en el entorno de desarrollo. Como los paquetes de tests, seeders, depuración, complementos del IDE, etc..
 
