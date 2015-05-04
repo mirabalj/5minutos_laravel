@@ -1,0 +1,329 @@
+<h2 id="instalar-y-actualizar-paquetes-con-composer">Instalar y actualizar paquetes con Composer</h2>
+<p>Composer es un gestor de paquetes y dependencias. Esto quiere decir que se encarga automáticamente de gestionar las dependencias de tus proyectos e instalar los paquetes necesarios.</p>
+<p>Composer usa un sistema de versiones como <strong>Git</strong> (o Subversion, Mercurial, etc..) para descargar los paquetes. Y su repositorio central por defecto es <a href="packagist.org">Packagist</a>. Con lo que cualquier paquete que encuentres en esa web, puedes instalarlo usando Composer.</p>
+<h3 id="instalar-composer">Instalar composer</h3>
+<p>Para instalar Composer, ejecuta el siguiente comando:</p>
+<pre><code>curl -sS https://getcomposer.org/installer | php</code></pre>
+<p>O, si no tienes instalado <code>curl</code> o estás usando Windows:</p>
+<pre><code>php -r "readfile('https://getcomposer.org/installer');" | php</code></pre>
+<p>El instalador comprobará si tienes configurados correctamente algunos parámetros del fichero <code>php.ini</code> y te avisará si no son correctos o descargará la última versión del fichero <code>composer.phar</code>.</p>
+<blockquote>
+<p>En este <a href="https://gist.github.com/jatubio/d5c30606328c370d5640">Gist</a> tienes un instalador para instalarlo en Windows a modo 'portable' en una carpeta y usarlo desde ahí a través de un fichero <code>.bat</code>.</p>
+<p>Si quieres instalarlo al estilo 'Windows', puedes descargarte un instalador en la <a href="https://getcomposer.org/download/">Página de Composer</a> que instalará el programa y configurará el PATH para que puedas usarlo globalmente.</p>
+</blockquote>
+<p>Composer es un fichero <code>.phar</code>, por lo que para usarlo hay que ejecutar: <code>php composer.phar [opciones] [comandos]</code>.</p>
+<p>En este post y en los siguientes utilizaremos la notación abreviada <code>composer</code>. </p>
+<blockquote>
+<p>En Linux y Mac tienes la opción de configurar el sistema para poder utilizar únicamente <code>composer</code> en lugar de <code>php composer.phar</code>.  </p>
+<p>En Windows puedes crear un fichero <code>.bat</code> que haga lo mismo con el siguiente comando: </p>
+<pre><code>echo @php "%~dp0composer.phar" %*>composer.bat</code></pre>
+</blockquote>
+<p>Tienes más información en nuestros tutoriales: <a href="https://styde.net/aprende-laravel-5-instalacion-y-uso-de-composer/">(VideoTutorial) Aprende Laravel 5: Instalación y uso de Composer</a>, <a href="https://styde.net/instalacion-de-composer-y-laravel-en-ubuntu-14-lts-paso-a-paso/">Instalación de Composer y Laravel en Ubuntu 14 LTS</a> y <a href="https://styde.net/instalacion-de-composer-y-laravel-en-windows/">Cómo instalar Composer y Laravel en Windows</a></p>
+<h3 id="crear-un-proyecto-con-composer">Crear un proyecto con Composer</h3>
+<p>Para crear un nuevo proyecto utilizando un paquete existente, utiliza el siguiente comando:</p>
+<pre><code>composer create-project <paquete> <nombre del proyecto> [<version>]</code></pre>
+<p>Estos son los pasos que lleva a cabo el comando <code>composer create-project</code>:</p>
+<ol>
+<li><p>Crea el directorio <code><nombre del proyecto></code> si no existe.</p>
+</li>
+<li><p>Usa Git para hacer un clone y checkout del repositorio desde packagist o desde el repositorio central que tengas configurado. Descargando en ese directorio el paquete de nombre <code><paquete></code>.</p>
+</li>
+<li><p>Lee el fichero <code>composer.json</code> del <code><paquete></code> y descarga e instala todas sus dependencias dentro de la carpeta <code>/vendor</code>. </p>
+</li>
+</ol>
+<blockquote>
+<p>Si no especificas una versión, se instalará la última versión que se adapte a tu configuración de estabilidad.</p>
+</blockquote>
+<p>Por ejemplo, el comando con el que comienzan la mayoría de aplicaciones basadas en Laravel es:</p>
+<pre><code>composer create-project laravel/laravel nombre_del_proyecto</code></pre>
+<p>También podrías crear tu aplicación desde la versión 5.0.28:</p>
+<pre><code>composer create-project laravel/laravel nombre_del_proyecto 5.0.28</code></pre>
+<p>O, por ejemplo, crearla a partir de la última versión beta:</p>
+<pre><code>composer create-project laravel/laravel nombre_del_proyecto --stability=beta</code></pre>
+<p><strong>Opciones:</strong></p>
+<ul>
+<li><p><code>--stability</code> (Por defecto:stable)</p>
+<p>Define el mínimo nivel de estabilidad para los paquetes instalados.</p>
+<p>Tiene preferencia sobre el valor de "minimum-stability" en el fichero <code>composer.json</code>.</p>
+<p>Las opciones posibles son (En orden ascendente de estabilidad): <code>dev, alpha, beta, RC, y stable</code>.</p>
+</li>
+<li><p><code>--repository-url</code></p>
+<p>Te permite especificar un repositorio en lugar de <strong>Packagist</strong>. Puede ser la <code>url http</code> de un repositorio compatible con Composer (es decir, que tenga un fichero composer.json). O una ruta o path a un fichero local con estructura de <code>composer.json</code>.</p>
+</li>
+</ul>
+<h3 id="instalar-paquetes">Instalar paquetes</h3>
+<p>Para descargar e instalar los paquetes configurados en el fichero <code>composer.json</code> de la aplicación, usa el comando:</p>
+<pre><code>composer install</code></pre>
+<p>Este comando, lleva a cabo los siguientes pasos:</p>
+<ol>
+<li><p>Lee el fichero <code>composer.lock</code> o, si no existe, el fichero <code>composer.json</code>. </p>
+</li>
+<li><p>Busca en <strong>Packagist</strong> los paquetes especificados en ese fichero.</p>
+</li>
+<li><p>Resuelve la versión a instalar de cada paquete a partir de las versiones indicadas y la configuración de estabilidad.</p>
+</li>
+<li><p>Resuelve todas las dependencias para esas versiones.</p>
+</li>
+<li><p>Instala todos los paquetes y todas las dependencias.</p>
+</li>
+<li><p>Una vez instalados los paquetes, si no existe <code>composer.lock</code>, lo crea para dejar 'una foto fija' del entorno de ejecución de la aplicación.</p>
+<p>También crea los ficheros de autocarga de clases de la aplicación.</p>
+</li>
+</ol>
+<blockquote>
+<p>El directorio <code>vendor</code> no suele distribuirse con las aplicaciones. Por lo tanto, cuando haces un <code>clone</code> (o un <code>fork</code> y un <code>clone</code>) de un proyecto o aplicación, el primer paso suele ser ejecutar <code>composer install</code> para generar ese directorio e instalar en él todas las dependencias de la aplicación.</p>
+</blockquote>
+<p><strong>Opciones:</strong></p>
+<ul>
+<li><p><code>--stability</code> (Por defecto:stable)</p>
+<p>Define el mínimo nivel de estabilidad para los paquetes instalados.</p>
+<p>Tiene preferencia sobre el valor de "minimum-stability" en el fichero <code>composer.json</code>.</p>
+<p>Las opciones posibles son (En orden ascendente de estabilidad): <code>dev, alpha, beta, RC, y stable</code>.</p>
+</li>
+<li><p><code>--dev</code></p>
+<p>Instala también los paquetes incluidos en la sección <code>require-dev</code>.</p>
+<blockquote>
+<p>En las últimas versiones de Composer no es necesario especificarlo porque es el valor por defecto.</p>
+</blockquote>
+</li>
+<li><p><code>--no-dev</code></p>
+<p>Lo contrario de la opción anterior. Excluye los paquetes incluidos en la sección <code>require-dev</code>.</p>
+<p>Cuando se generan los ficheros autoload, no se ejecutan las reglas de <code>autoload-dev</code>.</p>
+</li>
+<li><p><code>--prefer-dist</code></p>
+<p>Instala los paquetes desde el repositorio de distribución. (Opción por defecto).</p>
+</li>
+<li><p><code>--prefer-source</code></p>
+<p>Si se ha definido un repositorio origen y está disponible, se instalan los paquetes desde ese repositorio.</p>
+</li>
+<li><p><code>--no-scripts</code></p>
+<p>No ejecuta los scripts definidos en el fichero <code>composer.json</code>.</p>
+</li>
+<li><p><code>--dry-run</code></p>
+<p>Simula el proceso de instalación o actualización pero no modifica ningún fichero.</p>
+</li>
+<li><p><code>--optimize-autoloader</code> o <code>-o</code></p>
+<p>Equivalente al parámetro <code>--optimize</code> del comando <code>composer dump-autoload</code>.</p>
+<p>Convierte las clases referenciadas en <code>PSR-0</code> y <code>PSR-4</code> a clases <code>classmap</code> para obtener un autoloader más rápido.</p>
+</li>
+</ul>
+<h3 id="actualizar-paquetes">Actualizar paquetes</h3>
+<p>Si ya tienes instalada tu aplicación y lo que quieres es actualizar los paquetes instalados, usa el siguiente comando:</p>
+<pre><code>composer update [<proveedor/paquete1> <proveedor/paquete2> <proveedor/*>]</code></pre>
+<p>Este comando, lleva a cabo los siguientes pasos:</p>
+<ol>
+<li><p>Lee <strong>SIEMPRE</strong> el fichero <code>composer.json</code>. </p>
+</li>
+<li><p>Busca en <strong>Packagist</strong> los paquetes especificados en ese fichero.</p>
+</li>
+<li><p>Resuelve la versión a instalar de cada paquete a partir de las versiones indicadas y la configuración de estabilidad.</p>
+</li>
+<li><p>Resuelve todas las dependencias para esas versiones.</p>
+</li>
+<li><p>Para aquellos paquetes que exista una nueva versión disponible, la descarga y la instala sustituyendo a la versión actual. </p>
+</li>
+<li><p>Una vez instalados los paquetes, si no existe <code>composer.lock</code>, lo crea para dejar 'una foto fija' del entorno de ejecución de la aplicación. En caso de que exista, lo actualiza.</p>
+<p>También crea los ficheros de autocarga de clases de la aplicación.</p>
+</li>
+</ol>
+<blockquote>
+<p>Aunque existan nuevas versiones de un paquete, es posible que no se instalen debido a las restricciones de versión y estabilidad configuradas.</p>
+</blockquote>
+<ul>
+<li><p>Puedes actualizar todos los paquetes:</p>
+<pre><code>composer update</code></pre>
+</li>
+<li><p>Actualizar únicamente uno o varios paquetes separándolos por espacios:</p>
+<pre><code>composer update doctrine/dbal laravel/framework</code></pre>
+</li>
+<li><p>O actualizar todos los paquetes de un proveedor ('vendor') usando un asterisco:</p>
+<pre><code>composer update doctrine/*</code></pre>
+</li>
+</ul>
+<p><strong>Opciones:</strong></p>
+<ul>
+<li><p><code>--prefer-lowest</code></p>
+<p>Preferencia a las versiones mínimas de las dependencias.<br>Se usa con <code>--prefer-stable</code> y es útil para testar la versiones mínimas de las dependencias.</p>
+</li>
+<li><p><code>--prefer-stable</code></p>
+<p>Preferencia a las versiones 'estables' de los paquetes.</p>
+</li>
+</ul>
+<blockquote>
+<p>Aunque <code>composer install</code> y <code>composer update</code> pueden parecer similares, en realidad se usan para situaciones muy distintas. Tienes más información sobre la diferencia entre <code>composer install</code> y <code>composer update</code> en: <a href="Diferencias-entre-composer-install-y-composer-update">Diferencias entre composer install y composer update</a>.</p>
+</blockquote>
+<p><strong>Opciones comunes con <code>composer install</code>:</strong></p>
+<ul>
+<li><p><code>--dev</code></p>
+</li>
+<li><p><code>--no-dev</code></p>
+</li>
+<li><p><code>--prefer-dist</code></p>
+</li>
+<li><p><code>--prefer-source</code></p>
+</li>
+<li><p><code>--no-scripts</code></p>
+</li>
+<li><p><code>--dry-run</code></p>
+</li>
+<li><p><code>--optimize-autoloader</code> o <code>-o</code></p>
+</li>
+</ul>
+<h3 id="a-adir-e-instalar-nuevos-paquetes-en-nuestra-aplicaci-n">Añadir e instalar nuevos paquetes en nuestra aplicación</h3>
+<p>Cuando tienes una aplicación instalada y quieres añadir nuevos paquetes, tienes dos opciones.</p>
+<p>Editando el fichero <code>composer.json</code>:</p>
+<ol>
+<li><p>Edita el fichero <code>composer.json</code>.</p>
+</li>
+<li><p>Añade los nuevos paquetes.</p>
+</li>
+<li><p>Ejecutas <code>composer update</code> para instalar los nuevos paquetes y <strong>actualizar</strong> los paquetes que ya tenías instalados.</p>
+</li>
+</ol>
+<p>O bien, usando el siguiente comando:</p>
+<pre><code>composer require <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]</code></pre>
+<p>Este comando añade los paquetes especificados al fichero <code>composer.json</code> y los instala.</p>
+<p> Por ejemplo, para instalar el paquete <code>Doctrine DBAL</code> a partir de la versión 2.3:  </p>
+<pre><code>composer require doctrine/dbal:~2.3</code></pre>
+<p><strong>Opciones:</strong></p>
+<ul>
+<li><p><code>--dev</code></p>
+<p>Añade los paquetes a la sección <code>require-dev</code>.</p>
+</li>
+<li><p><code>--no-update</code>  </p>
+<p>No actualiza las dependencias de los paquetes.</p>
+</li>
+<li><p><code>--update-no-dev</code></p>
+<p>Ejecuta la actualización con la opción <code>--no-dev</code>. </p>
+</li>
+<li><p><code>--update-with-dependencies</code></p>
+<p>Actualiza también las dependencias de los nuevos paquetes requeridos.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Truco:</strong> Si editas el fichero <code>composer.json</code>, pero quieres instalar únicamente los nuevos paquetes que has añadido, <code>composer install</code> <strong>no hará nada</strong> porque únicamente lee desde el fichero <code>composer.lock</code>.  </p>
+<p>Si no quieres actualizar los paquetes que ya tenías instalados, en lugar de utilizar <code>composer update</code>, ejecuta el siguiente comando:</p>
+<pre><code>composer update --lock</code></pre>
+<p>Ese comando en teoría, <strong>sólo</strong> actualiza el Hash MD5 del fichero <code>composer.lock</code>.   </p>
+<p>Pero cuando compruebe que hay paquetes nuevos, los instalará automáticamente sin actualizar los existentes.</p>
+</blockquote>
+<p><strong>Opciones comunes con <code>composer install</code>:</strong></p>
+<ul>
+<li><p><code>--prefer-dist</code></p>
+</li>
+<li><p><code>--prefer-source</code></p>
+</li>
+</ul>
+<h3 id="desinstalar-paquetes">Desinstalar paquetes</h3>
+<pre><code>composer remove <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]</code></pre>
+<p> Borra los paquetes especificados del fichero <code>composer.json</code> y los desinstala.</p>
+<p><strong>Opciones:</strong></p>
+<p> Admite los mismos parámetros que <code>composer require</code>.</p>
+<h3 id="otros-comandos-de-composer">Otros comandos de Composer</h3>
+<ul>
+<li><p><code>composer dump-autoload</code></p>
+<p>Actualiza los ficheros de autocarga de tu aplicación.  </p>
+<p>Cuando creas nuevas clases en tus aplicaciones, si están en rutas que no estén referenciadas por el estándar <code>PSR-4</code> en el fichero <code>composer.json</code>, tienes que añadirlas manualmente a ese fichero y ejecutar <code>composer dump-autoload</code> para que se incluyan en el sistema de autocarga de clases de la aplicación.</p>
+<blockquote>
+<p><strong>Nota:</strong> <code>dump-autoload</code> <strong>no descarga nada</strong>. Simplemente vuelve a generar el listado de todas las clases que necesitan ser incluidas en tu proyecto.</p>
+</blockquote>
+<p><strong>Parámetros:</strong></p>
+<ul>
+<li><p><code>--optimize</code> o <code>-o</code>: Convierte las clases referenciadas en <code>PSR-0</code> y <code>PSR-4</code> a clases <code>classmap</code> para obtener un autoloader más rápido. Está recomendado especialmente para entornos de producción. Según el número de clases y tamaño de tu proyecto, puede tardar un poco más en ejecutarse y por eso no está activado por defecto.</p>
+<blockquote>
+<p>Usando <code>--optimize</code> en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un <strong>20% y un 25%</strong>.</p>
+</blockquote>
+</li>
+<li><p><code>--no-dev</code>: No tiene en cuenta las clases referenciadas en la clave: <code>autoload-dev</code>.</p>
+</li>
+</ul>
+</li>
+<li><p><code>composer search <palabra></code></p>
+<p>Busca en packagist y en la caché local y te muestra todos los paquetes que contengan <code><palabra></code>.</p>
+<p>Por ejemplo, para buscar todos los paquetes relacionados con laravel, ejecuta:</p>
+</li>
+</ul>
+<pre><code>composer search laravel</code></pre>
+<ul>
+<li><p><code>composer show [--installed]</code></p>
+<p>Muestra información sobre los paquetes disponibles en <strong>Packagist</strong>.</p>
+<p>Para ver todas las versiones disponibles de un paquete y sus dependencias usa el comando <code>composer show <paquete></code>. Por ejemplo:</p>
+</li>
+</ul>
+<pre><code>composer show laravel/framework</code></pre>
+<p> Utiliza <code>--installed</code> para obtener información sobre un paquete instalado.  </p>
+<pre><code>composer show laravel/framework --installed</code></pre>
+<p> Y, para mostrar todos los paquetes instalados y sus versiones:</p>
+<pre><code>composer show --installed</code></pre>
+<ul>
+<li><p><code>composer init</code></p>
+<p>Crea un fichero <code>composer.json</code> inicial en el directorio actual.</p>
+</li>
+<li><p><code>composer validate</code></p>
+<p>Comprueba que la sintaxis de tu fichero <code>composer.json</code> es correcta.</p>
+</li>
+<li><p><code>composer --help</code> o <code>composer -h</code></p>
+<p>Te muestra la ayuda de Composer y todas las opciones disponibles.</p>
+</li>
+</ul>
+<p><strong>Opciones generales:</strong></p>
+<ul>
+<li><p><code>--verbose</code> o <code>-v</code></p>
+<p>En cualquier comando puedes utilizarlo para aumentar el nivel de detalle de los mensajes que muestra el comando. El máximo nivel es <code>-vvv</code>.</p>
+<blockquote>
+<p>Si composer se te queda 'colgado' o te da errores, puedes usar esta opción para ver con más detalle el proceso de instalación de los paquetes y ver dónde falla.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="configurar-opciones-de-instalaci-n-a-nivel-global-">Configurar opciones de instalación a nivel global.</h3>
+<p>Puedes configurar opciones de Composer a nivel global con el comando <code>composer global</code> o modificando el fichero <code>config.json</code> que está en el directorio 'HOME' de Composer. Puedes cambiar ese directorio con la variable de entorno <code>COMPOSER_HOME</code>.</p>
+<blockquote>
+<p>Habitualmente, el directorio 'HOME' de Composer es:   </p>
+<p>En Windows: <code>C:\Users\<tu_usuario>\AppData\Roaming\Composer</code>.<br>En Linux: <code>/home/<tu_usuario>/.composer</code>.<br>En Mac: <code>/Users/<tu_usuario>/.composer</code>.  </p>
+</blockquote>
+<ul>
+<li><p><code>preferred-install</code></p>
+<p>Por ejemplo, para configurar de forma global los repositorios orígenes como preferentes, ejecuta:</p>
+<p><code>composer config --global preferred-install source</code></p>
+<p>Ese comando, modificará el fichero global <code>config.json</code> y añadirá las siguientes líneas:</p>
+<pre><code>  "config": {
+      "preferred-install": "source"
+  },</code></pre>
+</li>
+<li><p><code>cache-dir</code></p>
+<p>Y para configurar el directorio que Composer usará como cache para los paquetes descargados, puedes usar:</p>
+</li>
+</ul>
+<pre><code>composer config --global cache-dir <ruta_de_la_cache></code></pre>
+<blockquote>
+<p>También puedes configurar ese directorio con la variable de entorno <code>COMPOSER_CACHE_DIR</code>.</p>
+</blockquote>
+<ul>
+<li><p>Dependencias globales.</p>
+<p>Para añadir de forma global una dependencia y que de ese modo siempre se instalen y actualicen esos paquetes en la caché global, ejecuta:</p>
+<p>  <code>composer global require "laravel/framework=~1.1"</code></p>
+</li>
+</ul>
+<h3 id="el-fichero-composer-json-">El fichero <code>composer.json</code></h3>
+<p>Es el fichero en el que se configuran las dependencias de tu aplicación.</p>
+<p>Contiene además otros parámetros como el nombre de tu aplicación, la descripción, licencia, etc...</p>
+<p>Composer lo crea con <code>composer init</code> y <code>composer create-project</code> y lo actualiza cuando utilizamos <code>composer update</code>, <code>composer require</code> o <code>composer remove</code>. También lo puedes modificar manualmente.</p>
+<h3 id="el-fichero-composer-lock-">El fichero <code>composer.lock</code></h3>
+<p>Contiene una lista de todos los paquetes instalados en tu aplicación y la versión de cada uno.</p>
+<p>Se crea con el comando <code>composer install</code> y se actualiza siempre que ejecutamos <code>composer update</code>.</p>
+<p>Si existe, <code>composer install</code> usará la información de este fichero en lugar de usar el fichero <code>composer.json</code>.</p>
+<blockquote>
+<p>Tienes más información sobre ambos ficheros en: <a href="Diferencias-entre-composer-install-y-composer-update">Diferencias entre composer install y composer update</a> y <a href="Autocarga-de-clases-en-Laravel-(Autoload">Autocarga de clases en Laravel (Autoload)</a>).</p>
+</blockquote>
+<h3 id="fuentes-y-m-s-informaci-n-">Fuentes y más información:</h3>
+<p><a href="https://styde.net/aprende-laravel-5-instalacion-y-uso-de-composer/">(VideoTutorial) Aprende Laravel 5: Instalación y uso de Composer</a></p>
+<p><a href="https://styde.net/instalacion-de-composer-y-laravel-en-ubuntu-14-lts-paso-a-paso/">Instalación de Composer y Laravel en Ubuntu 14 LTS</a></p>
+<p><a href="https://styde.net/instalacion-de-composer-y-laravel-en-windows/">Cómo instalar Composer y Laravel en Windows</a></p>
+<p><a href="https://styde.net/que-es-composer-y-como-usarlo/">Qué es Composer y cómo usarlo</a></p>
+<p><a href="https://getcomposer.org">Descargar Composer</a>   </p>
+<p><a href="https://gist.github.com/jatubio/d5c30606328c370d5640">Instalar Composer como Portable en Windows</a>   </p>
+<p><a href="Diferencias-entre-composer-install-y-composer-update">Diferencias entre composer install y composer update.</a></p>
+<p><a href="Autocarga-de-clases-en-Laravel-(Autoload">Autocarga de clases en Laravel (Autoload)</a>)</p>
+<p><a href="packagist.org">Packagist</a></p>
+<p><a href="http://composer.json.jolicode.com/">Hoja Resumen interactiva sobre Composer - By JoliCode</a></p>
+<p><a href="http://librosweb.es/libro/composer/">Composer en castellano en LibrosWeb</a></p>

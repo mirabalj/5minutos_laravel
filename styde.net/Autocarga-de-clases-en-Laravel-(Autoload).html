@@ -1,0 +1,204 @@
+<h2 id="autocarga-de-clases-en-laravel-autoload-">Autocarga de clases en Laravel (Autoload)</h2>
+En este post vamos a ver con detalle el sistema de autocarga de clases de Laravel 5. (La mayoría de lo expuesto es aplicable también a Laravel 4)
+
+Laravel utiliza <strong>Composer</strong> para generar los ficheros .php que se encargan del proceso de autocarga de las clases.
+
+Puedes ver una aplicación práctica de este artículo en la Lección 2 del <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>: <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.
+
+Vamos a ver un poco de historia sobre la carga de archivos (<strong>include</strong>) y los sistemas de autocarga en php:
+<h3 id="autocarga-en-php5">Autocarga en PHP5</h3>
+Para usar las clases definidas en otros ficheros .php distintos al que estamos ejecutando, tenemos que usar la directiva <code>include</code> al comienzo de cada uno de nuestros ficheros.
+
+A partir de PHP 5, se introdujo un nuevo sistema de 'Autocarga de clases' (Autoload) que permite usar nuestras clases sin tener que escribir los 'include' correspondientes.
+
+La primera implementación, fue crear una función global llamada <code>__autoload()</code>. Cada vez que nuestro código hace referencia a una clase que no existe, se llama a la función <code>__autoload()</code>. Y nosotros podemos implementar esa función para definir un sistema personalizado de carga de clases. Por ejemplo:
+
+<strong>Ejemplo #1 Ejemplo de autocarga</strong>
+
+Este ejemplo intenta cargar las clases MiClase1 y MiClase2 desde los ficheros MiClase1.php y MiClase2.php respectivamente.
+<pre><code>&lt;?php
+function __autoload($nombre_clase) {
+    include $nombre_clase . '.php';
+}
+
+$obj  = new MiClase1();
+$obj2 = new MiClase2();
+?&gt;</code></pre>
+Esa primera implementación tenía el inconveniente de que la función <code>__autoload()</code> sólo podía definirse una vez en todo nuestro código. Por eso, a partir de PHP 5.1.2, se creó un nuevo método que permitía flexibilizar la Autocarga de clases: La nueva función <code>spl_autoload_register()</code>, que permite definir múltiples funciones de autocarga y llamarlas dentro de una cola o lista de funciones de autocarga.
+
+Este es un posible ejemplo de uso que aparece en la documentación oficial de PHP:
+
+<strong>Ejemplo #1 spl_autoload_register() como sustituto de una función __autoload()</strong>
+<pre><code>&lt;?php
+
+// function __autoload($clase) {
+//     include 'clases/' . $clase . '.clase.php';
+// }
+
+function mi_autocargador($clase) {
+    include 'clases/' . $clase . '.clase.php';
+}
+
+spl_autoload_register('mi_autocargador');
+
+// O, usando una función anónima a partir de PHP 5.3.0
+spl_autoload_register(function ($clase) {
+    include 'clases/' . $clase . '.clase.php';
+});
+
+?&gt;</code></pre>
+Ahora ya teníamos un método flexible y eficiente para la autocarga de clases, pero hay muchas formas de usar e implementar ese método.
+<h3 id="est-ndar-psr-0">Estándar PSR-0</h3>
+Por eso, el php-fig (Grupo de interoperatibilidad para Frameworks PHP), ha creado y propuesto un estándar común para la autocarga de clases. El primer estándar que crearon se llamó <strong>PSR-0</strong>. A partir del 21/10/2014 el estándar <strong>PSR-0</strong> se ha marcado como obsoleto y recomiendan <strong>PSR-4</strong> como alternativa.
+
+El estándar PSR-0, proponía una analogía entre el sistema de clases y el sistema de ficheros. Los Namespaces se convierten en directorios y las clases en ficheros con la extensión <strong>.php</strong>. De modo que:
+
+La clase <code>Illuminate\Database\Seeder</code> se convierte en <code>Illuminate/Database/Seeder.php</code>
+
+PSR-0 se definió para que fuera compatible con el sistema para nombrar las clases en <strong>PEAR</strong>. De modo, que también están soportados los guiones bajos en los nombres de las clases:
+
+La clase <code>Illuminate_Database_Seeder</code> se convierte en <code>Illuminate/Database/Seeder.php</code>
+<h3 id="est-ndar-psr-4">Estándar PSR-4</h3>
+PSR-4 es una evolución del estándar PSR-0.
+
+El estándar PSR-4 mantiene la misma idea de crear una relación directa entre el sistema de clases y el sistema de ficheros que proponía PSR-0.
+
+Las diferencias más notables son que ya no es compatible con <strong>PEAR</strong> (ya no convierte el guión bajo en una barra o slash) y que ahora, puedes 'abreviar' o reducir el nombre de las rutas cuando defines las clases.
+
+Para eso, en el fichero composer.json, puedes especificar que ciertos Namespaces, se carguen desde una carpeta concreta.
+<pre><code>{
+    "autoload": {
+         "psr-4": {
+            "Namespace1": "ruta_a_la_carpeta1"
+         }
+    }
+}</code></pre>
+Vamos a verlo mejor con un ejemplo:
+
+Si tienes una estructura de directorios como esta:
+<pre><code>app.php
+composer.phar
+vendor/
+modules/
+    mail/
+        src/
+            Custom/
+                Systems/
+                    Mail.php        # Mail.php define la clase: Custom\Systems\Mail
+        tests/
+            Custom/
+                Systems/
+                    MailTest.php    # MailTest.php define la clase: Custom\Systems\MailTest</code></pre>
+Y, por ejemplo, el fichero <code>Mail.php</code> define la clase: <code>Custom\Systems\Mail</code>:
+<pre><code>&lt;?php namespace Custom\Systems;
+
+class Mail {
+
+}</code></pre>
+En PSR-0, <strong>tienes que mantener</strong> esa estructura de directorios y usar esta configuración en el fichero <code>composer.json</code>:
+<pre><code>{
+    "autoload": {
+         "psr-0": {
+            "Custom\\Systems\\Mail": "modules/mail/src/",
+            "Custom\\Systems\\Mail": "modules/mail/tests/"
+         }
+    }
+}</code></pre>
+Sin embargo, con PSR-4, podrías ahorrarte las carpetas Custom y Systems
+<pre><code>app.php
+composer.phar
+vendor/
+modules/
+    mail/
+        src/
+            Mail.php        # Mail.php define la clase: Custom\Systems\Mail
+        tests
+            MailTest.php    # MailTest.php define la clase: Custom\Systems\MailTest</code></pre>
+Con esta configuración en el fichero <code>composer.json</code>:
+<pre><code>{
+    "autoload": {
+         "psr-4": {
+            "Custom\\Systems\\": "modules/mail/src/Custom/Systems",
+            "Custom\\Systems\\": "modules/mail/tests/Custom/Systems"
+         }
+    }
+}</code></pre>
+De modo que le estás diciendo que las clases que cargue desde las carpetas <code>modules/mail/src/Custom/Systems</code> y <code>modules/mail/test/Custom/Systems</code> tendrán el namespace <code>Custom\Systems</code>.
+<blockquote>Fíjate en cómo los namespaces acaban con dos barras dobles invertidas <code>'\\\'</code>.
+Esto no es obligatorio pero suele ser una convención para evitar errores cuando luego automáticamente se concatenan
+esas cadenas a otras.</blockquote>
+Estos cambios se llevaron a cabo para facilitar la 'convivencia' entre paquetes de distintos proveedores instalados en una aplicación.
+<h3 id="composer">Composer</h3>
+Composer tiene su propia implementación de autocarga de clases que admite PSR-0 y PSR-4, además de un sistema de mapa de clases (classmap) y un sistema para cargar ficheros individuales (files)
+<blockquote>La ventaja de usar PSR-4 en nuestros proyectos es que podemos usar <strong>Composer</strong> para que cargue automáticamente nuestras clases.</blockquote>
+Las clases que definamos en la clave 'psr-4' de la propiedad <code>autoload</code> del fichero <code>composer.json</code>, se procesan durante los comandos <code>install</code> y <code>update</code> para crear un array asociativo para cargar esas clases.
+<pre><code>{
+    "autoload": {
+        "psr-4": {
+            "Monolog\\": "src/",
+            "Vendor\\Namespace\\": ""
+        }
+    }
+}</code></pre>
+Ese array se crea en el fichero: <code>vendor/composer/autoload_psr4.php</code>
+
+Y las clases referenciadas por 'psr-0', en el fichero: <code>vendor/composer/autoload_namespaces.php</code>
+
+En la clave <code>classmap</code> dentro de <code>autoload</code>, podemos definir rutas o ficheros. Durante los comandos <code>install</code> y <code>update</code> se buscarán clases en todos los ficheros <code>.php</code> y <code>.inc</code> que encuentre en esas carpetas para crear un array asociativo con esas clases.
+<pre><code>"autoload": {
+    "classmap": [
+        "database"
+    ]
+},</code></pre>
+En este caso, el array se crea en el fichero: <code>vendor/composer/autoload_classmap.php</code>
+
+Por último, también podemos añadir ficheros que necesitamos que se carguen siempre que ejecutemos nuestra aplicación pero no puede incluirse en ninguno de los casos anteriores. Habitualmente, porque no son ficheros que declaren clases. Para eso usamos la clave <code>files</code>.
+<pre><code>"autoload": {
+    "files": ["app/miconfig.php"]
+}</code></pre>
+Y ese array irá al fichero <code>vendor/composer/autoload_files.php</code>
+<h4 id="el-comando-composer-dump-autoload">El comando composer dump-autoload</h4>
+Cuando creemos nuevas clases en nuestros proyectos, debemos añadirlas al fichero composer.json y podemos
+usar <code>composer dump-autoload</code> para refrescar los ficheros 'autoload'. (A no ser que estén en rutas referenciadas por el estándar <code>PSR-4</code>*)
+<blockquote>Si usamos <code>classmap</code>, al crear nuevas clases o ficheros tendremos que actualizar siempre los ficheros 'autoload'.
+
+Sin embargo, otra de las ventajas de usar <code>PSR-4</code> es que si las nuevas clases o ficheros están en directorios que ya estaban incluidos en el fichero <code>composer.json</code>, serán cargadas automáticamente.</blockquote>
+Como hemos visto, los comandos <code>install</code> y <code>update</code> de composer crean los ficheros necesarios para el mecanismo de autocarga de clases de php.
+
+Cuando añadimos referencias a nuevas clases en nuestro fichero <code>composer.json</code> en lugar de usar esos comandos, podemos usar el comando <code>dump-autoload</code> que vuelve a generar los ficheros 'autoload' sin tener que instalar o actualizar los paquetes ya instalados. Es decir, <code>dump-autoload</code> <strong>no descarga nada</strong>. Simplemente vuelve a generar el listado de todas las clases que necesitan ser incluidas en tu proyecto.
+<blockquote>Si usamos el parámetro <code>--optimize</code>, todas las clases referenciadas con el estándar <code>PSR-4</code> se incluirán en el fichero <code>vendor/composer/autoload_classmap.php</code> de modo que en tiempo de ejecución, php puede cargarlas directamente y no tiene que buscarlas en las carpetas optimizando mucho los tiempos de carga de la aplicación.</blockquote>
+<strong>El comando <code>dump-autoload</code> admite dos parámetros:</strong>
+<ul>
+	<li><code>--optimize (-o)</code>: Convierte las clases referenciadas en <code>PSR-0</code> y <code>PSR-4</code> a clases <code>classmap</code> para obtener un autoloader más rápido. Está recomendado especialmente para entornos de producción. Según el número de clases y tamaño de tu proyecto, puede tardar un poco más en ejecutarse y por eso no está activado por defecto.</li>
+	<li><code>--no-dev</code>: No tiene en cuenta las clases referenciadas en la clave: <code>autoload-dev</code>.</li>
+</ul>
+<h3 id="-error-reflectionexception-class-usertableseeder-does-not-exist"><strong>Error:</strong> [ReflectionException] Class UserTableSeeder does not exist</h3>
+Si aparece este error al ejecutar tu aplicación Laravel, es posible que hayas creado una nueva clase y no esté correctamente referenciada en el fichero <code>composer.json</code> y <strong>Laravel</strong> no consigue cargarla.
+<h3 id="fuentes-y-m-s-informaci-n-">Fuentes y más información:</h3>
+<a href="http://duilio.me/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces">Curso básico de Laravel 5: Qué es PSR-4 y uso de los namespaces</a>
+
+<a href="http://php.net/autoload">Autoload en la documentación oficial de PHP</a>
+
+<a href="http://www.php-fig.org/psr/psr-0/es/">Estándar PSR-0</a>
+
+<a href="http://php.net/manual/es/function.spl-autoload-register.php">spl_autoload_register() en la documentación oficial de PHP</a>
+
+<strong>Más información (En Inglés):</strong>
+
+<a href="https://getcomposer.org/doc/03-cli.md#dump-autoload">dump-autoload en la Documentación Oficial de Composer</a>
+
+<a href="https://getcomposer.org/doc/04-schema.md#autoload">autoload en la Documentación Oficial de Composer</a>
+
+<a href="http://www.php-fig.org">php-fig</a>
+
+<a href="http://www.php-fig.org/psr/psr-4/">Estándar PSR-4</a>
+
+<a href="http://www.php-fig.org/psr/psr-4/examples/">Ejemplos de implementación de PSR-4</a>
+
+<a href="http://stackoverflow.com/questions/24868586/what-exactly-is-the-difference-between-psr-0-and-psr-4">Stackoverflow: What exactly is the difference between PSR-0 and PSR-4?</a>
+
+<a href="http://www.sitepoint.com/battle-autoloaders-psr-0-vs-psr-4/">Battle of the Autoloaders: PSR-0 vs. PSR-4</a>
+
+<a href="https://laracasts.com/lessons/psr-4-autoloading">PSR-4 Autoloading</a>
+
+<a href="https://getcomposer.org/doc/03-cli.md">Composer Command-line interface / Commands - Documentación Oficial</a>
