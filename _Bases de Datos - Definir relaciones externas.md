@@ -156,5 +156,7 @@ De ese modo, si intentas borrar un registro padre que tiene hijos, obtendrás un
 En la mayoría de gestores de datos se puede definir también lo que se llama un 'Borrado en cascada' que consiste en que cuando borras un registro padre, el sistema de la base de datos borra automáticamente sus registros hijos asociados.
 
 Por ej, en Laravel, podemos configurar borrados en cascada usando el método `->onDelete('cascade');` cuando definimos la estructura de nuestra base de datos en las migraciones.
+
 #ToDo:Ejemplo
 
+#ToDo: http://www.cazaplanetas.com/webmaster/relaciones-entre-registros-de-una-tabla/
