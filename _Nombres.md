@@ -73,3 +73,10 @@ Tener más porcentaje de palabras con significado que palabras de la implementac
 http://verraes.net/2013/09/sensible-interfaces/
 http://cyrille.martraire.com/2012/09/whats-your-signal-to-noise-ratio-in-your-code/
 
+----
+#Todo:
+http://verraes.net/2014/06/when-to-use-static-methods-in-php/  
+http://verraes.net/2014/08/dry-is-about-knowledge/   
+http://verraes.net/2014/12/how-much-testing-is-too-much/   
+http://www.jamesshore.com/Agile-Book/ubiquitous_language.html   
+http://www.giorgiosironi.com/2010/02/3-simple-steps-to-ubiquitous-language.html   
