@@ -6,6 +6,12 @@ Por ejemplo, para relacionar la tabla actual con la `users` a través del campo 
 
 `$table->foreign('user_id')->references('id')->on('users');`
 
+> Recuerda definir primero el campo que va a contener la clave primaria. En el ejemplo anterior, quedaría así:
+> ```
+> $table->integer('user_id')->unsigned();
+> $table->foreign('user_id')->references('id')->on('users');
+> ```
+
 Si además queremos activar el 'borrado en cascada' automático de los registros, concatenamos al final de la línea una llamada al método:
 
 `onDelete('cascade')`
