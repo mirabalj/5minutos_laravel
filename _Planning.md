@@ -1,0 +1,16 @@
+http://www.reddit.com/r/laravel/comments/2uw7c2/how_do_you_start_planning_a_new_laravel_project/
+https://scotch.io/tutorials/create-a-laravel-and-angular-single-page-comment-application
+http://culttt.com/2014/06/23/foundations-crud-laravel-4/
+http://culttt.com/2014/09/08/benefits-using-repositories/
+http://culttt.com/2014/09/01/user-entity-ubiquitous-language/
+http://verraes.net/2013/11/value-objects-and-user-interfaces/
+http://programmers.stackexchange.com/questions/275958/laravel-using-models
+https://scotch.io/quick-tips/hiding-fields-when-querying-laravel-eloquent-models
+https://scotch.io/tutorials/a-guide-to-using-eloquent-orm-in-laravel
+https://scotch.io/quick-tips/laravel-form-model-binding
+https://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers
+https://scotch.io/tutorials/simple-and-easy-laravel-routing
+http://ericlbarnes.com/rebuilding-wardrobe-week-1/
+https://alfrednutile.info/posts/107
+http://www.devartisans.com/articles/CRUD-book-library-laravel5
+http://forums.phpfreaks.com/topic/293596-mapping-out-new-laravel-project/
