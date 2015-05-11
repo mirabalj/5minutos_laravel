@@ -173,6 +173,34 @@ Si tus datos de prueba son pocos y los estás generando manualmente, puedes carg
 Es tan sencillo como crear una nueva migración y añadir los datos en el método `up()` y borrar esos mismos datos en el método `down()`.
 
 
+###Errores Frecuentes.
+
+- `Call to undefined method <seederClass>::setContainer()`
+
+Si al ejecutar `php artisan db:seed` obtienes un mensaje de error similar a este:
+
+```
+PHP Fatal error:  Call to undefined method <seederClass>::setContainer() in <app_path>\vendor\laravel\framework\src\Illuminate\Database\Seeder.php on line 57
+
+  [Symfony\Component\Debug\Exception\FatalErrorException]
+  Call to undefined method <seederClass>::setContainer()
+```
+
+Comprueba que en la declaración de tu clase `<seederClass>` extiendes de la clase `Seeder`.
+
+- `Class <seederClass> does not exist`
+
+Si acabas de crear tu clase y el error que obtienes al ejecutar el seeder es este:
+
+```
+[ReflectionException]
+  Class <seederClass> does not exist
+```
+
+Ejecuta `composer dump-autoload` para añadir tu nueva clase al sistema de autocarga de Laravel.
+
+-------------
+
 http://laravel.com/docs/5.0/migrations
 
 https://github.com/fzaninotto/Faker
