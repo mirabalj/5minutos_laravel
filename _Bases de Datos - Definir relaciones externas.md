@@ -166,3 +166,30 @@ Por ej, en Laravel, podemos configurar borrados en cascada usando el método `->
 #ToDo:Ejemplo
 
 #ToDo: http://www.cazaplanetas.com/webmaster/relaciones-entre-registros-de-una-tabla/
+
+----------------------------
+Como defino una relation que puede ser NULA en Eloquent?
+
+yoelfme [18:34] 
+@montogeek: en tus migraciones o por donde
+
+jair [18:43] 
+@montogeek:  ese tema lo resolvio dulio,  creo que la solucion fue este codigo (edited)
+jair 
+[18:43] 
+Added Untitled in #preguntas  
+ $input = $request->all();
+        if(empty($input['rent_id']))
+            unset($input['rent_id']);
+        if(empty($input['property_id']))
+            unset($input['property_id']);
+        Income::create($input);
+        Session::flash('message_success', "Ingreso registrado exitosamente");
+        return redirect('incomes');
+339b PHP • New window • View raw • Add comment
+
+jair [18:43] 
+agregar el unset en tu controller
+
+jeffer.8a [19:26] 
+@montogeek: creo que con ->nullable() deberia funcionar (en la migracion).
