@@ -10,23 +10,22 @@ Yo lo suelo llamar también el principio de la 'discreción': Imagina que tus clas
 
 En lugar de exponer tus campos como públicos, utilizar métodos getters y setters para acceder a ellos. De ese modo, podrás validarlos y procesarlos antes de devolverlos o modificar su valor.
 
+###Manten el código simple, estúpido
 
-
-
-###Divide y vencerás
-
-- Mantén tu código simple.
+ - Mantén tu código simple.
 
  Esta es la primera clave y la más importante. Una frase ideal para recordarla es: 'Divide y vencerás': Divide tu código complejo en varios métodos más simples. De ese modo será menos propenso a errores y cuando estos aparezcan será mucho más fácil encontrarlos y solucionarlos.
+ 
+> En inglés se suele llamar: __KISS (Keep it simple, stupid)__ que traducido sería algo como: Mantenlo simple, estúpido.
  
  - Mantén simples tus métodos. 
  
   Un método debería tener las mínimas líneas posibles. Incluso sólo una si es posible.
   
   Un método con más de 15 o 20 líneas puede ser una señal de que es demasiado complejo.
+  
  
-
-###El Principio de Responsabilidad Simple
+###El Principio de Responsabilidad Simple. (SRP o Simple Responsability Principle).
 
 - Aplica SRP a tus clases.
   
@@ -34,6 +33,80 @@ En lugar de exponer tus campos como públicos, utilizar métodos getters y setters
   
   Otra señal de que una clase tiene demasiadas responsabilidades es que te sea difícil poner un nombre a tu clase.
   
+- Aplica SRP a los constructores.
+
+ La única responsabilidad del constructor debería ser asignar dependencias. Sería como un asistente que coloca cada instancia o dependencia en su propiedad correspondiente.
+ 
+ Si tienes un constructor como este:
+
+ ```
+	public function __construct(Generator $faker)
+	{
+		$this->faker = $faker;
+
+		$this->setCheckForeignKeys(false);
+
+		$this->truncateTables();
+		
+		$this->setCheckForeignKeys(true);
+	}
+ ```
+ 
+ Deberías convertirlo en este:
+ 
+ ```
+	public function __construct(Generator $faker)
+	{
+		$this->faker = $faker;
+	}
+ ```
+
+ Y mover el resto de código a otro método.
+
+ Eso te permitirá mantener más simples tus tests. Ya que en el caso anterior, todos los tests que escribas deberán tener en cuenta cada una de las acciones realizadas en el constructor de la clase.
+
+- Agrupa tu código por responsabilidades o incumbencias.
+
+ Es decir, organiza tus clases y métodos en función de las responsabilidades que tengan en común. En inglés se le llama __Separation of Concerns (SoC)__ o __Advanced Separation of Concerns (ASoC)__.
+
+ Sería algo así como 'que cada clase se ocupe de sus propios asuntos'. Habitualmente las responsabilidades o asuntos suelen ser sinónimos de comportamientos y características.
+ 
+ Por ejemplo, el patrón de diseño MVC (Modelo - Vista - Controlador), es un ejemplo práctico de implementación de la separación de responsabilidades.
+ 
+> La metodología de Programación Orientada al Aspecto (__Aspect Oriented Programming o AOP__) consiste en diseñar nuestras clases y código de modo que estén
+> agrupados por responsabilidades.
+> También se le conoce como __Aspect-Oriented Software Development (AOSD)__.
+
+- Usa la pregunta: ¿Cual es el código más simple que puedo escribir para que esto funcione?
+
+El flujo de trabajo propuesto por la metodología de pruebas TDD está basado en este principio.
+
+- No me hagas pensar.
+
+ Cualquier programador debería entender lo que hace tu código con echar un simple vistazo.
+ 
+ Un movimiento que promueve este principio es el de utilizar el 'Lenguaje Ubicuo' (__Ubiquitous Language__) para los nombres de las variables, métodos y clases en el código. 
+ 
+ El lenguaje ubicuo es un término que introdujo Eric Evans en su libro sobre DDD (__Domain Driven Design__) como propuesta para crear un lenguaje común entre los programadores y los usuarios.
+ 
+ Un ejemplo de código escrito en lenguaje ubicuo sería:
+ 
+ ```
+ ```
+
+###No te repitas (Don't Repeat Yourself o DRY)
+
+Este principio es una filosofía de desarrollo que dice que ninguna pieza ni trozo de código debería aparecer más de una vez.
+
+De ese modo, si hay que hacer cambios, podremos hacerlos sólo en un punto de nuestro código y evitaremos las inconsistencias que pueden aparecer cuando tenemos código duplicado y no modificamos todas las apariciones de ese código.
+
+La aplicación práctica es: Tan pronto como veas que escribes el mismo código varias veces, conviértelo en una función, método, clase, clase abstracta o servicio.
+
+###No cruces el puente antes de llegar a él.
+
+En inglés este principio se llama __YAGNI (You aren’t going to need it)__ que se traduciría por 'No lo vas a necesitar'.
+
+La idea es no crear funcionalidades hasta que no las necesitemos. Ya que cada funcionalidad añade complejidad al código y en muchas ocasiones empezamos a implementar muchas funcionalidades del tipo 'Por si acaso' que no llegamos a usar nunca.
 
 ###Polimorfismo
 
@@ -199,118 +272,10 @@ En PHP, se suele decir que dos clases están __fuertemente acopladas__ cuando una
 Por tanto, un modo de conseguir acomplamientos débiles es utilizando interface e inyección de dependencias. Cuando usamos inyección de dependecias, sustituímos una instancia directa de una clase (habitualmente en forma de llamada al constructor de esa clase) por un nuevo parámetro en el método para recibir una interface.
 
 Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño 'Mediator' o 'Facade'.
-
-
-
- 
-- Inyección de dependencias.
-
- El código ha de poder probarse sin necesidad de modificarlo. Cuando llamamos al constructor de una clase directamente desde nuestro código, se dice que está 'Fuertemente acoplado' a esa clase. Y, por tanto, si queremos sustituirla por otra clase distinta (por ejemplo, para los tests), tendremos que modificar el código.
- 
- Es un buen hábito ese tipo de código y utilizar en su lugar 'Inyección de dependencias'. Al menos el código que vaya a pasar por un test, escribelo utilizando __Inyección de dependencias__.
- 
- Para eso, cada vez que en un método estés creando un objeto directamente desde el constructor de su clase, sustituye ese código por una propiedad protected o un método que te devuelva una instancia de ese objeto y modifica el constructor de la clase o los parámetros de tu método para que reciban esa instancia.
- 
- Si por ejemplo, tienes el siguiente código:
-
- ```
-class UserFakerSeeder extends BaseSeeder {
-
-	public function getDummyData(array $customValues = [ ])
-	{
-		$faker=new Faker\Generator();
-
-		return [
-			'name'     => $faker->name,
-			'email'    => $faker->email,
-			'password' => bcrypt('secret')
-		];
-	}
-
-}
-```
- 
- Puedes sustituirlo por este:
-
- ```
-class UserFakerSeeder extends BaseSeeder {
-
-	public function getDummyData(Generator $faker, array $customValues = [ ])
-	{
-		return [
-			'name'     => $faker->name,
-			'email'    => $faker->email,
-			'password' => bcrypt('secret')
-		];
-	}
-
-}
-```
-
- O este otro:
-
- ```
-class UserFakerSeeder extends BaseSeeder {
-
-	protected  $faker;
-
-	public function __construct(Generator $faker)
-	{
-		$this->faker = $faker;
-	}
-
-	public function getDummyData(array $customValues = [ ])
-	{
-		return [
-			'name'     => $this->faker->name,
-			'email'    => $this->faker->email,
-			'password' => bcrypt('secret')
-		];
-	}
-
-}
-``` 
-
- De ese modo, puedes inyectar una clase de pruebas (`Mock`) como `Faker` en lugar de la clase original `Faker\Generator`.
- 
- Por ejemplo, ahora para probar el código anterior, podríamos usar PHPUnit y escribir algo similar a esto:
-
- ``` 
- $faker = Mockery::mock('Faker\Generator');
- $userFaker = new UserFakerSeeder($faker);
- (...)
- ```
  
 > **Recomendación:** Busca todas las líneas de tu código en las que usas la palabra clave `new` y comprueba si hay un modo mejor de escribir ese código utilizando inyección de dependencias.
 
-- SRP aplicado a los constructores.
+###Gestión de errores en los parámetros.
 
- La única responsabilidad del constructor debería ser asignar dependencias. Sería como un asistente que coloca cada instancia o dependencia en su propiedad correspondiente.
- 
- Si tienes un constructor como este:
+En cada método comprueba valida los valores recibidos y lanza una excepción si no son válidos.
 
- ```
-	public function __construct(Generator $faker)
-	{
-		$this->faker = $faker;
-
-		$this->setCheckForeignKeys(false);
-
-		$this->truncateTables();
-		
-		$this->setCheckForeignKeys(true);
-	}
- ```
- 
- Deberías convertirlo en este:
- 
- ```
-	public function __construct(Generator $faker)
-	{
-		$this->faker = $faker;
-	}
- ```
-
- Y mover el resto de código a otro método.
-
- Eso te permitirá mantener más simples tus tests. Ya que en el caso anterior, todos los tests que escribas deberán tener en cuenta cada una de las acciones realizadas en el constructor de la clase.
