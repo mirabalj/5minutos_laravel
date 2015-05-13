@@ -17,7 +17,7 @@ Teclas de PhpStorm
 | `Mays+F2` [`F6`]                                | Mover con Refactorización                             |
 |                                                 |                                                       |
 | `Ctrl+Mays+Enter`                               | Completar la estructura actual (if, for, ...)         |  
-| `Ctrl+.` [`Alt+Barra`]                          | Completar palabras y texto                            |  
+| `Ctrl+,` [`Alt+Barra`]                          | Completar palabras y texto                            |  
 |                                                 |                                                       |
 | `Ctrl+F12`                                      | Ir a una clase/método del fichero actual              |
 |                                                 |                                                       |
@@ -29,10 +29,14 @@ Teclas de PhpStorm
 |-------------------------------------------------|----------                                             |
 | Ctrl+D                                          | Duplicar Línea o Selección                            |
 | Ctrl+F                                          | Buscar en el fichero actual                           |
+| `Ctrl+(+/- NumPad)`                             | Expandir/Contraer bloque de código                    |  
+| `Ctrl+Mays+(+/- NumPad)`                        | Expandir/Contraer todos los bloques de código         |  
 | `Ctrl+W/Ctrl+Mays+W`                            | Extender/Contraer la selección                        |
 | `Alt+.`                                         | Extender/Contraer la región                           |
 |                                                 |                                                       |
-| `Ctrl+Mays+Backspace`                           | Ir a la anterior posición de edición                  |
+| `Ctrl+Alt+Izda`                                 | Ir a la anterior posición en el editor                |
+| `Ctrl+Alt+Dcha`                                 | Ir a la siguiente posición en el editor               |
+| `Ctrl+Mays+Backspace`                           | Ir a la anterior modificación en el editor            |
 |                                                 |                                                       |
 | `Ctrl+[/]`                                      | Ir al comienzo/final del bloque de código             |
 | `Ctrl+Mays+[/]`                                 | Ir al comienzo/final bloque de código con selección   |
@@ -67,6 +71,15 @@ Teclas de PhpStorm
 | Ctrl+Mays+A                                     | Ir a una Acción                                       |
 | Ctrl+Mays+T                                     | Terminal: Nuevo Tab                                   |
 | Ctrl+Mays+W                                     | Terminal: Cerrar Tab                                  |
+|                                                 |                                                       |
+| `Ctrl+E`                                        | Lista de ficheros recientes                           |
+| `Ctrl+Alt+F2` (o `Ctrl+Click en Tab`)           | Menú contextual para abrir el path del fichero        |
+|                                                 |                                                       |
+|                                                 |                                                       |
+| `F12`                                           | Mover el foco a la última ventana de herramientas     |
+| `Esc`                                           | Mover el foco al editor                               |
+| `Mays+Esc`                                      | Mover el foco al editor y Cerrar Ventana              |
+|                                                 |                                                       |
 
 
 **Pendientes:**
