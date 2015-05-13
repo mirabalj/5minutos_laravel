@@ -1,4 +1,16 @@
-###La caja negra: La importancia de la 'discreción'
+###Buenos principios y prácticas de programación.
+
+Habitualmente, la vida de una aplicación es mucho mayor que el tiempo que lleva desarrollarla. Durante la fase de desarrollo pasaremos una gran parte de nuestro tiempo probando la aplicación y solucionando los posibles errores que surjan. Una vez desarrollada, el tiempo que le dediquemos será principalmente para implementar cambios y nuevas funcionalidades o solucionar errores.
+
+Todos los principios que te presento en este post están pensados para minimizar los posibles errores de tu aplicación y el tiempo dedicado a corregirlos y al mantenimiento de esta.
+
+Aunque en ocasiones pueda parecer que implementar estos principios retrasarán los tiempos de la fase de desarrollo, a la larga, el ratio coste/beneficio es muy favorable si tenemos en cuenta en cuanto reducen el tiempo dedicado a corregir errores y al mantenimiento de la aplicación. Incluso, durante la fase de desarrollo ese ratio es positivo, dado que también durante esa fase pasamos una gran parte del tiempo corrigiendo errores.
+
+Por supuesto, son recomendaciones y principios. Por tanto, no son obligatorios y está en tu mano utilizarlos o no, y elegir aquellos que creas conveniente en función de las necesidades de tu aplicación, de tu estilo de programación, etc...
+
+Afortunadamente la Programación Orientada a Objetos (OOP) y el Framework Laravel implementan la mayoría de estos principios. Por lo que tienes una gran parte del trabajo hecho.
+
+###La caja negra: La importancia de la 'discreción'.
 
 En OOP, un principio muy importante es el que se suele llamar como 'La Caja Negra' o encapsulamiento. Ese principio es un metáfora de las cajas negras de los aviones. Y recomienda que por defecto las clases mantengan todo el código posible de forma privada. Exponiendo públicamente únicamente aquellas propiedades y métodos que sean imprescindibles para usar la clase.
 
@@ -10,7 +22,15 @@ Yo lo suelo llamar también el principio de la 'discreción': Imagina que tus clas
 
 En lugar de exponer tus campos como públicos, utilizar métodos getters y setters para acceder a ellos. De ese modo, podrás validarlos y procesarlos antes de devolverlos o modificar su valor.
 
-###Manten el código simple, estúpido
+###Código abierto para extensión y cerrado para modificación.
+
+En inglés: __Open/Closed Principle (OCP)__
+
+Es decir, crea clases que otros no puedan modificar pero sí puedan extender. Es otra forma de expresar el concepto de caja negra o encapsulamiento.
+
+Por defecto, declara todos los campos o miembros de la clase como privados. Escribe métodos `get()` y `set()` únicamente cuando los necesites.
+
+###Mantén el código simple, estúpido
 
  - Mantén tu código simple.
 
@@ -25,13 +45,18 @@ En lugar de exponer tus campos como públicos, utilizar métodos getters y setters
   Un método con más de 15 o 20 líneas puede ser una señal de que es demasiado complejo.
   
  
-###El Principio de Responsabilidad Simple. (SRP o Simple Responsability Principle).
+###El Principio de Responsabilidad Simple. (SRP o Single Responsibility Principle).
 
 - Aplica SRP a tus clases.
   
-  Si cuando describes lo que hace tu clase, usas la palabra 'y' más de tres veces, probablemente es una perfecta candidata a una refactorización.
+  - Cada clase debería tener sólo una responsabilidad y esa responsabilidad debería ser encapsulada totalmente por la clase.
   
-  Otra señal de que una clase tiene demasiadas responsabilidades es que te sea difícil poner un nombre a tu clase.
+  - Nunca debería de existir más de una razón para modificar una clase.
+
+>  Si cuando describes lo que hace tu clase, usas la palabra 'y' más de tres veces, probablemente es una perfecta candidata a una refactorización.
+>  
+>  Otra señal de que una clase tiene demasiadas responsabilidades es que te sea difícil poner un nombre a tu clase.
+
   
 - Aplica SRP a los constructores.
 
@@ -77,6 +102,8 @@ En lugar de exponer tus campos como públicos, utilizar métodos getters y setters
 > agrupados por responsabilidades.
 > También se le conoce como __Aspect-Oriented Software Development (AOSD)__.
 
+ Otra forma de aplicar este principio es crear un servicio. Por ejemplo, en una aplicación es posible que validemos los datos en varios puntos del código. Dado que en ocasiones esos puntos no tendrán relación entre sí, podemos crear un servicio que valide los datos y, de ese modo estamos separando esa responsabilidad en un lugar común sin mezclar clases con responsabilidades distintas.
+
 - Usa la pregunta: ¿Cual es el código más simple que puedo escribir para que esto funcione?
 
 El flujo de trabajo propuesto por la metodología de pruebas TDD está basado en este principio.
@@ -89,24 +116,137 @@ El flujo de trabajo propuesto por la metodología de pruebas TDD está basado en e
  
  El lenguaje ubicuo es un término que introdujo Eric Evans en su libro sobre DDD (__Domain Driven Design__) como propuesta para crear un lenguaje común entre los programadores y los usuarios.
  
- Un ejemplo de código escrito en lenguaje ubicuo sería:
+ Intenta adivinar qué hace este código:
  
  ```
+	protected function getRandom($name)
+	{
+		if ( ! $this->isSet($name) )
+		{
+			throw new Exception ("The $name does not exist");
+		}
+
+		return static::$pool[$name]->random();
+	}
+
+	(...)
+	
+	protected function createMany($k)
+	{
+		for ($i = 1; $i <= $i; $i++)
+		{
+			$this->create($i);
+		}
+	}	
+ ```
+ 
+ Imagina ahora el mismo código escrito utilizando lenguaje ubicuo:
+ 
+ ```
+	protected function getRandomEntityFrom($modelName)
+	{
+		if ( ! $this->collectionExists($modelName) )
+		{
+			throw new OutOfRangeException ("The $modelName does not exist");
+		}
+
+		return static::$modelsCollection[$modelName]->random();
+	}
+
+	(...)
+	
+	protected function createMultipleEntities($numberOfEntities)
+	{
+		for ($entitiesCounter = 1; $entitiesCounter <= $numberOfEntities; $entitiesCounter++)
+		{
+			$this->createEntity($entitiesCounter);
+		}
+	}	
  ```
 
+ Con este tipo de nombres, el código se documenta por sí mismo:
+ - `getRandomEntityFrom($modelName)` devuelve una entidad aleatoria a partir del nombre de un modelo.
+ - Comprueba si el modelo existe en la colección antes de acceder a él.
+ - `createMultipleEntities($numberOfEntities)` una cantidad de entidades determinada por el parámetro que recibe.
+ - Para ello usa un bucle en el que se crea cada vez una nueva entidad a partir del contador actual.
+ 
 ###No te repitas (Don't Repeat Yourself o DRY)
 
-Este principio es una filosofía de desarrollo que dice que ninguna pieza ni trozo de código debería aparecer más de una vez.
+Este principio es una filosofía de desarrollo que dice que ningún algoritmo debería aparecer más de una vez.
 
-De ese modo, si hay que hacer cambios, podremos hacerlos sólo en un punto de nuestro código y evitaremos las inconsistencias que pueden aparecer cuando tenemos código duplicado y no modificamos todas las apariciones de ese código.
+De ese modo, si hay que hacer cambios, podremos hacerlos sólo en un punto de nuestro código y evitaremos las inconsistencias que pueden aparecer cuando tenemos algoritmos duplicados y no hacemos los cambios en todos los lugares en los que aparece ese algoritmo.
 
-La aplicación práctica es: Tan pronto como veas que escribes el mismo código varias veces, conviértelo en una función, método, clase, clase abstracta o servicio.
+La aplicación práctica es: Tan pronto como veas que escribes el mismo algoritmo varias veces, conviértelo en una función, método, clase, clase abstracta o servicio.
+
+He evitado usar la palabra '__código__', y he utilizado '__algoritmo__' en su lugar porque este principio no se aplica al código, sino al significado de ese código.
+
+Es decir, habrá ocasiones en las que dos fragmentos de código que no tienen relación alguna sean muy parecidos, o incluso idénticos. Pero que en realidad, incluso aunque estén realizando funciones similares, dependen de reglas muy distintas. Y, por tanto, no pueden considerarse duplicados ni sustituires por una única implementación.
+
+Piensa en ello como si estuvieras escribiendo un libro. En un idioma hay palabras que significan los mismo y en otros casos, la misma palabra o expresión significa cosas distintas según el contexto. Habrá ocasiones en las que no podrás sustituir una palabra por un sinónimo y habrá ocasiones en las que podrías decir que una frase está repetida varias veces en el libro, pero si lees atentamente las páginas en las que aparecen esas frases descubrirás que sólo tienen en común que se han utilizado las mismas palabras al escribirlas.
+
+> **Nota:** La clave para saber si un código o algoritmo está duplicado es buscar: ¿Qué reglas determinan ese código? ¿Qué cambio en esas reglas obligarían a modificar el código? Si el cambio en esas reglas afecta por igual a varios trozos de código o algoritmos, puede considerarse que están duplicados y que pueden abstraerse a un código o algoritmo común.
 
 ###No cruces el puente antes de llegar a él.
 
-En inglés este principio se llama __YAGNI (You aren’t going to need it)__ que se traduciría por 'No lo vas a necesitar'.
+En inglés este principio se llama __You aren’t going to need it (YAGNI)__ que se traduciría por 'No lo vas a necesitar'.
 
 La idea es no crear funcionalidades hasta que no las necesitemos. Ya que cada funcionalidad añade complejidad al código y en muchas ocasiones empezamos a implementar muchas funcionalidades del tipo 'Por si acaso' que no llegamos a usar nunca.
+
+###La ley de Demeter:
+
+Una clase sólo debe comunicarse con aquellas clases con las que esté directamente relacionada: Por herencia, porque las contiene o está contenida en ellas, porque se le ha pasado una instancia como argumento, etc...
+
+Por ejemplo, evitar código como este:
+
+```
+	return $this->mailMessage->html->header->status();
+```
+
+###El Principio de Substitución de Liskov (__Liskov Substitution Principle o LSP__)
+
+Este principio dice: Las clases derivadas o heredadas deben ser sustituíbles por sus clases bases o padres.
+
+Cuando sale un nuevo sistema operativo, por ejemplo, Windows 8, habitualmente se ha implementado de modo que garantice una compatibilidad 'hacia atrás'. Es decir, cualquier programa que funcionaba en Windows 7, debería funcionar con Windows 8. La implementación de este principio sería garantizar justo lo contrario. Es decir, una 'compatibilidad hacia delante'. De modo que cualquier programa que utilice funciones de Windows 8 que ya existían en Windows 7 (Por ejemplo, el sistema de ficheros), debería funcionar correctamente en Windows 7 y poder utilizar esas funciones sin cambios.
+
+Pasándonos al mundo de la programación y la OOP, este principio habla de un **contrato de comportamientos**. Cuando una clase hereda de otra (o implementa un inteface), no sólo debe cumplir el contrato implementando al menos los mismos métodos y propiedades públicas, sino que además esos métodos deben comportarse internamente del mismo modo en que lo hacen en la clase base. Es decir, no basta con que la nueva clase 'sea de un tipo', debe también 'comportarse de ese modo'.
+
+La idea básica es que al heredar, puedes extender los métodos existentes pero no puedes restringirlos. Por tanto, el principio se aplica únicamente a la funcionalidad existente en la clase base. Ya que un método que utilice la clase base, si le pasamos una instancia de la clase hija, nunca llamará a la nueva funcionalidad porque no sabe que existe.
+
+Las claves de este principio son: (Referidas a la clase hereda o clase 'hija')
+
+- Debe cumplir el contrato público de la clase base.
+  Deben existir todos los métodos y propiedades públicas que implementa la clase base.
+  Se pueden añadir nuevos métodos y propiedades públicas.
+- Los argumentos de los métodos deben ser compatibles.
+  Si se añaden argumentos, deben ser opcionales.
+  Si se modifica el tipo de dato de los argumentos, el nuevo tipo debe ser compatible con el anterior.
+- Los resultados o valores de retorno deben ser compatibles.
+  Debe devolverse el mismo tipo de dato o, si se ha modificado, un tipo compatible con el anterior.
+- Las excepciones deben coincidir. (En los métodos heredados)
+  Si devuelves una excepción, debe ser del mismo tipo que las excepciones devueltas por la clase base.
+  Las reglas que lanzan una excepción no pueden ser más restrictivas que las de la clase base.
+
+###El Principio de Segregación de Interfaces (__Interface Segregation Principle o ISP__)
+
+Este principio dice textualmente: Ningún cliente (de una interface) debería estar obligado a implementar métodos que no utiliza.
+
+Dado que todas las clases que implementan una interface tienen que implementar todos los métodos declarados en esta, puede suceder que con el tiempo lo que era una interface sencilla llegue a tener muchos métodos y no todos los métodos estén relacionados entre sí.
+
+Lo que promueve este principio es la separación de interfaces complejas en varias interface cuyos métodos tengan una alta cohesión entre sí. Este principio está relacionado con el __Principio de Responsabilidad Simple__ y promueve también la alta cohesión en las intefaces.
+
+Si es necesario, podrías dividir una interfaces en varias intefaces más pequeñas y las clases implementar sólo aquellas interfaces que necesiten. Es decir, según este principio, una clase puede implementar más de una interface. Pero, ten en cuenta que eso podría estar incumpliendo el __Principio de Simple Responsabilidad__.
+  
+###SOLID
+
+**SOLID** es un acrónimo inglés para referirse a cinco de los principios que ya hemos visto:
+
+- Single Responsibility Principle. (Principio de Responsabilidad Simple)
+- Open/Closed Principle. (Código abierto para extensión y cerrado para modificación)
+- Liskov Substitution Principle. (Principio de Substitución de Liskov)
+- Interface Segregation Principle. (Principio de Segregación de Interfaces)
+- Dependency Inversion Principle. (
+
+Su propuesta es diseñar nuestro código y nuestras clases teniendo en cuenta esos cinco principios.
 
 ###Polimorfismo
 
