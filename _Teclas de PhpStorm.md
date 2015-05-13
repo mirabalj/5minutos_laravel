@@ -21,6 +21,7 @@ Teclas de PhpStorm
 |                                                 |                                                       |
 | `Ctrl+F12`                                      | Ir a una clase/método del fichero actual              |
 |                                                 |                                                       |
+| `Alt+Insert`                                    | Generar nuevo código (Constructores, etc..)           |
 
 **Edición**                                                                                               
 
