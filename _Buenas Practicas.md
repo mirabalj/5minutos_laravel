@@ -198,43 +198,7 @@ En PHP, se suele decir que dos clases están __fuertemente acopladas__ cuando una
 
 Por tanto, un modo de conseguir acomplamientos débiles es utilizando interface e inyección de dependencias. Cuando usamos inyección de dependecias, sustituímos una instancia directa de una clase (habitualmente en forma de llamada al constructor de esa clase) por un nuevo parámetro en el método para recibir una interface.
 
-Vamos a ver un ejemplo. Imagina que tenemos el siguiente código:
-
-```
-<?php
-
-class DropBox {
-
-	public function getConfig()
-	{
-		(...)
-	}
-
-	public function setConfig()
-	{
-		(...)
-	}
-}
-
-class DatabaseSystem {
-
-	public function openConnection()
-	{
-		$dropbox = new DropBox();
-		$this->openNewConnection($dropbox->getConfig());
-	}
-}
-```
-
-La clase `DatabaseSystem` está __fuertemente acoplada__ a la clase `DropBox` con los siguientes inconvenientes:
-
-- Si quisiéramos guardar la configuración en otro sistema de almacenamiento, tendríamos que modificar el código de la clase `DatabaseSystem`.
-- No es posible cambiar el sistema de almacenamiento de forma dinámica durante la ejecución de la aplicación. Por ejemplo, mediante un fichero de configuración.
-- Para probar la clase `DatabaseSystem`, tenemos que probar también la clase `DropBox`.
-- Dado que la dependencia se realiza en el código interno de un método, no es fácil recordar que existe esa dependencia o incluso es posible que otro programador no sea consciente de ella.
-
-
-> Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño 'Mediator' o 'Facade'.
+Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño 'Mediator' o 'Facade'.
 
 
 
