@@ -7,8 +7,6 @@ Cuando usamos inyección de dependencias, sustituimos una instancia directa de un
 Vamos a ver un ejemplo. Imagina que tenemos el siguiente código:
 
 ```
-<?php
-
 class DropBox {
 
 	public function getConfig()
@@ -49,8 +47,6 @@ Vamos a ver paso a paso, distintas formas de implementar este patrón:
 ####Inyección de dependencias en el método
 
 ```
-<?php
-
 class DropBox {
 
 	public function getConfig()
@@ -87,8 +83,6 @@ Pero la clase `DatabaseSystem` sigue esperando un objeto de tipo `DropBox`. Por 
 Vamos a dar el siguiente paso, usar una interface:
 
 ```
-<?php
-
 interface CloudStorage {
 
 	public function getConfig();
@@ -171,11 +165,69 @@ Imaginemos que en el ejemplo anterior, tenemos también un método que para actual
 
 
 ```
-<?php
+class DatabaseSystem {
 
+	protected $cloudStorage;
+
+	public function __construct(CloudStorage $cloudStorage)
+	{
+		$this->$cloudStorage = $cloudStorage;
+	}
+
+	public function openConnection()
+	{
+		$this->openNewConnection($this->cloudStorage->getConfig());
+	}
+
+	public function updateConnection(array $config = [ ])
+	{
+		$this->cloudStorage->setConfig($config);
+	}
+}
+
+$database = new DatabaseSystem(new GoogleDrive());
+$database->openConnection();
 ```
 
-En este primer paso, hemos conseguido:
+Como ves, ahora recibimos la instancia en el constructor, la guardamos en un campo protected y, de ese modo, podemos usarla en cualquier método que la necesite.
 
-- Ahora la dependencia de la clase `DatabaseSystem` respecto de `DropBox` es pública.
-- Podemos configurar la instancia de `DropBox` antes de pasársela a la clase `DatabaseSystem`.
+####Inyección de dependencias con `getters y setters`.
+
+Si una clase tiene varias dependencias y no queremos que el constructor sea muy complejo, y, a la vez, esas dependencias son usadas en varios métodos, podemos utilizar una variante del método anterior que consiste en implementar métodos `get() y set()` para establecer y acceder a la instancia de la que dependemos.
+
+Si modificamos el ejemplo anterior, quedaría así:
+
+```
+class DatabaseSystem {
+
+	protected $cloudStorage;
+
+	public function setCloudStorage(CloudStorage $cloudStorage)
+	{
+		$this->$cloudStorage = $cloudStorage;
+	}
+
+	public function getCloudStorage()
+	{
+		return $this->cloudStorage;
+	}
+
+	public function openConnection()
+	{
+		$this->openNewConnection($this->getCloudStorage()->getConfig());
+	}
+
+	public function updateConnection(array $config = [ ])
+	{
+		$this->getCloudStorage()->setConfig($config);
+	}
+}
+
+$database = new DatabaseSystem();
+$database->setCloudStorage(new GoogleDrive());
+$database->openConnection();
+```
+
+Este método requiere algo más de código que el anterior. Pues antes de acceder a la instancia de `$cloudStorage`, deberíamos comprobar siempre que es una instancia válida. Por ejemplo, que no se ha llamado a `openConnection()` sin haber usado antes el método `setCloudStorage()` para establecer una instancia válida a un objeto del tipo `CloudStorage`.
+
+
