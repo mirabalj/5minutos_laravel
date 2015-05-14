@@ -27,3 +27,4 @@ El segundo enfoque quizás te parezca abrumador por que habría que crear una clas
 Saludos!
 
 --------------------
+http://refactoring.com/catalog/extractMethod.html
