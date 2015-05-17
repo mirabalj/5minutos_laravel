@@ -6,6 +6,12 @@ Por ejemplo, para relacionar la tabla actual con la `users` a través del campo 
 
 `$table->foreign('user_id')->references('id')->on('users');`
 
+> Recuerda definir primero el campo que va a contener la clave primaria. En el ejemplo anterior, quedaría así:
+> ```
+> $table->integer('user_id')->unsigned();
+> $table->foreign('user_id')->references('id')->on('users');
+> ```
+
 Si además queremos activar el 'borrado en cascada' automático de los registros, concatenamos al final de la línea una llamada al método:
 
 `onDelete('cascade')`
@@ -156,5 +162,34 @@ De ese modo, si intentas borrar un registro padre que tiene hijos, obtendrás un
 En la mayoría de gestores de datos se puede definir también lo que se llama un 'Borrado en cascada' que consiste en que cuando borras un registro padre, el sistema de la base de datos borra automáticamente sus registros hijos asociados.
 
 Por ej, en Laravel, podemos configurar borrados en cascada usando el método `->onDelete('cascade');` cuando definimos la estructura de nuestra base de datos en las migraciones.
+
 #ToDo:Ejemplo
 
+#ToDo: http://www.cazaplanetas.com/webmaster/relaciones-entre-registros-de-una-tabla/
+
+----------------------------
+Como defino una relation que puede ser NULA en Eloquent?
+
+yoelfme [18:34] 
+@montogeek: en tus migraciones o por donde
+
+jair [18:43] 
+@montogeek:  ese tema lo resolvio dulio,  creo que la solucion fue este codigo (edited)
+jair 
+[18:43] 
+Added Untitled in #preguntas  
+ $input = $request->all();
+        if(empty($input['rent_id']))
+            unset($input['rent_id']);
+        if(empty($input['property_id']))
+            unset($input['property_id']);
+        Income::create($input);
+        Session::flash('message_success', "Ingreso registrado exitosamente");
+        return redirect('incomes');
+339b PHP • New window • View raw • Add comment
+
+jair [18:43] 
+agregar el unset en tu controller
+
+jeffer.8a [19:26] 
+@montogeek: creo que con ->nullable() deberia funcionar (en la migracion).

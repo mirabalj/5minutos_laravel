@@ -204,7 +204,7 @@ public function up()
 }
 ``` 
 
-> `php artisan make:model <modelo>` te permite crear al mismo tiempo el modelo y la migración. Los modelos se crean por defecto en la carpeta `app`. Aunque una buena práctica tener una carpeta propia para los modelos. Por ejemplo, si vas a usar el patrón 'Repositorio', para crear un modelo llamado cliente podrías ejecutar `php artisan make:model Entities/Cliente` y guardar tus modelos en la carpeta 'Entities'.
+> `php artisan make:model <modelo>` te permite crear al mismo tiempo el modelo y la migración. Los modelos se crean por defecto en la carpeta `app`. Aunque una buena práctica tener una carpeta propia para los modelos. Por ejemplo, si vas a usar el patrón 'Repositorio', para crear un modelo llamado cliente podrías ejecutar `php artisan make:model Entities/Cliente` y, de ese modo, guardar tus modelos en la carpeta 'Entities'.
 
 ###Ejecutar migraciones
 

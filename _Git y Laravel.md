@@ -1,0 +1,1 @@
+Recuerda ejecutar el cda después de un checkout

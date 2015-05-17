@@ -153,7 +153,18 @@ ejecutar las migraciones.
 
 La respuesta la tienes en el código del framework de Laravel, en la clase `Migrator` que está en el fichero: `framework/src/Illuminate/Database/Migrations/Migrator.php`.
 
-Investigando en esa clase y concretamente en el método  `getMigrationFiles()`, puedes ver que asume que los nombres de los ficheros empezarán por un timestamp y por tanto, los **ordena alfabéticamente** y los ejecuta en ese orden. De modo, que puedes seguir cualquier convención, nomenclatura o nombres siempre que los archivos se ejecuten en el orden que necesites cuando sean ordenados alfabéticamente.
+Investigando en esa clase y concretamente en el método  `getMigrationFiles()`, puedes ver que asume que los nombres de los ficheros empezarán por un timestamp y por tanto, los **ordena alfabéticamente** y los ejecuta en ese orden. De modo, que, **en principio**, puedes seguir cualquier convención, nomenclatura o nombres siempre que los archivos se ejecuten en el orden que necesites cuando sean ordenados alfabéticamente.
+
+Sin embargo, si deseas elegir otra notación o nomenclatura para los nombres, tienes que tener en cuenta otra restricción. En ese mismo fichero, el método `resolve()` es el encargado de resolver el nombre de la clase de tu migración a partir del nombre del fichero.  Y tomará como nombre de esa clase todo lo que haya después del cuarto carácter `_`. 
+
+Por tanto, las restricciones son:
+
+- Puedes utilizar cualquier convención que incluya cuatro guiones bajos `_` antes del nombre de la migración.
+
+- El nombre de la migración debe coincidir con el nombre de la clase declarada en el fichero.
+
+- Recuerda que los ficheros se ordenarán alfabéticamente.
+
 
 ####Preservando las tablas actuales antes de ejecutar una migración.
 
@@ -260,6 +271,23 @@ Este paquete te permitirá generar tus migraciones automáticamente a partir de 
 
 - [nWidart/DbExporter](https://github.com/nWidart/DbExporter)  
 Te permite exportar tus bases de datos actuales como migraciones de Laravel, y los datos como Seeders.
+
+###Errores comunes
+
+- PHP Fatal error:  Class '<NombreDeTuClase>'.
+
+Si al ejecutar tu migración te aparece un error similar a este:
+
+```
+PHP Fatal error:  Class '<NombreDeTuClase>' not found in <app_path>\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php on line 328
+
+  [Symfony\Component\Debug\Exception\FatalErrorException]
+  Class '<NombreDeTuClase>' not found
+
+```
+
+  - Ejecuta `composer dump-autoload` si no lo habías hecho.
+  - Comprueba que el nombre del fichero de migración es igual al nombre de la clase <NombreDeTuClase>.
 
 ### Ventajas de usar el sistema de migraciones:
 

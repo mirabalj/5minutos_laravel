@@ -1,0 +1,75 @@
+<h2 id="est-ndares-de-programaci-n-en-php-psr-1-y-psr-4-">Estándares de programación en PHP (PSR-1 y PSR-4)</h2>
+<p>He querido comenzar esta serie por uno de los aspectos, habitualmente más descuidados, y, sin embargo, más importantes de la programación: El estilo del código.</p>
+<p>El estilo del código es especialmente importante si estamos en un equipo de desarrollo o si nuestro proyecto lo van a usar en algún momento otros desarrolladores. Pero, cuando trabajamos en un proyecto propio, también es una buena costumbre usar un estilo de código claro y optimizado. Nos ayudará a revisar mejor el código y a entenderlo si en algún momento tenemos que modificarlo o queremos reutilizarlo.</p>
+<p>Una vez escuché a un programador decir: ‘Hoy sé lo que hace este código, mañana sólo Dios lo sabe’. Esta propuesta es para que mañana tú también sepas con facilidad lo que hace tu código.</p>
+<p>En esta serie vamos a repasar los estándares de programación hasta llegar a los recomendados en Laravel.</p>
+<p>Empezamos con los estándares de programación en PHP propuestos por el <a href="http://www.php-fig.org">php-fig (Grupo de interoperatibilidad para Frameworks PHP)</a>.</p>
+<p>El estándar PSR-2, lo veremos en el <a href="Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2">siguiente post</a>.</p>
+<h3 id="psr-1-est-ndar-b-sico-de-estilos-de-c-digo-">PSR-1 - Estándar básico de estilos de código.</h3>
+<p>Orientado al contenido de los ficheros PHP y a los nombres de las clases y métodos. </p>
+<p>Su objetivo es garantizar un alto nivel técnico de interoperabilidad entre el código PHP.</p>
+<ul>
+<li><p><strong>DEBEN</strong> usarse únicamente las etiquetas <code><?php</code> y <code><?=</code>.</p>
+</li>
+<li><p><strong>DEBE</strong> usarse sólo <code>UTF-8 without BOM</code> para código PHP.  </p>
+</li>
+<li><p>Un fichero debería contener o bien estructuras y símbolos (clases, funciones, constantes, etc...) o bien partes de la lógica secundaria (informes, configuración, etc..) pero <strong>NO DEBERÍAN</strong> hacerse las dos cosas. </p>
+</li>
+<li><p>Los Namespaces y las clases <strong>DEBEN</strong> cumplir el estándar PSR-4.</p>
+</li>
+<li><p>Los nombres de las clases <strong>DEBEN</strong> utilizar la notación <code>StudlyCaps</code>.</p>
+<pre><code> class MySqlBuilder extends Builder {...}
+ class CreateUsersTable extends Migration {...}</code></pre>
+</li>
+<li><p>Las constantes de las clases <strong>DEBEN</strong> declararse en MAYÚSCULAS usando guiones bajos como separadores.</p>
+<pre><code> const VERSION = '1.0';
+ const DATE_APPROVED = '2012-06-01';</code></pre>
+</li>
+<li><p>Los nombres de los métodos <strong>DEBEN</strong> declararse en notación <code>camelCase</code>. (Ej: <code>getColumnListing()</code>, <code>compileTableExists()</code>)</p>
+<pre><code> public function hasTable($table){...}
+ public function getAuthPassword(){...}</code></pre>
+</li>
+<li><p>Para los nombres de las propiedades no se define una recomendación concreta. A excepción de que la convención que se elija se mantenga para todo el proyecto, clase o método. </p>
+</li>
+</ul>
+<blockquote>
+<p><code>StudlyCaps</code> es una notación en la que se alternan mayúsculas y minúsculas por algún patrón concreto.  </p>
+<p>En <code>camelCase</code> se escribe la primera letra de cada palabra con mayúsculas (Habitualmente la primera letra de todas suele ir en minúsculas).  </p>
+<p>En <code>snake_case' se separan las palabras sustituyendo los espacios por guiones bajos.   
+En en este estándar</code>StudlyCaps<code>y</code>camelCase<code>se diferencian únicamente en el uso de la primera letra en minúsculas para</code>camelCase`.</p>
+</blockquote>
+<h4 id="psr-4-est-ndar-de-autocarga-">PSR-4 - Estándar de Autocarga.</h4>
+<p>Orientado a los nombres de los Namespaces, Clases y Ficheros. Su objetivo es facilitar la carga automática de clases.</p>
+<ul>
+<li><p>Las rutas completas de los Namespaces <strong>DEBEN</strong> tener la estructura <code>Proveedor\Namespace\NombreDeLaClase</code>. <code>(VendorName\Namespace\ClassName)</code></p>
+<p>Por ejemplo:  </p>
+<pre><code> use Illuminate\Database\Schema\Blueprint;
+ use Illuminate\Database\Migrations\Migration;</code></pre>
+<p>Proveedor: <code>Illuminate</code><br>Namespace: <code>Database\Migrations</code><br>Nombre de la Clase: <code>Blueprint y Migration</code>  </p>
+</li>
+<li><p>Todas las rutas <strong>DEBEN</strong> tener un Proveedor (Vendor Name).</p>
+</li>
+<li><p>Los Namespaces pueden estar compuestos de todos los Sub-Namespaces que se desee.  </p>
+</li>
+<li><p>Todas las rutas <strong>DEBEN</strong> acabar en un Nombre de Clase (Class Name).</p>
+</li>
+<li><p>Los guiones bajos no tienen ningún significado especial (modificación sobre PSR-0).</p>
+</li>
+<li><p>Se pueden combinar mayúsculas y minúsculas.</p>
+</li>
+<li><p>Todos los nombres de clase <strong>DEBEN</strong> usar un estilo 'case-sensitive'.</p>
+</li>
+</ul>
+<p>Cada namespace puede tener tantos sub-namespaces como se quiera.</p>
+<p>Todos los archivos deben tener la extensión .php.</p>
+<p>Los nombres de los namespaces o clases deben ser ordenados alfabéticamente.</p>
+<h3 id="fuentes-y-m-s-informaci-n-">Fuentes y más información:</h3>
+<p><a href="Autocarga-de-clases-en-Laravel-(Autoload">Autocarga de clases en Laravel (Autoload)</a>)</p>
+<p><a href="Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2">Estándares de programación en PHP (PSR-2)</a></p>
+<p><a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.   </p>
+<p><a href="http://www.php-fig.org">php-fig - Grupo de interoperatibilidad para Frameworks PHP</a>  </p>
+<p><a href="http://www.php-fig.org/psr/psr-1/">Estándar PSR-1</a>  </p>
+<p><a href="http://www.php-fig.org/psr/psr-2/">Estándar PSR-2</a>  </p>
+<p><a href="http://www.php-fig.org/psr/psr-3/">Estándar PSR-3</a>  </p>
+<p><a href="http://www.php-fig.org/psr/psr-4/">Estándar PSR-4</a>  </p>
+<p><a href="http://www.php-fig.org/psr/psr-4/examples/">Ejemplos de implementación de PSR-4</a>  </p>
