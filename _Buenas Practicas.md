@@ -1,3 +1,4 @@
+http://williamdurand.fr/2013/07/30/from-stupid-to-solid-code/
 ###La caja negra: La importancia de la 'discreción'
 
 En OOP, un principio muy importante es el que se suele llamar como 'La Caja Negra' o encapsulamiento. Ese principio es un metáfora de las cajas negras de los aviones. Y recomienda que por defecto las clases mantengan todo el código posible de forma privada. Exponiendo públicamente únicamente aquellas propiedades y métodos que sean imprescindibles para usar la clase.
@@ -34,7 +35,7 @@ En lugar de exponer tus campos como públicos, utilizar métodos getters y setters
   
   Otra señal de que una clase tiene demasiadas responsabilidades es que te sea difícil poner un nombre a tu clase.
   
-
+http://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html
 ###Polimorfismo
 
 - Utiliza el polimorfismo.
@@ -350,3 +351,5 @@ class UserFakerSeeder extends BaseSeeder {
  Y mover el resto de código a otro método.
 
  Eso te permitirá mantener más simples tus tests. Ya que en el caso anterior, todos los tests que escribas deberán tener en cuenta cada una de las acciones realizadas en el constructor de la clase.
+
+ http://blog.cleancoder.com/uncle-bob/2014/06/30/ALittleAboutPatterns.html

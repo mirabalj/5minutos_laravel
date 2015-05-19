@@ -1,0 +1,1 @@
+http://laravel-news.com/2014/04/laravel-tip-break-up-your-routes/
