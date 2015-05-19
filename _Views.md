@@ -262,6 +262,10 @@ explicacion de @overwrite: http://stackoverflow.com/questions/21169414/laravel-b
 Investigar y explicar graficamente el flujo de las plantillas incluyendo recursividad
 
 Explicación de @stop, @show, @append y @overwrite
+
+En la plantilla padre, si usas `@endsection` y la plantilla hija no declara la sección, aunque tengamos contenidos en la padre, no se mostrarán. Para que se muestren, usar @show
+
+
 http://laravel-recipes.com/recipes/244/stopping-injecting-content-into-a-section-and-overwriting
 
 Un montón de trucos sobre las plantillas: http://laravel-recipes.com/categories/9
@@ -283,3 +287,5 @@ Extending Blade: Custom directives
 http://laravel.com/docs/master/views
 
 Buscar también info sobre @endsection
+
+https://scotch.io/tutorials/simple-laravel-layouts-using-blade
