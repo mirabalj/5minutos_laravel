@@ -1,4 +1,6 @@
-Teclas de PhpStorm
+Teclas de PhpStorm para Windows
+
+Entre corchetes `[]` la combinación original y a la izquierda la que yo he redefinido.
 
 **Código**   
 
@@ -57,6 +59,8 @@ Teclas de PhpStorm
 | Ctrl+B                                          | Ir a la declaración de la clase                            |
 |                                                 |                                                            |
 | `Ctrl+E`                                        | Lista de ficheros recientes                                |
+|                                                 |                                                            |
+| `Alt+Inicio`,`Alt+Insert`                       | Crear nuevos ficheros/directorios                          |
                                                                                                                
 **PhpStorm**                                                                                                   
                                                                                                                
