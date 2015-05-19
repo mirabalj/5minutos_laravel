@@ -1,15 +1,4 @@
-###Buenos principios y prácticas de programación.
-
-Habitualmente, la vida de una aplicación es mucho mayor que el tiempo que lleva desarrollarla. Durante la fase de desarrollo pasaremos una gran parte de nuestro tiempo probando la aplicación y solucionando los posibles errores que surjan. Una vez desarrollada, el tiempo que le dediquemos será principalmente para implementar cambios y nuevas funcionalidades o solucionar errores.
-
-Todos los principios que te presento en este post están pensados para minimizar los posibles errores de tu aplicación y el tiempo dedicado a corregirlos y al mantenimiento de esta.
-
-Aunque en ocasiones pueda parecer que implementar estos principios retrasarán los tiempos de la fase de desarrollo, a la larga, el ratio coste/beneficio es muy favorable si tenemos en cuenta en cuanto reducen el tiempo dedicado a corregir errores y al mantenimiento de la aplicación. Incluso, durante la fase de desarrollo ese ratio es positivo, dado que también durante esa fase pasamos una gran parte del tiempo corrigiendo errores.
-
-Por supuesto, son recomendaciones y principios. Por tanto, no son obligatorios y está en tu mano utilizarlos o no, y elegir aquellos que creas conveniente en función de las necesidades de tu aplicación, de tu estilo de programación, etc...
-
-Afortunadamente la Programación Orientada a Objetos (OOP) y el Framework Laravel implementan la mayoría de estos principios. Por lo que tienes una gran parte del trabajo hecho.
-
+http://williamdurand.fr/2013/07/30/from-stupid-to-solid-code/
 ###La caja negra: La importancia de la 'discreción'.
 
 En OOP, un principio muy importante es el que se suele llamar como 'La Caja Negra' o encapsulamiento. Ese principio es un metáfora de las cajas negras de los aviones. Y recomienda que por defecto las clases mantengan todo el código posible de forma privada. Exponiendo públicamente únicamente aquellas propiedades y métodos que sean imprescindibles para usar la clase.
@@ -169,7 +158,8 @@ El flujo de trabajo propuesto por la metodología de pruebas TDD está basado en e
  - Comprueba si el modelo existe en la colección antes de acceder a él.
  - `createMultipleEntities($numberOfEntities)` una cantidad de entidades determinada por el parámetro que recibe.
  - Para ello usa un bucle en el que se crea cada vez una nueva entidad a partir del contador actual.
- 
+
+ http://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html
 ###No te repitas (Don't Repeat Yourself o DRY)
 
 Este principio es una filosofía de desarrollo que dice que ningún algoritmo debería aparecer más de una vez.
@@ -419,3 +409,4 @@ Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño
 
 En cada método comprueba valida los valores recibidos y lanza una excepción si no son válidos.
 
+ http://blog.cleancoder.com/uncle-bob/2014/06/30/ALittleAboutPatterns.html
