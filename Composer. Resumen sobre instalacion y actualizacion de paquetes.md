@@ -253,9 +253,9 @@ Tienes más información en el artículo que he publicado en Styde.net: [Instala
 
 [Descargar Composer](https://getcomposer.org)   
 
-[Instalar Composer como Portable en Windows](https://gist.github.com/jatubio/d5c30606328c370d5640)   
+[Instalar Composer manualmente en Windows](https://gist.github.com/jatubio/d5c30606328c370d5640)   
 
-[Diferencias entre composer install y composer update.](Diferencias-entre-composer-install-y-composer-update)
+[Diferencias entre composer install y composer update.](Composer.-Resumen---Diferencias-entre-composer-install-y-composer-update)
 
 [Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
 
