@@ -82,7 +82,7 @@ Tienes más información en el artículo que he publicado en Styde.net: [Compose
 
 [Descargar Composer](https://getcomposer.org)   
 
-[Diferencias entre composer install y composer update.](Diferencias-entre-composer-install-y-composer-update)
+[Diferencias entre composer install y composer update.](Composer.-Resumen---Diferencias-entre-composer-install-y-composer-update)
 
 [Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload)
 
