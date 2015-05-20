@@ -1,0 +1,10 @@
+http://laravel.com/docs/master/testing#model-factories
+https://github.com/laracasts/TestDummy
+http://www.neontsunami.com/posts/laravel-controller-testing-with-testdummy-2
+http://www.neontsunami.com/posts/testing-laravel-with-phpunit
+http://stackoverflow.com/questions/29548272/laravel-testdummy-seeding-creates-additional-unwanted-entries
+http://www.dancourse.co.uk/tag/testdummy/
+http://stackoverflow.com/questions/26078706/codeception-how-to-test-if-a-user-has-a-role
+https://disqus.com/home/discussion/laracast/whats_new_in_testdummy/
+https://github.com/janhenkgerritsen/codeception-laravel5-sample
+https://github.com/janhenkgerritsen/codeception-laravel5-sample/tree/master/tests

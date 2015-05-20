@@ -1,3 +1,4 @@
+http://verraes.net/2014/12/how-much-testing-is-too-much/   
 
 http://laraveles.com/foro/viewtopic.php?id=2469
 http://laravelista.com/getting-started-with-codeception/
