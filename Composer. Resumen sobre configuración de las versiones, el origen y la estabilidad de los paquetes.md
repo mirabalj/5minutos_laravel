@@ -1,4 +1,4 @@
-###Composer: Resumen sobre configuración de las versiones, el origen y la estabilidad de los paquetes.
+###Composer. Resumen sobre configuración de las versiones, el origen y la estabilidad de los paquetes.
 
 ####Distribuciones.
 
