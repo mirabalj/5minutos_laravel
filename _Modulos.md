@@ -1,0 +1,1 @@
+http://nicolaswidart.com/blog/view-composers-and-view-creators-in-laravel
