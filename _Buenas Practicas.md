@@ -1,4 +1,5 @@
-###La caja negra: La importancia de la 'discreción'
+http://williamdurand.fr/2013/07/30/from-stupid-to-solid-code/
+###La caja negra: La importancia de la 'discreción'.
 
 En OOP, un principio muy importante es el que se suele llamar como 'La Caja Negra' o encapsulamiento. Ese principio es un metáfora de las cajas negras de los aviones. Y recomienda que por defecto las clases mantengan todo el código posible de forma privada. Exponiendo públicamente únicamente aquellas propiedades y métodos que sean imprescindibles para usar la clase.
 
@@ -10,30 +11,232 @@ Yo lo suelo llamar también el principio de la 'discreción': Imagina que tus clas
 
 En lugar de exponer tus campos como públicos, utilizar métodos getters y setters para acceder a ellos. De ese modo, podrás validarlos y procesarlos antes de devolverlos o modificar su valor.
 
+###Código abierto para extensión y cerrado para modificación.
 
+En inglés: __Open/Closed Principle (OCP)__
 
+Es decir, crea clases que otros no puedan modificar pero sí puedan extender. Es otra forma de expresar el concepto de caja negra o encapsulamiento.
 
-###Divide y vencerás
+Por defecto, declara todos los campos o miembros de la clase como privados. Escribe métodos `get()` y `set()` únicamente cuando los necesites.
 
-- Mantén tu código simple.
+###Mantén el código simple, estúpido
+
+ - Mantén tu código simple.
 
  Esta es la primera clave y la más importante. Una frase ideal para recordarla es: 'Divide y vencerás': Divide tu código complejo en varios métodos más simples. De ese modo será menos propenso a errores y cuando estos aparezcan será mucho más fácil encontrarlos y solucionarlos.
+ 
+> En inglés se suele llamar: __KISS (Keep it simple, stupid)__ que traducido sería algo como: Mantenlo simple, estúpido.
  
  - Mantén simples tus métodos. 
  
   Un método debería tener las mínimas líneas posibles. Incluso sólo una si es posible.
   
   Un método con más de 15 o 20 líneas puede ser una señal de que es demasiado complejo.
+  
  
-
-###El Principio de Responsabilidad Simple
+###El Principio de Responsabilidad Simple. (SRP o Single Responsibility Principle).
 
 - Aplica SRP a tus clases.
   
-  Si cuando describes lo que hace tu clase, usas la palabra 'y' más de tres veces, probablemente es una perfecta candidata a una refactorización.
+  - Cada clase debería tener sólo una responsabilidad y esa responsabilidad debería ser encapsulada totalmente por la clase.
   
-  Otra señal de que una clase tiene demasiadas responsabilidades es que te sea difícil poner un nombre a tu clase.
+  - Nunca debería de existir más de una razón para modificar una clase.
+
+>  Si cuando describes lo que hace tu clase, usas la palabra 'y' más de tres veces, probablemente es una perfecta candidata a una refactorización.
+>  
+>  Otra señal de que una clase tiene demasiadas responsabilidades es que te sea difícil poner un nombre a tu clase.
+
   
+- Aplica SRP a los constructores.
+
+ La única responsabilidad del constructor debería ser asignar dependencias. Sería como un asistente que coloca cada instancia o dependencia en su propiedad correspondiente.
+ 
+ Si tienes un constructor como este:
+
+ ```
+	public function __construct(Generator $faker)
+	{
+		$this->faker = $faker;
+
+		$this->setCheckForeignKeys(false);
+
+		$this->truncateTables();
+		
+		$this->setCheckForeignKeys(true);
+	}
+ ```
+ 
+ Deberías convertirlo en este:
+ 
+ ```
+	public function __construct(Generator $faker)
+	{
+		$this->faker = $faker;
+	}
+ ```
+
+ Y mover el resto de código a otro método.
+
+ Eso te permitirá mantener más simples tus tests. Ya que en el caso anterior, todos los tests que escribas deberán tener en cuenta cada una de las acciones realizadas en el constructor de la clase.
+
+- Agrupa tu código por responsabilidades o incumbencias.
+
+ Es decir, organiza tus clases y métodos en función de las responsabilidades que tengan en común. En inglés se le llama __Separation of Concerns (SoC)__ o __Advanced Separation of Concerns (ASoC)__.
+
+ Sería algo así como 'que cada clase se ocupe de sus propios asuntos'. Habitualmente las responsabilidades o asuntos suelen ser sinónimos de comportamientos y características.
+ 
+ Por ejemplo, el patrón de diseño MVC (Modelo - Vista - Controlador), es un ejemplo práctico de implementación de la separación de responsabilidades.
+ 
+> La metodología de Programación Orientada al Aspecto (__Aspect Oriented Programming o AOP__) consiste en diseñar nuestras clases y código de modo que estén
+> agrupados por responsabilidades.
+> También se le conoce como __Aspect-Oriented Software Development (AOSD)__.
+
+ Otra forma de aplicar este principio es crear un servicio. Por ejemplo, en una aplicación es posible que validemos los datos en varios puntos del código. Dado que en ocasiones esos puntos no tendrán relación entre sí, podemos crear un servicio que valide los datos y, de ese modo estamos separando esa responsabilidad en un lugar común sin mezclar clases con responsabilidades distintas.
+
+- Usa la pregunta: ¿Cual es el código más simple que puedo escribir para que esto funcione?
+
+El flujo de trabajo propuesto por la metodología de pruebas TDD está basado en este principio.
+
+- No me hagas pensar.
+
+ Cualquier programador debería entender lo que hace tu código con echar un simple vistazo.
+ 
+ Un movimiento que promueve este principio es el de utilizar el 'Lenguaje Ubicuo' (__Ubiquitous Language__) para los nombres de las variables, métodos y clases en el código. 
+ 
+ El lenguaje ubicuo es un término que introdujo Eric Evans en su libro sobre DDD (__Domain Driven Design__) como propuesta para crear un lenguaje común entre los programadores y los usuarios.
+ 
+ Intenta adivinar qué hace este código:
+ 
+ ```
+	protected function getRandom($name)
+	{
+		if ( ! $this->isSet($name) )
+		{
+			throw new Exception ("The $name does not exist");
+		}
+
+		return static::$pool[$name]->random();
+	}
+
+	(...)
+	
+	protected function createMany($k)
+	{
+		for ($i = 1; $i <= $i; $i++)
+		{
+			$this->create($i);
+		}
+	}	
+ ```
+ 
+ Imagina ahora el mismo código escrito utilizando lenguaje ubicuo:
+ 
+ ```
+	protected function getRandomEntityFrom($modelName)
+	{
+		if ( ! $this->collectionExists($modelName) )
+		{
+			throw new OutOfRangeException ("The $modelName does not exist");
+		}
+
+		return static::$modelsCollection[$modelName]->random();
+	}
+
+	(...)
+	
+	protected function createMultipleEntities($numberOfEntities)
+	{
+		for ($entitiesCounter = 1; $entitiesCounter <= $numberOfEntities; $entitiesCounter++)
+		{
+			$this->createEntity($entitiesCounter);
+		}
+	}	
+ ```
+
+ Con este tipo de nombres, el código se documenta por sí mismo:
+ - `getRandomEntityFrom($modelName)` devuelve una entidad aleatoria a partir del nombre de un modelo.
+ - Comprueba si el modelo existe en la colección antes de acceder a él.
+ - `createMultipleEntities($numberOfEntities)` una cantidad de entidades determinada por el parámetro que recibe.
+ - Para ello usa un bucle en el que se crea cada vez una nueva entidad a partir del contador actual.
+
+ http://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html
+###No te repitas (Don't Repeat Yourself o DRY)
+
+Este principio es una filosofía de desarrollo que dice que ningún algoritmo debería aparecer más de una vez.
+
+De ese modo, si hay que hacer cambios, podremos hacerlos sólo en un punto de nuestro código y evitaremos las inconsistencias que pueden aparecer cuando tenemos algoritmos duplicados y no hacemos los cambios en todos los lugares en los que aparece ese algoritmo.
+
+La aplicación práctica es: Tan pronto como veas que escribes el mismo algoritmo varias veces, conviértelo en una función, método, clase, clase abstracta o servicio.
+
+He evitado usar la palabra '__código__', y he utilizado '__algoritmo__' en su lugar porque este principio no se aplica al código, sino al significado de ese código.
+
+Es decir, habrá ocasiones en las que dos fragmentos de código que no tienen relación alguna sean muy parecidos, o incluso idénticos. Pero que en realidad, incluso aunque estén realizando funciones similares, dependen de reglas muy distintas. Y, por tanto, no pueden considerarse duplicados ni sustituires por una única implementación.
+
+Piensa en ello como si estuvieras escribiendo un libro. En un idioma hay palabras que significan los mismo y en otros casos, la misma palabra o expresión significa cosas distintas según el contexto. Habrá ocasiones en las que no podrás sustituir una palabra por un sinónimo y habrá ocasiones en las que podrías decir que una frase está repetida varias veces en el libro, pero si lees atentamente las páginas en las que aparecen esas frases descubrirás que sólo tienen en común que se han utilizado las mismas palabras al escribirlas.
+
+> **Nota:** La clave para saber si un código o algoritmo está duplicado es buscar: ¿Qué reglas determinan ese código? ¿Qué cambio en esas reglas obligarían a modificar el código? Si el cambio en esas reglas afecta por igual a varios trozos de código o algoritmos, puede considerarse que están duplicados y que pueden abstraerse a un código o algoritmo común.
+
+###No cruces el puente antes de llegar a él.
+
+En inglés este principio se llama __You aren’t going to need it (YAGNI)__ que se traduciría por 'No lo vas a necesitar'.
+
+La idea es no crear funcionalidades hasta que no las necesitemos. Ya que cada funcionalidad añade complejidad al código y en muchas ocasiones empezamos a implementar muchas funcionalidades del tipo 'Por si acaso' que no llegamos a usar nunca.
+
+###La ley de Demeter:
+
+Una clase sólo debe comunicarse con aquellas clases con las que esté directamente relacionada: Por herencia, porque las contiene o está contenida en ellas, porque se le ha pasado una instancia como argumento, etc...
+
+Por ejemplo, evitar código como este:
+
+```
+	return $this->mailMessage->html->header->status();
+```
+
+###El Principio de Substitución de Liskov (__Liskov Substitution Principle o LSP__)
+
+Este principio dice: Las clases derivadas o heredadas deben ser sustituíbles por sus clases bases o padres.
+
+Cuando sale un nuevo sistema operativo, por ejemplo, Windows 8, habitualmente se ha implementado de modo que garantice una compatibilidad 'hacia atrás'. Es decir, cualquier programa que funcionaba en Windows 7, debería funcionar con Windows 8. La implementación de este principio sería garantizar justo lo contrario. Es decir, una 'compatibilidad hacia delante'. De modo que cualquier programa que utilice funciones de Windows 8 que ya existían en Windows 7 (Por ejemplo, el sistema de ficheros), debería funcionar correctamente en Windows 7 y poder utilizar esas funciones sin cambios.
+
+Pasándonos al mundo de la programación y la OOP, este principio habla de un **contrato de comportamientos**. Cuando una clase hereda de otra (o implementa un inteface), no sólo debe cumplir el contrato implementando al menos los mismos métodos y propiedades públicas, sino que además esos métodos deben comportarse internamente del mismo modo en que lo hacen en la clase base. Es decir, no basta con que la nueva clase 'sea de un tipo', debe también 'comportarse de ese modo'.
+
+La idea básica es que al heredar, puedes extender los métodos existentes pero no puedes restringirlos. Por tanto, el principio se aplica únicamente a la funcionalidad existente en la clase base. Ya que un método que utilice la clase base, si le pasamos una instancia de la clase hija, nunca llamará a la nueva funcionalidad porque no sabe que existe.
+
+Las claves de este principio son: (Referidas a la clase hereda o clase 'hija')
+
+- Debe cumplir el contrato público de la clase base.
+  Deben existir todos los métodos y propiedades públicas que implementa la clase base.
+  Se pueden añadir nuevos métodos y propiedades públicas.
+- Los argumentos de los métodos deben ser compatibles.
+  Si se añaden argumentos, deben ser opcionales.
+  Si se modifica el tipo de dato de los argumentos, el nuevo tipo debe ser compatible con el anterior.
+- Los resultados o valores de retorno deben ser compatibles.
+  Debe devolverse el mismo tipo de dato o, si se ha modificado, un tipo compatible con el anterior.
+- Las excepciones deben coincidir. (En los métodos heredados)
+  Si devuelves una excepción, debe ser del mismo tipo que las excepciones devueltas por la clase base.
+  Las reglas que lanzan una excepción no pueden ser más restrictivas que las de la clase base.
+
+###El Principio de Segregación de Interfaces (__Interface Segregation Principle o ISP__)
+
+Este principio dice textualmente: Ningún cliente (de una interface) debería estar obligado a implementar métodos que no utiliza.
+
+Dado que todas las clases que implementan una interface tienen que implementar todos los métodos declarados en esta, puede suceder que con el tiempo lo que era una interface sencilla llegue a tener muchos métodos y no todos los métodos estén relacionados entre sí.
+
+Lo que promueve este principio es la separación de interfaces complejas en varias interface cuyos métodos tengan una alta cohesión entre sí. Este principio está relacionado con el __Principio de Responsabilidad Simple__ y promueve también la alta cohesión en las intefaces.
+
+Si es necesario, podrías dividir una interfaces en varias intefaces más pequeñas y las clases implementar sólo aquellas interfaces que necesiten. Es decir, según este principio, una clase puede implementar más de una interface. Pero, ten en cuenta que eso podría estar incumpliendo el __Principio de Simple Responsabilidad__.
+  
+###SOLID
+
+**SOLID** es un acrónimo inglés para referirse a cinco de los principios que ya hemos visto:
+
+- Single Responsibility Principle. (Principio de Responsabilidad Simple)
+- Open/Closed Principle. (Código abierto para extensión y cerrado para modificación)
+- Liskov Substitution Principle. (Principio de Substitución de Liskov)
+- Interface Segregation Principle. (Principio de Segregación de Interfaces)
+- Dependency Inversion Principle. (
+
+Su propuesta es diseñar nuestro código y nuestras clases teniendo en cuenta esos cinco principios.
 
 ###Polimorfismo
 
@@ -198,155 +401,12 @@ En PHP, se suele decir que dos clases están __fuertemente acopladas__ cuando una
 
 Por tanto, un modo de conseguir acomplamientos débiles es utilizando interface e inyección de dependencias. Cuando usamos inyección de dependecias, sustituímos una instancia directa de una clase (habitualmente en forma de llamada al constructor de esa clase) por un nuevo parámetro en el método para recibir una interface.
 
-Vamos a ver un ejemplo. Imagina que tenemos el siguiente código:
-
-```
-<?php
-
-class DropBox {
-
-	public function getConfig()
-	{
-		(...)
-	}
-
-	public function setConfig()
-	{
-		(...)
-	}
-}
-
-class DatabaseSystem {
-
-	public function openConnection()
-	{
-		$dropbox = new DropBox();
-		$this->openNewConnection($dropbox->getConfig());
-	}
-}
-```
-
-La clase `DatabaseSystem` está __fuertemente acoplada__ a la clase `DropBox` con los siguientes inconvenientes:
-
-- Si quisiéramos guardar la configuración en otro sistema de almacenamiento, tendríamos que modificar el código de la clase `DatabaseSystem`.
-- No es posible cambiar el sistema de almacenamiento de forma dinámica durante la ejecución de la aplicación. Por ejemplo, mediante un fichero de configuración.
-- Para probar la clase `DatabaseSystem`, tenemos que probar también la clase `DropBox`.
-- Dado que la dependencia se realiza en el código interno de un método, no es fácil recordar que existe esa dependencia o incluso es posible que otro programador no sea consciente de ella.
-
-
-> Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño 'Mediator' o 'Facade'.
-
-
-
- 
-- Inyección de dependencias.
-
- El código ha de poder probarse sin necesidad de modificarlo. Cuando llamamos al constructor de una clase directamente desde nuestro código, se dice que está 'Fuertemente acoplado' a esa clase. Y, por tanto, si queremos sustituirla por otra clase distinta (por ejemplo, para los tests), tendremos que modificar el código.
- 
- Es un buen hábito ese tipo de código y utilizar en su lugar 'Inyección de dependencias'. Al menos el código que vaya a pasar por un test, escribelo utilizando __Inyección de dependencias__.
- 
- Para eso, cada vez que en un método estés creando un objeto directamente desde el constructor de su clase, sustituye ese código por una propiedad protected o un método que te devuelva una instancia de ese objeto y modifica el constructor de la clase o los parámetros de tu método para que reciban esa instancia.
- 
- Si por ejemplo, tienes el siguiente código:
-
- ```
-class UserFakerSeeder extends BaseSeeder {
-
-	public function getDummyData(array $customValues = [ ])
-	{
-		$faker=new Faker\Generator();
-
-		return [
-			'name'     => $faker->name,
-			'email'    => $faker->email,
-			'password' => bcrypt('secret')
-		];
-	}
-
-}
-```
- 
- Puedes sustituirlo por este:
-
- ```
-class UserFakerSeeder extends BaseSeeder {
-
-	public function getDummyData(Generator $faker, array $customValues = [ ])
-	{
-		return [
-			'name'     => $faker->name,
-			'email'    => $faker->email,
-			'password' => bcrypt('secret')
-		];
-	}
-
-}
-```
-
- O este otro:
-
- ```
-class UserFakerSeeder extends BaseSeeder {
-
-	protected  $faker;
-
-	public function __construct(Generator $faker)
-	{
-		$this->faker = $faker;
-	}
-
-	public function getDummyData(array $customValues = [ ])
-	{
-		return [
-			'name'     => $this->faker->name,
-			'email'    => $this->faker->email,
-			'password' => bcrypt('secret')
-		];
-	}
-
-}
-``` 
-
- De ese modo, puedes inyectar una clase de pruebas (`Mock`) como `Faker` en lugar de la clase original `Faker\Generator`.
- 
- Por ejemplo, ahora para probar el código anterior, podríamos usar PHPUnit y escribir algo similar a esto:
-
- ``` 
- $faker = Mockery::mock('Faker\Generator');
- $userFaker = new UserFakerSeeder($faker);
- (...)
- ```
+Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño 'Mediator' o 'Facade'.
  
 > **Recomendación:** Busca todas las líneas de tu código en las que usas la palabra clave `new` y comprueba si hay un modo mejor de escribir ese código utilizando inyección de dependencias.
 
-- SRP aplicado a los constructores.
+###Gestión de errores en los parámetros.
 
- La única responsabilidad del constructor debería ser asignar dependencias. Sería como un asistente que coloca cada instancia o dependencia en su propiedad correspondiente.
- 
- Si tienes un constructor como este:
+En cada método comprueba valida los valores recibidos y lanza una excepción si no son válidos.
 
- ```
-	public function __construct(Generator $faker)
-	{
-		$this->faker = $faker;
-
-		$this->setCheckForeignKeys(false);
-
-		$this->truncateTables();
-		
-		$this->setCheckForeignKeys(true);
-	}
- ```
- 
- Deberías convertirlo en este:
- 
- ```
-	public function __construct(Generator $faker)
-	{
-		$this->faker = $faker;
-	}
- ```
-
- Y mover el resto de código a otro método.
-
- Eso te permitirá mantener más simples tus tests. Ya que en el caso anterior, todos los tests que escribas deberán tener en cuenta cada una de las acciones realizadas en el constructor de la clase.
+ http://blog.cleancoder.com/uncle-bob/2014/06/30/ALittleAboutPatterns.html
