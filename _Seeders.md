@@ -242,3 +242,4 @@ https://styde.net/seeders-y-el-componente-faker-en-laravel-5/
 
 ###ToDo:
 Faker->paragraph(rand(2,5)),1.5.0,15:03
+http://nicolaswidart.com/blog/view-composers-and-view-creators-in-laravel
