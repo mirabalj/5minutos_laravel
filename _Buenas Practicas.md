@@ -226,6 +226,7 @@ Lo que promueve este principio es la separación de interfaces complejas en varia
 
 Si es necesario, podrías dividir una interfaces en varias intefaces más pequeñas y las clases implementar sólo aquellas interfaces que necesiten. Es decir, según este principio, una clase puede implementar más de una interface. Pero, ten en cuenta que eso podría estar incumpliendo el __Principio de Simple Responsabilidad__.
   
+http://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html
 ###SOLID
 
 **SOLID** es un acrónimo inglés para referirse a cinco de los principios que ya hemos visto:
@@ -409,4 +410,21 @@ Otro modo de conseguir acomplamientos débiles es implementar el patrón de diseño
 
 En cada método comprueba valida los valores recibidos y lanza una excepción si no son válidos.
 
- http://blog.cleancoder.com/uncle-bob/2014/06/30/ALittleAboutPatterns.html
+		$this->truncateTables();
+		
+		$this->setCheckForeignKeys(true);
+	}
+ ```
+ 
+ Deberías convertirlo en este:
+ 
+ ```
+	public function __construct(Generator $faker)
+	{
+		$this->faker = $faker;
+	}
+ ```
+
+ Y mover el resto de código a otro método.
+
+ Eso te permitirá mantener más simples tus tests. Ya que en el caso anterior, todos los tests que escribas deberán tener en cuenta cada una de las acciones realizadas en el constructor de la clase.
