@@ -199,6 +199,34 @@ Si acabas de crear tu clase y el error que obtienes al ejecutar el seeder es est
 
 Ejecuta `composer dump-autoload` para añadir tu nueva clase al sistema de autocarga de Laravel.
 
+- `Column not found: 1054 Unknown column 'updated_at'`
+
+ ```
+  [Illuminate\Database\QueryException]
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list' (SQL: insert into `<table>` (`email`, `update
+  d_at`, `created_at`) values (xxxx, 2015-05-15 17:15:35, 2015-05-15 17:15:35))
+
+
+  [PDOException]
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'
+```
+
+ Un mensaje de error similar a los anteriores se debe habitualmente a que no has creado los campos `created_at` y `updated_at` en la tabla `<table>`.
+
+ Laravel espera que por defecto, existan esos campos.
+
+ Tienes dos opciones para solucionar este error:
+
+ 1. Crear los campos:
+ 
+	Añade la siguiente línea a tu migración para esa tabla: `$table->timestamps();` y ejecuta de nuevo la migración. (O crea una nueva migración)
+
+ 2. Configurar el modelo de esa tabla para que no use esos campos:
+ 
+	Añade la siguiente línea al fichero de clase de tu Modelo:
+	
+	`public $timestamps = false;`
+
 -------------
 
 http://laravel.com/docs/5.0/migrations
@@ -214,3 +242,4 @@ https://styde.net/seeders-y-el-componente-faker-en-laravel-5/
 
 ###ToDo:
 Faker->paragraph(rand(2,5)),1.5.0,15:03
+http://nicolaswidart.com/blog/view-composers-and-view-creators-in-laravel
