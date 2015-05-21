@@ -36,7 +36,7 @@ Para definir la estructura de la tabla, lo haremos concatenando métodos que nos
 Algunos ejemplos serían:
 
 ```
-// Definir una columna autoincremental llamado id.
+// Definir una columna autoincremental llamada id.
 $table->increments('id');
 
 // Definir una columna de tipo boolean llamada confirmed.
@@ -147,7 +147,7 @@ Schema::create('users', function(Blueprint $table)
 }
 ```
 
-> Para poder renombrar columnas en las migraciones, hay que instalar el paquete `Doctrine DBAL`. Ya que como indica la documentación de Laravel, ese paquete ya no está incluido en la instalación por defecto.
+> Para poder renombrar columnas en las migraciones, hay que instalar el paquete `Doctrine DBAL`. Ya que como indica la documentación de Laravel, ese paquete ya no está incluido en la instalación por defecto.<sup>[1](#footnote1)</sup>
 
  - Puedes hacerlo manualmente:
 
@@ -162,9 +162,9 @@ Schema::create('users', function(Blueprint $table)
 
   **Nota:** Tienes que añadir la coma final en la línea anterior.
  
-  Después ejecuta el comando `composer install` para instalar el nuevo paquete.
+  Después ejecuta el comando `composer update --lock` para instalar el nuevo paquete.
   
- - O con el comando: `composer require doctrine/dbal:~2.3`.
+ - O con el comando: `composer require doctrine/dbal`.
 
 > **Nota:** Si al ejecutar una migración te aparece el error `[Symfony\Component\Debug\Exception\FatalErrorException]  Class 'Doctrine\DBAL\Driver\PDOMySql\Driver' not found` probablemente es porque no tienes instalado el paquete Doctrine DBAL.
 
@@ -212,7 +212,7 @@ El comando `php artisan migrate` te permite ejecutar todas las migraciones pendi
 
 Al ejecutar ese comando, obtendrás un mensaje que te indicará qué scripts se han ejecutado.
 
-> **Nota:** Si recibes un error `class not found` cuando ejecutas las migraciones, ejecuta el comando `composer dump-autoload` e inténtalo de nuevo. (Tienes más información en [xxxx])
+> **Nota:** Si recibes un error `class not found` cuando ejecutas las migraciones, ejecuta el comando `composer dump-autoload` e inténtalo de nuevo. (Tienes más información en [!!!!!!])
 
 **Parámetros:**
 
@@ -250,3 +250,5 @@ Si quieres estar seguro de qué cambios va a realizar la migración en tu base d
 [Funciones anónimas o Closures en la documentación oficial de PHP 5](http://php.net/manual/es/functions.anonymous.php)  
 
 [Database Abstraction Layer — Doctrine Project](http://www.doctrine-project.org/projects/dbal.html)  
+
+<a name="footnote1">**1**</a>: Si eres tan curioso e inquieto como yo, se te ha podido ocurrir buscar un método para no tener que instalar el paquete `Doctrine DBAL` para borrar columnas. En mi investigación, me encontré con el método `removeColumn()` (http://laravel.com/api/5.0/Illuminate/Database/Schema/Blueprint.html#method_removeColumn). Te ahorraré el intento: No funciona ;)

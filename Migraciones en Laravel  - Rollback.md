@@ -165,6 +165,52 @@ Por tanto, las restricciones son:
 
 - Recuerda que los ficheros se ordenarán alfabéticamente.
 
+####Hacer Rollback sólo de una migración.
+
+Cuando estás desarrollando tu aplicación, es habitual crear nuevas migraciones y hacer varias veces `rollback` de esa migración mientras la pruebas. Esos pasos son sencillos:
+
+1. Ejecutar: `php artisan migrate`.
+2. Comprobar los cambios en la base de datos.
+3. Ejecutar: `php artisan migrate:rollback`.
+4. Modificar la migración para solucionar los posibles errores.
+5. Volver al paso 1 mientras la migración no funcione correctamente.
+
+Finalmente tu migración funciona perfectamente y este es el estado de la tabla `migrations`:
+
+| *migration*                                     	| *batch* 	|
+|-------------------------------------------------	|---------	|
+| 2014_10_12_000000_create_users_table            	| 1       	|
+| 2014_10_12_100000_create_password_resets_table  	| 1       	|
+| 2015_04_30_001943_users_add_phone               	| 2       	|
+| 2015_04_30_002300_users_rename_name             	| 3       	| 
+
+
+
+Imagina ahora que en algún momento has ejecutado `php artisan migrate:reset` y después `php artisan migrate`. O bien, `php artisan migrate:refresh`. En ese caso, todas tus migraciones han acabado configuradas juntas en la misma transacción:
+
+| *migration*                                     	| *batch* 	|
+|-------------------------------------------------	|---------	|
+| 2014_10_12_000000_create_users_table            	| 1       	|
+| 2014_10_12_100000_create_password_resets_table  	| 1       	|
+| 2015_04_30_001943_users_add_phone               	| 1       	|
+| 2015_04_30_002300_users_rename_name             	| 1       	| 
+
+Si ahora quieres modificar únicamente la última migración, no puedes ejecutar `php artisan migrate:rollback` por que haría `rollback` de todas las migraciones.
+
+El truco en este caso, es editar la tabla `migrations` y cambiar el campo `batch` a un número mayor que todos los existentes:
+
+| *migration*                                     	| *batch* 	|
+|-------------------------------------------------	|---------	|
+| 2014_10_12_000000_create_users_table            	| 1       	|
+| 2014_10_12_100000_create_password_resets_table  	| 1       	|
+| 2015_04_30_001943_users_add_phone               	| 1       	|
+| 2015_04_30_002300_users_rename_name             	| 2       	| 
+
+De ese modo, si ahora ejecutas `php artisan migrate:rollback`, sólo los scripts de la última transacción (la 2) serán ejecutados en ese rollback.
+
+Por supuesto, puedes aplicar este truco para agrupar o separar tus migraciones en las transacciones que quieras. O incluso para hacer rollback de migraciones anteriores aunque no sean la última. En este último caso, antes de ejecutar la migración, comprueba las posibles inconsistencias que podría provocar.
+
+> **Nota:** Si prefieres un método más afín al sistema de migraciones, puedes crear una nueva migración dejando vacío el método `up()` y copiar en el método `down()` el código de la migración que quieres deshacer. Ejecutas la migración, y, de nuevo, creas una migración completa de la forma habitual, con las nuevas modificaciones en el método `up()` y el código para deshacer esas modificaciones en el método `down()`.
 
 ####Preservando las tablas actuales antes de ejecutar una migración.
 
