@@ -1,0 +1,13 @@
+http://stackoverflow.com/questions/25544748/laravel-custom-serviceprovider-for-validator
+http://laravel.io/forum/02-07-2014-pros-and-cons-of-different-kinds-of-validation
+https://github.com/anlutro/laravel-validation
+https://github.com/crhayes/laravel-extended-validator
+http://tntstudio.us/blog/laravel-form-validation-as-a-service
+http://laravel.com/docs/5.0/validation
+http://www.sitepoint.com/data-validation-laravel-right-way/
+http://culttt.com/2014/01/13/advanced-validation-service-laravel-4/
+https://styde.net/validacion-con-laravel-5-form-requests/
+https://styde.net/validacion-con-laravel-5-parte-2/
+https://styde.net/aprende-como-validar-datos-con-laravel/
+https://styde.net/validacion-con-laravel-y-codeception/
+https://laracasts.com/discuss/channels/laravel/password-validation-for-laravel-51
