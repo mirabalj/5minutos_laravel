@@ -33,7 +33,7 @@ layout.blade.php
 </html>
 ```
 
-- Definir un campo a reemplazar en la plantilla hija:
+####Definir un campo a reemplazar en la plantilla hija:
 
 Usa `@yield`.
 
@@ -47,8 +47,9 @@ Usa `@yield`.
 >	<head>
 >		<title>Blog con mucha salsa - @yield('title',' Y mucho sabor')</title>
 >	</head>
+> ```
 
-- Definir una sección que puede ser extendida o reemplazada en la plantilla hija:
+####Definir una sección que puede ser extendida o reemplazada en la plantilla hija:
 
 Usa `@section` y `@show`.
 
@@ -85,7 +86,7 @@ Ahora, en las 'plantillas hijas':
 @stop
 ```
 
-- Extender de una plantilla.
+####Extender de una plantilla.
 
 Usa `@extends`.
 
@@ -113,7 +114,7 @@ Usa `@section` y `@stop`.
 
 > Usa `@parent` para añadir el contenido de la plantilla padre.
 
-- Incluir una plantilla hija.
+####Incluir una plantilla hija.
 
 También puedes hacer el proceso contrario, en lugar de crear una plantilla que extienda de la plantilla padre, puedes incluir esa plantilla desde la plantilla padre:
 
@@ -128,7 +129,7 @@ Y puedes pasarle datos igual que haces desde el controlador:
 ```
 
 
-###Mostrar datos:
+####Mostrar datos:
 
 Usa `{{ código php }}`. Que sería el equivalente a `<?php código php ?>`.
 
@@ -138,7 +139,7 @@ Encantado de saludarte, {{ $name }}.
 Eres el visitante número {{ getGuestsCounter() }}.
 ```
 
-###Comprobar si una variable está vacía antes de mostrarla:
+####Comprobar si una variable está vacía antes de mostrarla:
 
 ```
 Encantado de saludarte, {{ $name or 'Desconocid@' }}.
@@ -152,7 +153,7 @@ Eres el visitante número {{ getGuestsCounter() }}.
 > En las plantillas de Laravel, usa @{{ código php }} para ejecutar y mostrar código php.
 > ```
 
-###Utilizar variables que contengan código HTML.
+####Utilizar variables que contengan código HTML.
 
 Por defecto, antes de mostrar el contenido, se pasa a través de la función `htmlentities()` para evitar ataques XSS. Si tus variables contienen código HTML. Por ejemplo, `$mail = <strong>jatubio@gmail.com</strong>`, utiliza `{!! !!}`:
 
@@ -164,7 +165,7 @@ Eres el visitante número {{ getGuestsCounter() }}.
 
 > **Nota:** No uses **NUNCA** este modo para mostrar contenido que haya sido introducido por los usuarios.
 
-###Bucle if.
+####Estructura if.
 
 Puedes utilizar `@if` como siempre, o utilizar el nuevo `@unless` que sería equivalente a `if not ()`.
 
@@ -182,7 +183,7 @@ Puedes utilizar `@if` como siempre, o utilizar el nuevo `@unless` que sería equ
 @endunless
 ```
 
-###Bucles.
+####Bucles.
 
 Tienes los bucles habituales de `@for`, `@while` y `@foreach` y el nuevo `@forelse` que te permite especificar contenido dentro de `@empty` en el caso de que la colección esté vacía.
 
@@ -206,23 +207,25 @@ Tienes los bucles habituales de `@for`, `@while` y `@foreach` y el nuevo `@forel
 @endwhile
 ```
 
-###Determining If A View Exists
+####Comprobar si una vista existe:
 
-If you need to determine if a view exists, you may use the exists method:
+Usa el método `view()->exists(<viewname>)`:
 
-if (view()->exists('emails.customer')) {
+```
+if (view()->exists('users.admin')) {
     //
 }
+```
 
-###Returning A View From A File Path
+####Leer una vista desde un fichero.
 
-If you wish, you may generate a view from a fully-qualified file path:
-
+```
 return view()->file($pathToFile, $data);
+```
 
-###Funciones útiles:
+####Funciones útiles:
 
-- Añadir el host a las urls estáticas.
+- Añadir el host a las urls estáticas y convertirlas en rutas absolutas:
 
 Puedes usar la función `asset()` para que te añada el dominio o host a las urls estáticas. 
 Suponiendo que el sitio de tu aplicación es: `http://www.tudominio.com/`, la siguiente línea:
@@ -231,12 +234,11 @@ Suponiendo que el sitio de tu aplicación es: `http://www.tudominio.com/`, la si
 <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
 ```
 
-Escribe en tu html: 
+Crea esta línea html: 
 
 ```
 <link href="http://www.tudominio.com/assets/css/style.css" rel="stylesheet">
 ```
-
 
 ####Errores:
 
@@ -252,7 +254,7 @@ at PhpEngine->evaluatePath('D:\Proyectos\Repositorios_Git\Laravel\Salud Digital\
 at CompilerEngine->get('D:\Proyectos\Repositorios_Git\Laravel\Salud Digital\sdf\resources\views/home.blade.php', array('__env' => object(Factory), 'app' => object(Application), 'errors' => object(ViewErrorBag))) in View.php line 136
 ```
 
-Hay que borrar la cache de las vistas.
+Borra la cache de las vistas con `php artisan cache:clear`.
 
 ----------------
 https://laracasts.com/discuss/channels/general-discussion/what-exactly-are-the-differences-between-show-yield-parent
@@ -289,3 +291,12 @@ http://laravel.com/docs/master/views
 Buscar también info sobre @endsection
 
 https://scotch.io/tutorials/simple-laravel-layouts-using-blade
+
+----
+Si vas a usar algunos ficheros javascript sólo en algunas vistas, usa esto:
+
+ @yield('script') en la plantilla
+ 
+ En la vista:
+ 
+ @section('script')   la llamada al script @endsection
