@@ -1,6 +1,6 @@
 ##Estándares de programación en PHP (PSR-2)
 
-*TLDR:* Puedes ir directamente a un [Resumen de estos estándaes](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
+*TLDR:* Puedes ir directamente a un [Resumen de estos estándares](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
 
 Esta es la continuación de los estándares de PHP. En el post anterior, hablamos de los estándares [PSR-1 y PSR-4](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-PSR-1-y-PSR-4).
 

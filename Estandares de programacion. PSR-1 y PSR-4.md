@@ -1,6 +1,6 @@
 ##Estándares de programación en PHP (PSR-1 y PSR-4)
 
-*TLDR:* Puedes ir directamente a un [Resumen de estos estándaes](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
+*TLDR:* Puedes ir directamente a un [Resumen de estos estándares](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
 
 He querido comenzar esta serie por uno de los aspectos, habitualmente más descuidados, y, sin embargo, más importantes de la programación: El estilo del código.
 

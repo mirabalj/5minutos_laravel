@@ -1,6 +1,6 @@
 ##Estándares de programación en Laravel
 
-*TLDR:* Puedes ir directamente a un [Resumen de estos estándaes](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
+*TLDR:* Puedes ir directamente a un [Resumen de estos estándares](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
 
 Después de ver los estándares PSR-1, PSR-2 y PSR-4 en los posts anteriores, llegamos a los más interesantes: Los estándares recomendados en Laravel.
 
