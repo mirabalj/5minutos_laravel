@@ -1,4 +1,4 @@
-###Diferencia entre `fillable` y `guarded`.
+##Eloquent. Diferencia entre `fillable` y `guarded`.
 
 Ambas propiedades se usan en los 'asignamientos de datos en masa' en los modelos Eloquent y permiten protegerse en caso de que un usuario 'malicioso' haya modificado los campos del formulario para incluir campos que existían.
 

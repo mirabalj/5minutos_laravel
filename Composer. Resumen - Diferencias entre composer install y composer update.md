@@ -1,14 +1,13 @@
-###Composer. Resumen - Diferencias entre composer install y composer update.
+##Composer. Resumen - Diferencias entre composer install y composer update.
 
-
-####Comando install
+###Comando install
 
 1. La primera vez (no existe `composer.lock`), lee las dependencias de nuestra aplicación del fichero `composer.json`.
 2. Instala los paquetes.
 3. Crea en el directorio donde se ha ejecutado el fichero `composer.lock` en el que anota todos los paquetes instalados y la versión instalada de cada uno de ellos.
 4. Las próximas veces instala los paquetes especificados en `composer.lock`.
 
-####Comando update.
+###Comando update.
 
 1. Lee **SIEMPRE** el fichero `composer.json` e instala las dependencias de ese fichero.
 2. Instala los paquetes.

@@ -1,6 +1,6 @@
-### Chrome. Extensiones para desarrollo web
+## Chrome. Extensiones para desarrollo web
 
-- JSON Formatter
+### JSON Formatter
 
  Para visualizar el contenido de variables json.
  
@@ -10,13 +10,13 @@
 
  https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa/related?hl=en
  
-- JetBrains IDE Support
+### JetBrains IDE Support
 
  Permite depurar aplicaciones PHP desde PhpStorm.
  
  https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji
  
-- Form Templates
+### Form Templates
 
  Permite grabar los datos de los formularios html y volverlos a rellenar con los mismos datos para poderlos probar varias veces.
 
