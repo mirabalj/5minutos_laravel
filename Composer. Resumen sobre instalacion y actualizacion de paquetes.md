@@ -1,9 +1,9 @@
-###Composer. Resumen sobre instalación y actualización de paquetes
+##Composer. Resumen sobre instalación y actualización de paquetes
 
 - Composer usa **Git** (o Subversion, Mercurial, etc..) para descargar los paquetes.
 - Su repositorio central por defecto es [Packagist](packagist.org).
 
-####Instalación de composer
+###Instalación de composer
 
 ```
 curl -sS https://getcomposer.org/installer | php

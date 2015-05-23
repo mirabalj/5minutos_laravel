@@ -28,7 +28,7 @@ Composer es un fichero `.phar`, por lo que para usarlo hay que ejecutar: `php co
 
 En este post y en los siguientes utilizaremos la notación abreviada `composer`. 
 
-> En Linux y Mac tienes la opción de configurar el sistema para poder utilizar únicamente `composer` en lugar de `php composer.phar`.  
+> En Linux y Mac tienes la opción de configurar el sistema para poder utilizar únicamente `composer` en lugar de `php composer.phar`. 
 >
 > En Windows puedes crear un fichero `.bat` que haga lo mismo con el siguiente comando: 
 >```
@@ -107,7 +107,7 @@ Este comando, lleva a cabo los siguientes pasos:
 
 6. Una vez instalados los paquetes, si no existe `composer.lock`, lo crea para dejar 'una foto fija' del entorno de ejecución de la aplicación.
 
- También crea los ficheros de autocarga de clases de la aplicación.
+También crea los ficheros de autocarga de clases de la aplicación.
 
 > El directorio `vendor` no suele distribuirse con las aplicaciones. Por lo tanto, cuando haces un `clone` (o un `fork` y un `clone`) de un proyecto o aplicación, el primer paso suele ser ejecutar `composer install` para generar ese directorio e instalar en él todas las dependencias de la aplicación.
 
@@ -120,7 +120,7 @@ Este comando, lleva a cabo los siguientes pasos:
  Tiene preferencia sobre el valor de "minimum-stability" en el fichero `composer.json`.
 	
  Las opciones posibles son (En orden ascendente de estabilidad): `dev, alpha, beta, RC, y stable`.
- 
+
 - `--dev`
 
  Instala también los paquetes incluidos en la sección `require-dev`.
@@ -317,7 +317,7 @@ composer remove <proveedor/paquete1[:version]> [<proveedor/paquete2[:version]>]
 
   - `--optimize` o `-o`: Convierte las clases referenciadas en `PSR-0` y `PSR-4` a clases `classmap` para obtener un autoloader más rápido. Está recomendado especialmente para entornos de producción. Según el número de clases y tamaño de tu proyecto, puede tardar un poco más en ejecutarse y por eso no está activado por defecto.
 
-     > Usando `--optimize` en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un **20% y un 25%**.
+   > Usando `--optimize` en tu aplicación en el entorno de producción, puedes mejorar su rendimiento entre un **20% y un 25%**.
 
   - `--no-dev`: No tiene en cuenta las clases referenciadas en la clave: `autoload-dev`.
   

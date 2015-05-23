@@ -1,6 +1,6 @@
-###Composer. Resumen sobre configuración de las versiones, el origen y la estabilidad de los paquetes.
+##Composer. Resumen sobre configuración de las versiones, el origen y la estabilidad de los paquetes.
 
-####Distribuciones.
+###Distribuciones.
 
 Con Composer, puedes instalar un paquete de dos formas distintas: Desde el origen (`source`) y desde su versión de distribución (`dist`).
 
@@ -28,7 +28,7 @@ Con Composer, puedes instalar un paquete de dos formas distintas: Desde el orige
 >
 > `"preferred-install": "source"`
 
-####Estabilidad.
+###Estabilidad.
 
 - Configurar el nivel de estabilidad por defecto: Parámetro `minimum-stability` del fichero `composer.json`.
 - Las opciones posibles son (En orden ascendente de estabilidad): `dev, alpha, beta, RC, y stable`.
@@ -49,7 +49,7 @@ Con Composer, puedes instalar un paquete de dos formas distintas: Desde el orige
 
 > **Nota:** Si modificas el parámetro `minimum-stability` de un fichero `composer.json`, y tienes algún error: Borrar el directorio `vendor` y el fichero `composer.json` y ejecuta `composer install`.
 
-####Versiones de los paquetes:
+###Versiones de los paquetes:
 
 Ejemplos:
 

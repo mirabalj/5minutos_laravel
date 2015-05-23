@@ -1,6 +1,6 @@
-##Estándares de programación - Resumen.
+##Estándares de programación en Laravel y PHP. Resumen.
 
-En este último post, recogemos un resumen a modo de 'hoja de consulta' de los estándares de programación recomendados que hemos ido viendo en los anteriores posts de esta serie.
+Este último poste es un resumen a modo de 'hoja de consulta' de los estándares de programación recomendados que hemos ido viendo en los anteriores posts de esta serie.
 
 ###Edición
 
@@ -52,7 +52,7 @@ En este último post, recogemos un resumen a modo de 'hoja de consulta' de los e
  
  - Usa `elseif` en lugar de `else if`. 
 
- - Indenta `case` dentro de `switch` y `break` dentro de `case`. Escribe `// no break` cuando hay `case` en cascada no vacío.
+ - Indenta `case` dentro de `switch` y `break` dentro de `case`. Escribe `// no break` cuando hay `case` en cascada con código.
 
  - En las closures, rodea los paréntesis de `function` y la palabra `use` con espacios. Pon `{` en la misma línea.
 

@@ -1,6 +1,6 @@
-###Composer. Resumen sobre resolución de problemas
+##Composer. Resumen sobre resolución de problemas
 
-####Problemas generales de Composer
+###Problemas generales de Composer
 
 1. **Revisa la configuración del sistema.**
  `composer diagnose`

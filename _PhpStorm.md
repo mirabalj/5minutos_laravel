@@ -22,6 +22,10 @@ Configura los siguientes directorios:
 - `public\assets`
 
 
+### Refactor: PullUp
+
+Esta opción permite refactorizar un método y llevarlo a la clase padre.
+
 ---------------
 Here’s some more gems:
 
