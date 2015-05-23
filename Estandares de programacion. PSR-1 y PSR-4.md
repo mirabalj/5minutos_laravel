@@ -6,11 +6,9 @@ El estilo del código es especialmente importante si estamos en un equipo de des
 
 Una vez escuché a un programador decir: ‘Hoy sé lo que hace este código, mañana sólo Dios lo sabe’. Esta propuesta es para que mañana tú también sepas con facilidad lo que hace tu código.
 
-En esta serie vamos a repasar los estándares de programación hasta llegar a los recomendados en Laravel.
+En esta serie vamos a repasar los estándares de programación hasta llegar a las recomendaciones para Laravel.
 
 Empezamos con los estándares de programación en PHP propuestos por el [php-fig (Grupo de interoperatibilidad para Frameworks PHP)](http://www.php-fig.org).
-
-El estándar PSR-2, lo veremos en el [siguiente post](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2).
 
 ###PSR-1 - Estándar básico de estilos de código.
 
@@ -44,15 +42,15 @@ Su objetivo es garantizar un alto nivel técnico de interoperabilidad entre el c
     ```
 
  - Para los nombres de las propiedades no se define una recomendación concreta. A excepción de que la convención que se elija se mantenga para todo el proyecto, clase o método. 
- 
+
 >`StudlyCaps` es una notación en la que se alternan mayúsculas y minúsculas por algún patrón concreto.  
 
 >En `camelCase` se escribe la primera letra de cada palabra con mayúsculas (Habitualmente la primera letra de todas suele ir en minúsculas).  
 
->En `snake_case' se separan las palabras sustituyendo los espacios por guiones bajos.   
+>En `snake_case` se separan las palabras sustituyendo los espacios por guiones bajos.   
 En en este estándar `StudlyCaps` y `camelCase` se diferencian únicamente en el uso de la primera letra en minúsculas para `camelCase`.
 	
-####PSR-4 - Estándar de Autocarga.
+###PSR-4 - Estándar de Autocarga.
 
 Orientado a los nombres de los Namespaces, Clases y Ficheros. Su objetivo es facilitar la carga automática de clases.
 
@@ -86,7 +84,7 @@ Todos los archivos deben tener la extensión .php.
 Los nombres de los namespaces o clases deben ser ordenados alfabéticamente.
 
 ###Fuentes y más información:
-[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload))
+[Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload)
 
 [Estándares de programación en PHP (PSR-2)](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2)
 

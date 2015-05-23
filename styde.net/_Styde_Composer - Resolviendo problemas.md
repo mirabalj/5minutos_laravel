@@ -30,9 +30,9 @@ En esta guía te daremos toda la información necesaria para resolver los proble
 
  - **Desactiva xDebug** en tu fichero `php.ini` mientras usas Composer comentando las líneas correspondientes. 
 
-   > Con xDebug activado, el proceso de instalación y actualización de Composer puede durar **hasta 20 veces más!!**.
+ > Con xDebug activado, el proceso de instalación y actualización de Composer puede durar **hasta 20 veces más!!**.
  
-   > **Nota**: Para comprobar si tienes xDebug activado, puedes usar el siguiente comando en Windows: `php -m | findstr xdebug` o `php -m | grep xdebug` en Unix. Si lo tienes activado, aparecerá la palabra `xdebug`.
+ > **Nota**: Para comprobar si tienes xDebug activado, puedes usar el siguiente comando en Windows: `php -m | findstr xdebug` o `php -m | grep xdebug` en Unix. Si lo tienes activado, aparecerá la palabra `xdebug`.
  
  - Usar el mayor nivel de estabilidad posible aumentará ligeramente la velocidad de instalación/actualización de los paquetes.
  
