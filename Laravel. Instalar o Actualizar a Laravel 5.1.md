@@ -12,7 +12,7 @@ composer create-project laravel/laravel PROJECT_NAME dev-develop
 
 Si ya tienes una aplicación y quieres actualizarla a Laravel 5.1:
 
-1. Crea el directorio `bootstrap/cache` y asígnale permisos de escritura.
+1. Crea el directorio `bootstrap/cache` y asignale permisos de escritura.
 
 2. Dentro de ese directorio, crea un fichero `.gitignore` con estas dos líneas:
 
@@ -59,6 +59,6 @@ $compiledPath = __DIR__.'/cache/compiled.php';
 composer dump-autoload
 ```
 
- > Para tener la certeza de que todo está correcto, puedes ejecutar de nuevo `composer update` y esta vez deberías obtener símplemente el mensaje de: `Nothing to install or update`.
+ > Para tener la certeza de que todo está correcto, puedes ejecutar de nuevo `composer update` y esta vez deberías obtener simplemente el mensaje de: `Nothing to install or update`.
 
 Tienes información más detallada sobre el proceso en el artículo que he publicado en Styde.net: [Cómo instalar o actualizar una aplicación a Laravel 5.1](https://styde.net/como-crear-o-actualizar-una-aplicacion-a-laravel-5-1/)
