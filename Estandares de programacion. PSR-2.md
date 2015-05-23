@@ -1,6 +1,8 @@
 ##Estándares de programación en PHP (PSR-2)
 
-Esta es la continuación de los estándares de PHP. En el post anterior, hablamos de los estándares [PSR-1 y PSR-4](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
+*TLDR:* Puedes ir directamente a un [Resumen de estos estándaes](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
+
+Esta es la continuación de los estándares de PHP. En el post anterior, hablamos de los estándares [PSR-1 y PSR-4](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-PSR-1-y-PSR-4).
 
 Hoy vamos a ver el estándar PSR-2 que es el más complejo y más interesante de todos.
 
@@ -272,7 +274,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 	
 ###Fuentes y más información:
 
-[Estándares de programación en PHP (PSR-1 y PSR-4)](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4)
+[Estándares de programación en PHP (PSR-1 y PSR-4)](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-PSR-1-y-PSR-4)
 
 <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.  
 

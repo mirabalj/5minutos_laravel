@@ -1,5 +1,7 @@
 ##Estándares de programación en PHP (PSR-1 y PSR-4)
 
+*TLDR:* Puedes ir directamente a un [Resumen de estos estándaes](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
+
 He querido comenzar esta serie por uno de los aspectos, habitualmente más descuidados, y, sin embargo, más importantes de la programación: El estilo del código.
 
 El estilo del código es especialmente importante si estamos en un equipo de desarrollo o si nuestro proyecto lo van a usar en algún momento otros desarrolladores. Pero, cuando trabajamos en un proyecto propio, también es una buena costumbre usar un estilo de código claro y optimizado. Nos ayudará a revisar mejor el código y a entenderlo si en algún momento tenemos que modificarlo o queremos reutilizarlo.
@@ -43,6 +45,7 @@ Su objetivo es garantizar un alto nivel técnico de interoperabilidad entre el c
 
  - Para los nombres de las propiedades no se define una recomendación concreta. A excepción de que la convención que se elija se mantenga para todo el proyecto, clase o método. 
 
+<a name="StudlyCaps"></a>
 >`StudlyCaps` es una notación en la que se alternan mayúsculas y minúsculas por algún patrón concreto.  
 
 >En `camelCase` se escribe la primera letra de cada palabra con mayúsculas (Habitualmente la primera letra de todas suele ir en minúsculas).  

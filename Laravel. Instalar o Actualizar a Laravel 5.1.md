@@ -44,14 +44,13 @@ $compiledPath = __DIR__.'/cache/compiled.php';
  >**Nota:** Asegúrate de añadir una coma después de la llave anterior a `minimum-stability`:   
 >
 >```	
-"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true
-}
-```
-
+>"config": {
+>		"preferred-install": "dist"
+>	},
+>	"minimum-stability": "dev",
+>	"prefer-stable": true
+>}
+>```
  > Tienes en este [Gist](https://gist.github.com/jatubio/e51415c59008cc2cc956) un nuevo fichero `composer.json` adaptado a Laravel 5.1. Pero ten en cuenta que si ya has instalado paquetes en tu aplicación, tendrás que editar tu fichero en lugar de reemplazarlo.
 
 5. Genera de nuevo los ficheros de autocarga:
