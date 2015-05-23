@@ -1,6 +1,6 @@
 ##Estándares de programación en PHP (PSR-1 y PSR-4)
 
-*TLDR:* Puedes ir directamente a un [Resumen de estos estándaes](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
+*TLDR:* Puedes ir directamente a un [Resumen de estos estándares](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel).
 
 He querido comenzar esta serie por uno de los aspectos, habitualmente más descuidados, y, sin embargo, más importantes de la programación: El estilo del código.
 
@@ -89,7 +89,9 @@ Los nombres de los namespaces o clases deben ser ordenados alfabéticamente.
 ###Fuentes y más información:
 [Autocarga de clases en Laravel (Autoload)](Autocarga-de-clases-en-Laravel-(Autoload)
 
-[Estándares de programación en PHP (PSR-2)](Est%C3%A1ndares-de-programaci%C3%B3n-PSR-2)
+[Estándares de programación en PHP (PSR-2)](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-PSR-2)
+
+[Estándares de programación en Laravel](https://github.com/jatubio/5minutos_laravel/wiki/Estandares-de-programacion.-Laravel)
 
 <a href="https://styde.net/laravel-5/">Curso de Laravel 5 en español desde cero</a>:  <a href="https://styde.net/curso-de-laravel-5-que-es-psr-4-y-uso-de-los-namespaces/">Introducción: PSR-4 y Namespaces</a>.   
 
