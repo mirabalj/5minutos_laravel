@@ -2,7 +2,7 @@
 
 Esta es la continuación de los estándares de PHP. En el post anterior, hablamos de los estándares [PSR-1 y PSR-4](/Est%C3%A1ndares-de-programaci%C3%B3n-PSR-1-y-PSR-4).
 
-Hoy vamos a ver el estándar PSR-2 que es el más complejo de todos.
+Hoy vamos a ver el estándar PSR-2 que es el más complejo y más interesante de todos.
 
 El estándar PSR-3 no lo veremos porque se refiere únicamente a sistema de logs. Pero si estás interesado en él, encontrarás un link a la documentación al final del post.
 
@@ -11,7 +11,7 @@ Este estándar también forma parte de los estándares de programación en PHP p
 ###PSR-2 - Guía de estilo de código.
 
 Orientado a dar formato al código PHP.
-Su objetivo es reducir la dificultad cuando se lee código de diferentes autores.
+Su objetivo es reducir la dificultad cuando se lee código de diferentes autores. (Y de uno mismo!! jeje)
 
 ####Código  
 
@@ -19,7 +19,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 - El código **DEBE** usar 4 espacios como indentación, no tabuladores.
 
-> Nota: Utilizar sólo los espacios, y no mezclar espacios con tabuladores, ayuda a evitar problemas con diffs, parches, historiales y anotaciones. El uso de los espacios también ayuda a ajustar la alineación entre líneas.
+ > Nota: Utilizar sólo los espacios, y no mezclar espacios con tabuladores, ayuda a evitar problemas con diffs, parches, historiales y anotaciones. El uso de los espacios también ayuda a ajustar la alineación entre líneas.
 
 - No hay un límite estricto en la longitud de las líneas. El límite **DEBE** estar en 120 caracteres; las líneas deberían tener preferiblemente 80 caracteres o menos.
 
@@ -30,7 +30,8 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
   - **NO DEBE** haber más de una sentencia por línea.
 
 - **DEBE** haber una línea en blanco después de la declaración del `namespace`, y **DEBE** haber una línea en blanco después del bloque de declaraciones `use`.
-  **DEBE** haber un `use` por declaración.
+
+ **DEBE** haber un `use` por declaración.
 
 	```
     <?php namespace Curso\Http\Controllers;
@@ -41,6 +42,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 	abstract class Controller extends BaseController {...}
 ```
+
 ####Clases  
 
 - Las llaves de apertura de las clases **DEBEN** ir en la línea siguiente, y las llaves de cierre **DEBEN** ir en la línea siguiente al cuerpo de la clase.
@@ -53,6 +55,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 		}
 	}
 ```
+
 - Las palabras clave `extends` e `implements` **DEBEN** declararse en la misma línea del nombre de la clase.  
 
 - La lista de `implements` **PUEDE** ser dividida en múltiples líneas, indentando las líneas subsiguientes una vez. Al hacerlo, el primer elemento de la lista **DEBE** estar en la línea siguiente, y **DEBE** haber una sola interfaz por línea.
@@ -81,6 +84,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 									 ));
 	}
 ```
+
 - La visibilidad **DEBE** declararse en todas las propiedades y métodos; `abstract` y `final` **DEBEN** declararse antes de la visibilidad. `static` **DEBE** declararse después de la visibilidad.  
 
 - La palabra clave `var` **NO DEBE** ser usada para declarar una propiedad.  
@@ -114,11 +118,13 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 		(...)
 		}
 ```  
+
 - Cuando se realize una llamada a un método o a una función, **NO DEBE** haber un espacio entre el nombre del método o la función y el paréntesis de apertura, **NO DEBE** haber un espacio después del paréntesis de apertura, y **NO DEBE** haber un espacio antes del paréntesis de cierre. En la lista de argumentos, **NO DEBE** haber espacio antes de cada coma y **DEBE** haber un espacio después de cada coma.
 ```
 		$this->options = array_merge($this->defaultOptions, $options);
 ```
-  - La lista de argumentos PUEDE dividirse en múltiples líneas, donde cada una se indenta una vez. Cuando esto suceda, el primer argumento **DEBE** estar en la línea siguiente, y **DEBE** haber sólo un argumento por línea.
+
+ - La lista de argumentos PUEDE dividirse en múltiples líneas, donde cada una se indenta una vez. Cuando esto suceda, el primer argumento **DEBE** estar en la línea siguiente, y **DEBE** haber sólo un argumento por línea.
 ```	
         if ( ! preg_match(
             '/^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+)(?:\.(?P<build>\d+))?)?)?/',
@@ -131,6 +137,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
             );
         }
 ```		
+
 ####Estructuras de control.
 
 - Las palabras clave de las estructuras de control **DEBEN** tener un espacio después de ellas, las llamadas a los métodos y las funciones **NO DEBEN** tenerlo.
@@ -143,7 +150,7 @@ Su objetivo es reducir la dificultad cuando se lee código de diferentes autores
 
 - El cuerpo de la estructura de control **DEBE** estar indentado una vez.
 
-  - `if`, `elseif`, `else`: &nbsp;&nbsp; `else` y `elseif` van en la misma línea que las llaves de cierre del cuerpo anterior. La palabra clave `elseif` DEBERÍA ser usada en lugar de `else if` de forma que todas las palabras clave de la estructura estén compuestas por palabras de un solo término.
+  - `if`, `elseif`, `else`: &nbsp;&nbsp; `else` y `elseif` van en la misma línea que las llaves de cierre del cuerpo anterior. La palabra clave `elseif` **DEBERÍA** ser usada en lugar de `else if` de forma que todas las palabras clave de la estructura estén compuestas por palabras de un solo término.
 ```
         if ($node instanceof ClassStmt) {
             $this->class = $node;
